@@ -76,9 +76,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="cLinkedList.h" />
     <ClInclude Include="cNode.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cLinkedList.cpp" />
     <ClCompile Include="cNode.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
