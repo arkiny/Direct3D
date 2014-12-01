@@ -41,6 +41,53 @@ void cLinkedList::printAll(){
 	}
 }
 
+
+// helper for removeAllbyValue
+void cLinkedList::recursiveRemove(int value, cNode* cursor){
+	if (!cursor){
+		return;
+	}
+	
+	cNode* cur = cursor;
+	cur = cur->m_pNext;
+
+
+	if (cur && cur->m_nValue == value){
+		if (cur == head){
+			head = cur->m_pNext;
+			delete cur;
+			cur = cursor->m_pNext;
+			size--;
+		}
+		else if (cur == tail){
+			tail = cursor;
+			cursor->m_pNext = nullptr;
+			delete cur;
+			cur = cursor->m_pNext;
+			size--;
+		}
+		else{
+			cursor->m_pNext = cursor->m_pNext->m_pNext;
+			delete cur;
+			cur = cursor->m_pNext;
+			size--;
+		}
+	}
+
+	recursiveRemove(value, cur);
+}
+
+// 재귀함수를 이용해 링크내 같은 value 모두 지우기
+void cLinkedList::removeAllbyValue(int value){
+	if (size == 0){
+		std::cerr << "errer: Nothing to remove." << std::endl;
+		return;
+	}
+
+	recursiveRemove(value, head);
+}
+
+// 가장 앞의 value 하나 지우기
 void cLinkedList::removebyValue(int value){
 	if (size == 0){
 		std::cerr << "errer: Nothing to remove." << std::endl;
@@ -68,6 +115,7 @@ void cLinkedList::removebyValue(int value){
 		delete cur;
 	}
 	else if (cur == tail){
+		tail = ppredNode;
 		ppredNode->m_pNext = nullptr;
 		delete cur;
 	}
@@ -78,6 +126,7 @@ void cLinkedList::removebyValue(int value){
 	size--;
 }
 
+// 0 based index 노드 지우기
 void cLinkedList::removebyIndex(int index){
 	if (size == 0){
 		std::cerr << "errer: Nothing to remove." << std::endl;
@@ -138,7 +187,16 @@ int main(){
 	std::cout << "<<< Remove by value Exception >>>" << std::endl;
 	input.removebyIndex(-1); // negative exception
 	input.removebyIndex(100); // wrong point exception
-	
+
+	std::cout << "<<< Add for recursive remove >>>" << std::endl;
+	input.add(13);
+	input.add(3);
+	input.add(13);
+	input.printAll();
+
+	std::cout << "<<< Remove with recursive remove >>>" << std::endl;
+	input.removeAllbyValue(13);
+	input.printAll();
 	system("pause");
 }
 
