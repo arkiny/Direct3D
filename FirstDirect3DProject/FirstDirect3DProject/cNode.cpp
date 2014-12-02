@@ -7,3 +7,8 @@ cNode::cNode(int value){
 cNode::~cNode(){
 }
 
+
+void cNode::reverse(cNode** ppThis){
+
+	
+}

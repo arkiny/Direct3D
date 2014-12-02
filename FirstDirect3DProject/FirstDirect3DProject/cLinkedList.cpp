@@ -10,11 +10,38 @@ cLinkedList::cLinkedList(){
 cLinkedList::~cLinkedList(){
 	cNode* cur = head;
 	cNode* precur;
+
 	while (cur->m_pNext == nullptr){
 		precur = cur;
 		cur = cur->m_pNext;
 		delete precur;
 	}
+
+	head = nullptr;
+}
+
+void cLinkedList::destroy(){
+	cLinkedList::~cLinkedList();
+}
+
+void cLinkedList::reverse(){
+	reverseHelper(head);
+}
+
+void cLinkedList::reverseHelper(cNode* cursor){
+	//base case
+	if (cursor->m_pNext!= nullptr && cursor->m_pNext->m_pNext == nullptr){
+		head = cursor->m_pNext;				
+		cursor->m_pNext->m_pNext = cursor;
+		return;
+	}
+
+	cNode* cur = cursor;
+	cNode* nextcur = cursor->m_pNext;
+	
+	cursor->m_pNext->m_pNext = cur;
+
+	reverseHelper(nextcur);	
 }
 
 void cLinkedList::add(int value){
@@ -50,8 +77,7 @@ void cLinkedList::recursiveRemove(int value, cNode* cursor){
 	
 	cNode* cur = cursor;
 	cur = cur->m_pNext;
-
-
+	
 	if (cur && cur->m_nValue == value){
 		if (cur == head){
 			head = cur->m_pNext;
@@ -83,7 +109,7 @@ void cLinkedList::removeAllbyValue(int value){
 		std::cerr << "errer: Nothing to remove." << std::endl;
 		return;
 	}
-
+	tail = head;
 	recursiveRemove(value, head);
 }
 
@@ -171,32 +197,46 @@ int main(){
 	}
 
 	input.printAll();
-	std::cout << "<<< Remove by value >>>" << std::endl;
-	input.removebyValue(0);	// remove node which has value 0
-	input.removebyValue(3);	// remove node which has value 3
-	input.removebyValue(9);	// remove node which has value 9
-	input.printAll();
-	
-	std::cout << "<<< Remove by value Exception >>>" << std::endl;
-	input.removebyValue(0); // err no such element
-		
-	std::cout << "<<< Remove by index >>>" << std::endl;
-	input.removebyIndex(1);	// remove node which locates index 1, node which has value 2 would be removed
+	input.reverse();
+
 	input.printAll();
 
-	std::cout << "<<< Remove by value Exception >>>" << std::endl;
-	input.removebyIndex(-1); // negative exception
-	input.removebyIndex(100); // wrong point exception
+	//std::cout << "<<< Remove by value >>>" << std::endl;
+	//input.removebyValue(0);	// remove node which has value 0
+	//input.removebyValue(3);	// remove node which has value 3
+	//input.removebyValue(9);	// remove node which has value 9
+	//input.printAll();
+	//
+	//std::cout << "<<< Remove by value Exception >>>" << std::endl;
+	//input.removebyValue(0); // err no such element
+	//	
+	//std::cout << "<<< Remove by index >>>" << std::endl;
+	//input.removebyIndex(1);	// remove node which locates index 1, node which has value 2 would be removed
+	//input.printAll();
 
-	std::cout << "<<< Add for recursive remove >>>" << std::endl;
-	input.add(13);
-	input.add(3);
-	input.add(13);
-	input.printAll();
+	//std::cout << "<<< Remove by value Exception >>>" << std::endl;
+	//input.removebyIndex(-1); // negative exception
+	//input.removebyIndex(100); // wrong point exception
 
-	std::cout << "<<< Remove with recursive remove >>>" << std::endl;
-	input.removeAllbyValue(13);
-	input.printAll();
+	//std::cout << "<<< Add for recursive remove >>>" << std::endl;
+	//input.add(13);
+	//input.add(3);
+	//input.add(13);
+	//input.printAll();
+
+	//std::cout << "<<< Remove with recursive remove >>>" << std::endl;
+	//input.removeAllbyValue(13);
+	//input.printAll();
+
+	//cLinkedList ll;
+	//ll.removebyValue(1);	// exception
+	//ll.add(1);				// add 1 to linkedlist
+	//ll.removebyValue(2);	// exception: no such element
+	//ll.removebyValue(1);	// delete
+	//ll.removebyValue(0);	// exception: size 0
+	//ll.add(1);				// add 1 to linkedlist
+	//ll.add(2);				// add 2 to linkedlist
+	//ll.printAll();			// printall
 	system("pause");
 }
 
