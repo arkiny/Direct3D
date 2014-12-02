@@ -25,23 +25,40 @@ void cLinkedList::destroy(){
 }
 
 void cLinkedList::reverse(){
-	reverseHelper(head);
+	cNode* prev = nullptr;
+	cNode* next;
+	while (head){
+		next = head->m_pNext;
+		head->m_pNext = prev;
+		prev = head;
+		if (next == nullptr) break;
+		head = next;
+	}	
 }
 
-void cLinkedList::reverseHelper(cNode* cursor){
-	//base case
-	if (cursor->m_pNext!= nullptr && cursor->m_pNext->m_pNext == nullptr){
-		head = cursor->m_pNext;				
-		cursor->m_pNext->m_pNext = cursor;
+void cLinkedList::recursiveReverse(){
+	reverseHelper(head, nullptr);
+}
+
+void cLinkedList::reverseHelper(cNode* cursor, cNode* prev){
+	// base case if next node is tail
+	if (cursor->m_pNext == nullptr){
+		cursor->m_pNext = prev;
+		head = cursor;
 		return;
 	}
+	// fail case if cursor is null(head)
+	else if (cursor == nullptr){
+		return;
+	}
+	// else change order
+	else{
+		cNode* next;
+		next = cursor->m_pNext;
+		cursor->m_pNext = prev;
+		reverseHelper(next, cursor);
+	}
 
-	cNode* cur = cursor;
-	cNode* nextcur = cursor->m_pNext;
-	
-	cursor->m_pNext->m_pNext = cur;
-
-	reverseHelper(nextcur);	
 }
 
 void cLinkedList::add(int value){
@@ -197,8 +214,13 @@ int main(){
 	}
 
 	input.printAll();
-	input.reverse();
 
+	std::cout << "<<< Reverse >>>" << std::endl;
+	input.reverse();
+	input.printAll();
+
+	std::cout << "<<< Reverse Recursively >>>" << std::endl;
+	input.recursiveReverse();
 	input.printAll();
 
 	//std::cout << "<<< Remove by value >>>" << std::endl;

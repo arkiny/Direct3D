@@ -14,6 +14,7 @@ public:
 	
 	void destroy();
 	void reverse();
+	void recursiveReverse();
 
 	void printAll();
 
@@ -22,6 +23,6 @@ private:
 	cNode* tail;
 	int size = 0;
 
-	void reverseHelper(cNode* cursor);
+	void reverseHelper(cNode* cursor, cNode* prev);
 	void recursiveRemove(int value, cNode* cursor);
 };
