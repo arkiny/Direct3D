@@ -15,6 +15,7 @@ cLinkedList::~cLinkedList(){
 		precur = cur;
 		cur = cur->m_pNext;
 		delete precur;
+		size--;
 	}
 
 	head = nullptr;
@@ -37,6 +38,7 @@ void cLinkedList::reverse(){
 }
 
 void cLinkedList::recursiveReverse(){
+	tail = head;
 	reverseHelper(head, nullptr);
 }
 
@@ -206,6 +208,84 @@ void cLinkedList::removebyIndex(int index){
 	size--;
 }
 
+cNode* cLinkedList::partition(cNode* first, cNode* last, cNode** nHead, cNode** nTail){
+	cNode* pivot = last;
+	cNode* prev = nullptr, *cur = first, *tail = pivot;
+	
+	// sorting this partition
+	while (cur != pivot){
+		// if cursor value is less than pivot(the last)
+		// cursor just move right
+		if (cur->m_nValue < pivot->m_nValue){
+			if ((*nHead) == nullptr){
+				(*nHead) = cur;
+			}
+
+			prev = cur;
+			cur = cur->m_pNext;
+		}
+		else{
+			//swap
+			if (prev)
+				prev->m_pNext = cur->m_pNext;
+
+			cNode* temp = cur->m_pNext;
+			cur->m_pNext = nullptr;
+			tail->m_pNext = cur;
+			tail = cur;
+			cur = temp;
+		}
+	}
+	
+	if ((*nHead) == nullptr){
+		(*nHead) = pivot;
+	}
+	(*nTail) = tail;
+
+	return pivot;
+}
+
+cNode* cLinkedList::quicksortRecurively(cNode* head, cNode* tail){
+	if (!head || head == tail){
+		return head;
+	}
+	cNode* newHead = nullptr, *newEnd = nullptr;
+
+	//left side
+	cNode* pivot = partition(head, tail, &newHead, &newEnd);
+
+	if (newHead != pivot){
+		cNode *temp = newHead;
+		while (temp->m_pNext != pivot){
+			temp = temp->m_pNext;
+		}
+		temp->m_pNext = nullptr;
+
+		newHead = quicksortRecurively(newHead, temp);
+		cNode *cur = newHead;
+		// to get new tail
+		while (cur->m_pNext!=nullptr){
+			cur = cur->m_pNext;
+		}
+		cur->m_pNext = pivot;
+	}
+
+	// rightside
+	pivot->m_pNext = quicksortRecurively(pivot->m_pNext, newEnd);
+	return newHead;
+}
+
+cNode* cLinkedList::quickSort(){
+	head = quicksortRecurively(head, tail);
+	cNode *cur = head;
+	// tail update
+	while (cur->m_pNext != nullptr){
+		cur = cur->m_pNext;
+	}
+	tail = cur;
+	return head;
+}
+
 int main(){
 	cLinkedList input;
 	std::cout << "<<< Add >>>" << std::endl;
@@ -223,6 +303,17 @@ int main(){
 	input.recursiveReverse();
 	input.printAll();
 
+	cLinkedList ll;
+	std::cout << "<<< Add for Sorting >>>" << std::endl;
+	ll.add(11);
+	ll.add(1);
+	ll.add(1111);
+	ll.add(111);
+	ll.printAll();
+
+	std::cout << "<<< After QuickSorted >>>" << std::endl;
+	ll.quickSort();
+	ll.printAll();
 	//std::cout << "<<< Remove by value >>>" << std::endl;
 	//input.removebyValue(0);	// remove node which has value 0
 	//input.removebyValue(3);	// remove node which has value 3

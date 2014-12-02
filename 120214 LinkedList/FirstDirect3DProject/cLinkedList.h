@@ -18,6 +18,9 @@ public:
 
 	void printAll();
 
+	cNode* quickSort();
+
+
 private:
 	cNode* head;
 	cNode* tail;
@@ -25,4 +28,7 @@ private:
 
 	void reverseHelper(cNode* cursor, cNode* prev);
 	void recursiveRemove(int value, cNode* cursor);
+
+	cNode* partition(cNode* head, cNode* tail, cNode** nHead, cNode** nTail);
+	cNode* quicksortRecurively(cNode* head, cNode* tail);
 };

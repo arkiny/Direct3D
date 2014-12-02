@@ -8,7 +8,7 @@ cNode::~cNode(){
 }
 
 
-void cNode::reverse(cNode** ppThis){
-
-	
-}
+//void cNode::reverse(cNode** ppThis){
+//
+//	
+//}
