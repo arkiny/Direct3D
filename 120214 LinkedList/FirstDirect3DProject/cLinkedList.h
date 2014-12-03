@@ -17,6 +17,8 @@ public:
 	void recursiveReverse();
 
 	void printAll();
+	cNode* getTail() { return tail; }
+	cNode* getHead() { return head; }
 
 	cNode* quickSort();
 

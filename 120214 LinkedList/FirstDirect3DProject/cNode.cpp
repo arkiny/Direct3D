@@ -2,6 +2,7 @@
 
 cNode::cNode(int value){
 	m_nValue = value;
+	m_pNext = nullptr;
 }
 
 cNode::~cNode(){

@@ -76,12 +76,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="cCircularQueue.h" />
     <ClInclude Include="cLinkedList.h" />
+    <ClInclude Include="cLLQueue.h" />
+    <ClInclude Include="cNiceQueue.h" />
     <ClInclude Include="cNode.h" />
+    <ClInclude Include="cStackArr.h" />
+    <ClInclude Include="cStackLL.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cCircularQueue.cpp" />
     <ClCompile Include="cLinkedList.cpp" />
+    <ClCompile Include="cLLQueue.cpp" />
+    <ClCompile Include="cNiceQueue.cpp" />
     <ClCompile Include="cNode.cpp" />
+    <ClCompile Include="cStackArr.cpp" />
+    <ClCompile Include="cStackLL.cpp" />
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
