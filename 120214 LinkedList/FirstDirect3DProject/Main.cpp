@@ -162,11 +162,11 @@ int main(){
 	cNiceQueue nqP;
 	
 	unsigned int starttime = GetTickCount();
-	for (int j = 0; j < 1000; j++){
-		for (int i = 0; i < 1000; i++){
+	for (int j = 0; j < 5000; j++){
+		for (int i = 0; i < 5000; i++){
 			lqP.enqueue(i);
 		}
-		for (int i = 0; i < 1000; i++){
+		for (int i = 0; i < 5000; i++){
 			lqP.dequeue();
 		}
 	}
@@ -175,11 +175,11 @@ int main(){
 	std::cout << "list queue : " << diff << "ms" << std::endl;
 
 	starttime = GetTickCount();
-	for (int j = 0; j < 1000; j++){
-		for (int i = 0; i < 1000; i++){
+	for (int j = 0; j < 5000; j++){
+		for (int i = 0; i < 5000; i++){
 			nqP.enqueue(i);
 		}
-		for (int i = 0; i < 1000; i++){
+		for (int i = 0; i < 5000; i++){
 			nqP.dequeue();
 		}
 	}
