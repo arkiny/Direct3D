@@ -17,13 +17,11 @@ public:
 
 	void loadFromFile(const char* fileName);
 	void print();
+	void printHuman();
 
 private:
-	std::vector<Person>* m_vStoredVector;
-
+	int m_nLineNums;
 	std::vector<char*>* m_vLines;
 	bool *visited;
-
-	std::map<int, Person>* m_mStoredMap;
 };
 

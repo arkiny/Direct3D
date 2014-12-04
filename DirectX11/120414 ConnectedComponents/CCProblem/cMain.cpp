@@ -19,6 +19,7 @@ int main(){
 	DWORD dwStart = GetTickCount();
 	cParser ps;
 	ps.loadFromFile("p2-1.txt"); // should be 9
+	ps.printHuman();
 	//ps.print();
 	DWORD dwEnd = GetTickCount();
 	std::cout << (dwEnd - dwStart) / 1000.0f << "sec" << std::endl << std::endl;

@@ -9,15 +9,20 @@ using namespace std;
 
 cParser::cParser()
 {
-	m_mStoredMap = new map < int, Person > ;
-	m_vStoredVector = new vector < Person > ;
 	m_vLines = new vector < char* > ;
+	m_nLineNums = 0;
 }
 
 
 cParser::~cParser()
 {
 	delete[] visited;
+	char *pt;
+	while (!m_vLines->empty()){
+		pt = m_vLines->back();
+		m_vLines->pop_back();
+		delete pt;
+	}
 }
 
 
@@ -31,13 +36,13 @@ void cParser::loadFromFile(const char* fileName){
 	// known personÀÇ
 	
 	fstream read(fileName);
-	int lines;
-	read >> lines;	
-	visited = new bool[lines];	
+	//int lines;
+	read >> m_nLineNums;
+	visited = new bool[m_nLineNums];
 
 	char* in = new char[10000];
 	read.getline(in, 10000);
-	for (int i = 0; i < lines; i++){	
+	for (int i = 0; i < m_nLineNums; i++){
 		char* in = new char[10000];
 		read.getline(in, 10000);
 		m_vLines->push_back(in);
@@ -106,11 +111,17 @@ void cParser::loadFromFile(const char* fileName){
 	}
 
 	int doublecheck = 0;
-	for (int i = 0; i < lines; i++){
-		if (visited[i] == true) doublecheck++;
+	for (int i = 0; i < m_nLineNums; i++){
+		if (visited[i] == true) {
+			//cout << i + 1 << " ";
+			doublecheck++;
+		}
 	}
 
+	//cout << endl;
+	// using size
 	cout << "human num : " << nhuman << endl;
+	// using bool array
 	cout << "human num double check : " << doublecheck << endl;
 
 	/*FILE* fp;
@@ -134,4 +145,16 @@ void cParser::print(){
 		cout << visited[i] << endl;
 	}
 	cout << size << endl;
+}
+
+void cParser::printHuman(){
+	int doublecheck = 0;
+	for (int i = 0; i < m_nLineNums; i++){
+		if (visited[i] == true) {
+			cout << i + 1 << " ";
+			doublecheck++;
+		}
+	}
+	cout << endl;
+	cout << "human num double check : " << doublecheck << endl;
 }
