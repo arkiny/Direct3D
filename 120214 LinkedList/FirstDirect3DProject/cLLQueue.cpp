@@ -12,7 +12,9 @@ cLLQueue::cLLQueue()
 
 cLLQueue::~cLLQueue()
 {
-
+	while (size != 0){
+		delete this->dequeue();
+	}
 }
 
 

@@ -134,7 +134,7 @@ int main(){
 	lq.dequeue();
 	lq.print();
 
-	std::cout << "<<<NiceQueue Enqueue" << std::endl;
+	std::cout << "<<<NiceQueue Enqueue>>>" << std::endl;
 	cNiceQueue nq;
 	nq.enqueue(0);
 	nq.enqueue(1);
@@ -143,11 +143,11 @@ int main(){
 	nq.enqueue(4);
 	nq.print();
 
-	std::cout << "<<<NiceQueue Enqueue" << std::endl;
+	std::cout << "<<<NiceQueue Enqueue>>>" << std::endl;
 	nq.dequeue();
 	nq.dequeue();
 	nq.print();
-	std::cout << "<<<NiceQueue MemoryPool" << std::endl;
+	std::cout << "<<<NiceQueue MemoryPool>>>" << std::endl;
 	nq.printPool();
 
 	std::cout << "<<<NiceQueue Enqueue Again using MemoryPool>>>" << std::endl;
@@ -162,12 +162,14 @@ int main(){
 	cNiceQueue nqP;
 	
 	unsigned int starttime = GetTickCount();
-	for (int j = 0; j < 5000; j++){
-		for (int i = 0; i < 5000; i++){
+	for (int j = 0; j < 1000; j++){
+		for (int i = 0; i < 1000; i++){
 			lqP.enqueue(i);
 		}
-		for (int i = 0; i < 5000; i++){
-			lqP.dequeue();
+		for (int i = 0; i < 1000; i++){
+			cNode* node = lqP.dequeue();
+			if (node)
+				delete node;
 		}
 	}
 	unsigned int endtime = GetTickCount();
@@ -175,12 +177,14 @@ int main(){
 	std::cout << "list queue : " << diff << "ms" << std::endl;
 
 	starttime = GetTickCount();
-	for (int j = 0; j < 5000; j++){
-		for (int i = 0; i < 5000; i++){
+	for (int j = 0; j < 1000; j++){
+		for (int i = 0; i < 1000; i++){
 			nqP.enqueue(i);
 		}
-		for (int i = 0; i < 5000; i++){
-			nqP.dequeue();
+		for (int i = 0; i < 1000; i++){
+			cNode* node = nqP.dequeue();
+			if (node)
+				;
 		}
 	}
 	endtime = GetTickCount();
