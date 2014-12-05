@@ -47,15 +47,16 @@ void cParser::loadFromFile(const char* fileName){
 	visited = new bool[m_nLineNums];
 
 	// make buffer chunk, but first line will not use.
-	char* in = new char[10000];
-	read.getline(in, 10000);
+	int buffer = 5 + 2 + (20 * 5) + 20;
+	char* in = new char[buffer];
+	read.getline(in, buffer);
 	delete in;
 	
 	// loop 'til data numbers
 	for (int i = 0; i < m_nLineNums; i++){
 		//make buffer chunk
-		char* in = new char[10000];
-		read.getline(in, 10000);
+		char* in = new char[buffer];
+		read.getline(in, buffer);
 		// pushback into vector
 		m_vLines->push_back(in);
 		// recheck, visited will be allocated in zero based.
