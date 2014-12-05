@@ -43,6 +43,8 @@ void cParser::loadFromFile(const char* fileName){
 	//int lines;
 	// read data size from buffer
 	read >> m_nLineNums;
+	m_vLines->resize(m_nLineNums);
+
 	// init bool array for visit information
 	visited = new bool[m_nLineNums];
 
@@ -52,13 +54,14 @@ void cParser::loadFromFile(const char* fileName){
 	read.getline(in, buffer);
 	delete in;
 	
+	
 	// loop 'til data numbers
 	for (int i = 0; i < m_nLineNums; i++){
 		//make buffer chunk
 		char* in = new char[buffer];
 		read.getline(in, buffer);
 		// pushback into vector
-		m_vLines->push_back(in);
+		m_vLines->at(i) = in;
 		// recheck, visited will be allocated in zero based.
 		visited[i] = false;
 
