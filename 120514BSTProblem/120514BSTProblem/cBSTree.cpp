@@ -1,5 +1,7 @@
+#include <iostream>
 #include "cBSTree.h"
 
+using namespace std;
 
 cBSTree::cBSTree()
 {
@@ -21,11 +23,12 @@ bool cBSTree::insert(int n){
 	else {
 		insertRec(n, m_pRoot);
 	}
+	return true;
 }
 
 bool cBSTree::insertRec(int n, sNode* cur){
 	if (n < cur->value){
-		if (cur->pLeft = nullptr){
+		if (cur->pLeft == nullptr){
 			cur->pLeft = new sNode;
 			cur->pLeft->value = n;
 			cur->pLeft->pLeft = nullptr;
@@ -37,8 +40,8 @@ bool cBSTree::insertRec(int n, sNode* cur){
 		}
 		
 	}
-	else {
-		if (cur->pLeft = nullptr){
+	else if (n > cur->value) {
+		if (cur->pRight == nullptr){
 			cur->pRight = new sNode;
 			cur->pRight->value = n;
 			cur->pRight->pLeft = nullptr;
@@ -53,20 +56,28 @@ bool cBSTree::insertRec(int n, sNode* cur){
 }
 
 bool cBSTree::remove(int n){
-	
+	return true;
 }
 
 bool cBSTree::find(int n){
-	if (m_pRoot == nullptr) return false;
-	if (m_pRoot->value == n) return true;
-	if (n < m_pRoot->value){
-		
-	}
-	else {
+	return getNodebyValue(n, m_pRoot) != nullptr;
+}
 
-	}
+sNode* cBSTree::getNodebyValue(int n, sNode* cur){
+	if (cur == nullptr) return nullptr;
+	if (n < cur->value) return getNodebyValue(n, cur->pLeft);
+	else if (n > cur->value) return getNodebyValue(n, cur->pRight);
+	else return cur;
+}
+
+void cBSTree::printRecursiveHelper(sNode* cur){
+	if (cur == nullptr) return;
+	printRecursiveHelper(cur->pLeft);
+	cout << cur->value << " ";
+	printRecursiveHelper(cur->pRight);
 }
 
 void cBSTree::print(){
-
+	printRecursiveHelper(m_pRoot);
+	cout << endl;
 }
