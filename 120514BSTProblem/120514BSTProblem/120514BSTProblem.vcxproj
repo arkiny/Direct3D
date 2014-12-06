@@ -78,10 +78,12 @@
   <ItemGroup>
     <ClInclude Include="cBSTree.h" />
     <ClInclude Include="cMain.h" />
+    <ClInclude Include="cParser.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cBSTree.cpp" />
     <ClCompile Include="cMain.cpp" />
+    <ClCompile Include="cParser.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

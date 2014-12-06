@@ -21,12 +21,18 @@
     <ClInclude Include="cBSTree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="cParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cBSTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

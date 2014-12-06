@@ -1,5 +1,6 @@
 #include "cMain.h"
 #include "cBSTree.h"
+#include "cParser.h"
 
 
 cMain::cMain()
@@ -12,7 +13,10 @@ cMain::~cMain()
 }
 
 int main(){
-	cBSTree bst;
+
+	cParser g;
+	g.loadFromFile("bst_data.txt");
+	/*cBSTree bst;
 	bst.insert(5);
 	bst.insert(3);
 	bst.insert(8);
@@ -24,6 +28,19 @@ int main(){
 	bst.insert(7);
 	bst.insert(6);
 	bst.print();
+
+	bst.deleteMin();
+	bst.print(); 
+	bst.deleteMin();
+	bst.print();
+	bst.deleteMin();
+	bst.print();
+
+	bst.deleteByValue(8);
+	bst.print();
+
+	bst.deleteByValue(5);
+	bst.print();*/
 
 	//bst.remove(5);
 	//bst.remove(3);
