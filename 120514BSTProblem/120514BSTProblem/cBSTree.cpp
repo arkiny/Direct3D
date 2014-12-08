@@ -64,6 +64,9 @@ bool cBSTree::insertRec(int n, sNode* cur){
 			insertRec(n, cur->pRight);
 		}
 	}
+	else {
+		return false;
+	}
 	return false;
 }
 
