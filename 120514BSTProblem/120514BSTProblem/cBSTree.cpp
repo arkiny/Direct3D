@@ -92,7 +92,12 @@ sNode* cBSTree::deleteMin(sNode* cur){
 	//else {
 	//	deleteMin(cur->pLeft, cur);
 	//}
-	if (cur->pLeft == nullptr) return cur->pRight;
+	if (cur->pLeft == nullptr) {
+		sNode* ret = cur->pRight;
+		delete cur;
+		m_nSize--;
+		return ret;
+	}
 	cur->pLeft = deleteMin(cur->pLeft);
 	return cur;
 }
