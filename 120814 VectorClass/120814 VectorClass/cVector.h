@@ -1,28 +1,41 @@
 #pragma once
 
-struct sMyVector
-{
-	float m_fX;
-	float m_fY;
-	float m_fX;
+struct sVector{
+	float x;
+	float y;
+	float z;
 };
 
 class cVector
 {
 public:
 	cVector();
+	cVector(float x, float y, float z);
 	~cVector();
 
-	bool equal(sMyVector& in);
-	sMyVector& add(sMyVector&);
-	sMyVector& sub(sMyVector&);
-	sMyVector& mul(sMyVector&);
-	sMyVector& normalized(sMyVector&);
+	cVector operator+(cVector v);
+	cVector operator-(cVector v);
+
+
+	bool equal(cVector in);
+	
+	cVector add(cVector in);
+	cVector sub(cVector in);
+	cVector mul(float scalar);
+
+	cVector normalized();
 	float length();
-	float dot(sMyVector&);
-	float cross(sMyVector&);
+
+	float dot(cVector in);
+	cVector cross(cVector in);
+
+	sVector getVectorCoord(){
+		return *m_sVectorData;
+	}
+
+	void print();
 
 private:
-	sMyVector* m_Vector;
+	sVector* m_sVectorData;
 };
 
