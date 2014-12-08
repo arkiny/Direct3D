@@ -28,7 +28,7 @@ private:
 	sNode* getNodebyValue(int n, sNode* cur);
 
 	// get address of the min
-	sNode* min(sNode* cur);
+	sNode* Min(sNode* cur);
 	
 	// delete the min
 	sNode* deleteMin(sNode* cur);

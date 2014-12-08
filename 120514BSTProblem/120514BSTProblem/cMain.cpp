@@ -1,3 +1,4 @@
+#include <Windows.h>
 #include "cMain.h"
 #include "cBSTree.h"
 #include "cParser.h"
@@ -13,9 +14,31 @@ cMain::~cMain()
 }
 
 int main(){
+	cBSTree bst;
+	int aData[1000];
 
-	cParser g;
-	g.loadFromFile("bst_data.txt");
+	for (int i = 0; i < 1000; ++i){
+		aData[i] = rand() % 1000;
+		bst.insert(aData[i]);
+	}
+	for (int i = 0; i < 1000; ++i){
+		int nIndx1 = rand() % 1000;
+		int nIndx2 = rand() % 1000;
+		int nTemp = aData[nIndx1];
+		aData[nIndx1] = aData[nIndx2];
+		aData[nIndx2] = nTemp;
+	}
+
+
+	for (int i = 0; i < 1000; ++i){
+		bst.deleteByValue(aData[i]);
+	}
+
+	bst.insert(1);
+	bst.print();
+	return 0;
+	/*cParser g;
+	g.loadFromFile("bst_data.txt");*/
 	/*cBSTree bst;
 	bst.insert(5);
 	bst.insert(3);

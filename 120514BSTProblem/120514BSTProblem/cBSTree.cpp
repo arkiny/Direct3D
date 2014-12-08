@@ -70,10 +70,10 @@ bool cBSTree::insertRec(int n, sNode* cur){
 	return false;
 }
 
-sNode* cBSTree::min(sNode* cur){
+sNode* cBSTree::Min(sNode* cur){
 	if (cur == nullptr) return nullptr;
 	if (cur->pLeft == nullptr) return cur;
-	else min(cur->pLeft);
+	else Min(cur->pLeft);
 }
 
 sNode* cBSTree::deleteMin(sNode* cur){
@@ -92,9 +92,11 @@ sNode* cBSTree::deleteMin(sNode* cur){
 	//else {
 	//	deleteMin(cur->pLeft, cur);
 	//}
+
 	if (cur->pLeft == nullptr) {
 		sNode* ret = cur->pRight;
 		delete cur;
+		cur = nullptr;
 		m_nSize--;
 		return ret;
 	}
@@ -104,7 +106,7 @@ sNode* cBSTree::deleteMin(sNode* cur){
 
 void cBSTree::deleteMin(){
 	// process time Áõ°¡...
-	sNode* minNode = min(m_pRoot);
+	sNode* minNode = Min(m_pRoot);
 	deleteMin(m_pRoot);
 	delete minNode;
 	m_nSize--;
@@ -128,132 +130,21 @@ sNode* cBSTree::deleteByValue(int n, sNode* cur){
 			return cur->pLeft;
 		}
 		else{
-
-			/*Node t = x;
-			x = min(t.right);
-			x.right = deleteMin(t.right);
-			x.left = t.left;*/
-
 			sNode t = *cur;
-			*cur = *min(t.pRight);			
+			*cur = *Min(t.pRight);
 			cur->pRight = deleteMin(t.pRight);
 			cur->pLeft = t.pLeft;
 			return cur;
 		}
 	}
-	/*if (cur == nullptr) return cur;
-	else if (n < cur->value) deleteByValue(n, cur->pLeft);
-	else if (n > cur->value) deleteByValue(n, cur->pRight);
-	else {
-	if (cur->pLeft == nullptr) {
-	if (cur->pRight == nullptr){
-	sNode* rep = nullptr;
-	*cur = rep;
-	}
-	else {
-	*cur = *cur->pRight;
-	}
-	return cur;
-	}
-	if (cur->pRight == nullptr) {
-	if (cur->pLeft == nullptr){
-	*cur = *cur->pLeft;
-	}
-	else {
-	*cur = *cur->pLeft;
-	}
-	return cur;
-	}
-	sNode* t = cur;
-	cur = min(cur);
-
-	*cur->pLeft = *deleteMin(t->pRight);
-	*cur->pRight = *t->pLeft;
-	}
-	return cur;*/
-
-	//if (cur == nullptr) return nullptr;
-	//else if (n < cur->value) deleteByValue(n, cur->pLeft, cur);
-	//else if (n < cur->value) deleteByValue(n, cur->pRight, cur);
-	//else {
-	//	
-	//}
-	
-	/*if (cur == nullptr) return nullptr;	
-	if (cur->pLeft->value == n){
-		if (cur->pLeft->pLeft == nullptr){
-			cur->pLeft = cur->pLeft->pRight;
-		} 
-		else if (cur->pLeft->pRight == nullptr){
-			cur->pLeft = cur->pLeft->pLeft;			
-		}
-		else {
-			sNode* t = cur->pLeft;
-			cur->pLeft = min(cur->pLeft);
-			cur->pLeft->pLeft = deleteMin(t->pRight, t);
-			cur->pLeft->pRight = t->pLeft;
-		}
-		return cur->pLeft;
-	}
-	if (cur->pRight->value == n){
-		if (cur->pRight->pLeft == nullptr){
-			cur->pRight = cur->pRight->pRight;
-		}
-		else if (cur->pRight->pRight == nullptr){
-			cur->pRight = cur->pRight->pLeft;
-		}
-		else {
-			sNode* t = cur->pRight;
-			cur->pRight = min(cur->pRight);
-			cur->pRight->pLeft = deleteMin(t->pRight, t);
-			cur->pRight->pRight = t->pLeft;
-		}
-		return cur->pRight;
-	}
-
-	if (n < cur->value) {
-		deleteByValue(n, cur->pLeft); 
-	}
-	if (n > cur->value) {
-		deleteByValue(n, cur->pRight);
-	}
-	return cur;*/
-
-	/*if (cur == nullptr) return cur;
-	else if (n < cur->value) deleteByValue(n, cur->pLeft);
-	else if (n > cur->value) deleteByValue(n, cur->pRight);
-	else {
-	if (cur->pLeft == nullptr) {
-	if (cur->pRight == nullptr){
-	sNode* rep = nullptr;
-	*cur = rep;
-	}
-	else {
-	*cur = *cur->pRight;
-	}
-	return cur;
-	}
-	if (cur->pRight == nullptr) {
-	if (cur->pLeft == nullptr){
-	*cur = *cur->pLeft;
-	}
-	else {
-	*cur = *cur->pLeft;
-	}
-	return cur;
-	}
-	sNode* t = cur;
-	cur = min(cur);
-
-	*cur->pLeft = *deleteMin(t->pRight);
-	*cur->pRight = *t->pLeft;
-	}
-	return cur;*/
 }
 
 sNode* cBSTree::deleteByValue(int n){
 	
-	if (m_pRoot == nullptr) return nullptr;
+	if (m_pRoot == nullptr) { 
+		//cout << "Nothing to delete" << endl;
+		return nullptr; 
+	}
 	/*else if (m_pRoot->value == n){
 		sNode t = *cur;
 		*cur = *min(t.pRight);
@@ -288,6 +179,10 @@ void cBSTree::printRecursiveHelper(sNode* cur){
 }
 
 void cBSTree::print(){
+	if (m_pRoot == nullptr) { 
+		cout << "nothing to print" << endl; 
+		return; 
+	}
 	printRecursiveHelper(m_pRoot);
 	cout << endl;
 }
