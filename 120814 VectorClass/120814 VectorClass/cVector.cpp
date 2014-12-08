@@ -2,6 +2,7 @@
 #include <iostream>
 #include "cVector.h"
 
+#define EPSILON 0.001f
 
 cVector::cVector()
 {
@@ -36,12 +37,10 @@ cVector cVector::operator-(cVector v){
 	return ret;
 }
 
-bool cVector::equal(cVector in){
-	float epsilon = 0.001f;
-	sVector comp = in.getVectorCoord();
-	if ((comp.x - m_sVectorData->x) * (comp.x - m_sVectorData->x) <= epsilon*epsilon &&
-		(comp.y - m_sVectorData->y) * (comp.y - m_sVectorData->y) <= epsilon*epsilon &&
-		(comp.z - m_sVectorData->z) * (comp.z - m_sVectorData->z) <= epsilon*epsilon ) return true;
+bool cVector::equal(cVector in){	
+	float origin = this->length();
+	float comp = in.length();
+	if ((origin - comp) * (origin - comp) <= EPSILON*EPSILON) return true;
 	else return false;
 }
 
