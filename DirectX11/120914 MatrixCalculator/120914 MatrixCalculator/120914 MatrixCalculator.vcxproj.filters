@@ -21,9 +21,15 @@
     <ClCompile Include="cMatrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cMatrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

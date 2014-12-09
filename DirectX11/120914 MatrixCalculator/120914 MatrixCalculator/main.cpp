@@ -1,10 +1,13 @@
 #include <iostream>
 #include <fstream>
 #include "cMatrix.h"
+#include "cParser.h"
 
 using namespace std;
 
 int main(){
+	cParser a;
+	a.loadandParse("matrix_data.txt");
 	//cout << "<<< A >>>" <<endl;
 	//cMatrix A(2);
 
