@@ -43,7 +43,7 @@ public:
 	int getSize() { return m_nSize; }
 	
 	void setData(int x, float value){ m_matrix[x] = value; }
-
+	float cofactor(int i, int j, cMatrix& m);
 private:
 	int m_nSize;
 	std::vector<float> m_matrix;	
@@ -55,6 +55,6 @@ private:
 
 	float minorcalc(int x, int y, cMatrix& m);
 	float detRecursive(cMatrix& m);
-	float cofactor(int i, int j, cMatrix& m);
+	
 };
 
