@@ -49,4 +49,21 @@ void main(){
 	cout << XMVector3Transform(xmoriginal, xmrotatez) << endl;
 	cout << XMVector3Transform(xmoriginal, xmscale) << endl;
 	cout << XMVector3Transform(xmoriginal, xmscale*xmrotatex*xmtranslate) << endl;
+	cout << endl;
+
+	cout << "<<< using 58p problem with self made function >>>" << endl;
+	vector4 problem(5.0f, 0, 0, 1.0f);
+	problem.print();
+
+	// srt
+	vector4 res = problem.scale(0.2f, 0.2f, 0.2f).rotateY(45.0f).translate(1.0f, 2.0f, -3.0f);
+	res.print();
+	cout << endl;
+
+	cout << "<<< using 58p problem with DirectX math Function >>>" << endl;
+	XMVECTOR xmoriginal1 = XMVectorSet(5.0f, 0, 0, 1.0f);
+	XMMATRIX xmscale1 = XMMatrixScaling(0.2f, 0.2f, 0.2f);
+	XMMATRIX xmrotatey1 = XMMatrixRotationY(45.0f * PI / 180.0f);
+	XMMATRIX xmtranslate1 = XMMatrixTranslation(1.0f, 2.0f, -3.0f);	
+	cout << XMVector3Transform(xmoriginal1, xmscale1*xmrotatey1*xmtranslate1) << endl;	
 }
