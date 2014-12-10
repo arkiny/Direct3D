@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XNAmathStudy", "XNAmathStudy\XNAmathStudy.vcxproj", "{85797E64-584B-4D32-BC48-AFB97203025C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XMatrix", "XMatrix\XMatrix.vcxproj", "{C4C4AF44-EA95-4B58-A165-C44EDBA7C0B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +17,10 @@ Global
 		{85797E64-584B-4D32-BC48-AFB97203025C}.Debug|Win32.Build.0 = Debug|Win32
 		{85797E64-584B-4D32-BC48-AFB97203025C}.Release|Win32.ActiveCfg = Release|Win32
 		{85797E64-584B-4D32-BC48-AFB97203025C}.Release|Win32.Build.0 = Release|Win32
+		{C4C4AF44-EA95-4B58-A165-C44EDBA7C0B6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C4C4AF44-EA95-4B58-A165-C44EDBA7C0B6}.Debug|Win32.Build.0 = Debug|Win32
+		{C4C4AF44-EA95-4B58-A165-C44EDBA7C0B6}.Release|Win32.ActiveCfg = Release|Win32
+		{C4C4AF44-EA95-4B58-A165-C44EDBA7C0B6}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -13,21 +13,23 @@ public:
 	cVector(float x, float y, float z);
 	~cVector();
 
-	cVector operator+(cVector v);
-	cVector operator-(cVector v);
+	cVector operator+(cVector& v);
+	cVector operator-(cVector& v);
 
+	// 
+	bool operator==(cVector& v);
 
-	bool equal(cVector in);
+	bool equal(cVector& in);
 	
-	cVector add(cVector in);
-	cVector sub(cVector in);
+	cVector add(cVector& in);
+	cVector sub(cVector& in);
 	cVector mul(float scalar);
 
 	cVector normalized();
 	float length();
 
-	float dot(cVector in);
-	cVector cross(cVector in);
+	float dot(cVector& in);
+	cVector cross(cVector& in);
 
 	sVector getVectorCoord(){
 		return *m_sVectorData;

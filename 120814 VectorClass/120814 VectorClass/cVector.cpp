@@ -2,7 +2,7 @@
 #include <iostream>
 #include "cVector.h"
 
-#define EPSILON 0.001f
+#define EPSILON 0.0001f
 
 cVector::cVector()
 {
@@ -14,7 +14,7 @@ cVector::cVector()
 
 cVector::~cVector()
 {
-	//delete[] m_sVectorData;
+	//delete m_sVectorData;
 }
 
 cVector::cVector(float x, float y, float z){
@@ -25,32 +25,36 @@ cVector::cVector(float x, float y, float z){
 	m_sVectorData->z = z;
 }
 
-cVector cVector::operator+(cVector v){
+bool cVector::operator==(cVector &v){
+	return true;
+}
+
+cVector cVector::operator+(cVector& v){
 	sVector a = v.getVectorCoord();
 	cVector ret = cVector(a.x + m_sVectorData->x, a.y + m_sVectorData->y, a.z + m_sVectorData->z);
 	return ret;
 }
 
-cVector cVector::operator-(cVector v){
+cVector cVector::operator-(cVector& v){
 	sVector a = v.getVectorCoord();
 	cVector ret = cVector((-a.x) + m_sVectorData->x, (-a.y) + m_sVectorData->y, (-a.z) + m_sVectorData->z);
 	return ret;
 }
 
-bool cVector::equal(cVector in){	
+bool cVector::equal(cVector& in){	
 	float origin = this->length();
 	float comp = in.length();
 	if ((origin - comp) * (origin - comp) <= EPSILON*EPSILON) return true;
 	else return false;
 }
 
-cVector cVector::add(cVector in){
+cVector cVector::add(cVector& in){
 	sVector a = in.getVectorCoord();
 	cVector ret = cVector(a.x + m_sVectorData->x, a.y + m_sVectorData->y, a.z + m_sVectorData->z);
 	return ret;
 }
 
-cVector cVector::sub(cVector in){
+cVector cVector::sub(cVector& in){
 	sVector a = in.getVectorCoord();
 	cVector ret = cVector((-a.x) + m_sVectorData->x, (-a.y) + m_sVectorData->y, (-a.z) + m_sVectorData->z);
 	return ret;
@@ -75,12 +79,12 @@ float cVector::length(){
 		(m_sVectorData->y * m_sVectorData->y));
 }
 
-float cVector::dot(cVector in){
+float cVector::dot(cVector& in){
 	sVector input = in.getVectorCoord();
 	return (m_sVectorData->x * input.x) + (m_sVectorData->y * input.y) + (m_sVectorData->z*input.z);
 }
 
-cVector cVector::cross(cVector in){
+cVector cVector::cross(cVector& in){
 	sVector input = in.getVectorCoord();
 	cVector ret = cVector(((m_sVectorData->y * input.z) - (m_sVectorData->z * input.y)),
 		((m_sVectorData->z * input.x) - (m_sVectorData->x * input.z)),
