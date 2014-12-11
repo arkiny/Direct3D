@@ -248,7 +248,7 @@ cMatrix cMatrix::Identity(cMatrix& m){
 }
 
 void cMatrix::print(){
-	cout.precision(2);
+	//cout.precision(2);
 	for (int i = 0; i < m_nSize; i++){
 		for (int j = 0; j < m_nSize; j++){
 			cout << getElement(i, j) << " ";

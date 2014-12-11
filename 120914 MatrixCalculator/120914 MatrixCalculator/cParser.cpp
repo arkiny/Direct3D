@@ -106,4 +106,5 @@ void cParser::loadandParse(const char* fileName){
 			}
 		}
 	}
+	read.close();
 }

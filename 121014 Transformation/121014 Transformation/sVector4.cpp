@@ -1,5 +1,6 @@
 #include "sVector4.h"
 #include <iostream>
+#include <assert.h>
 #include "cMatrix.h"
 
 using namespace std;
@@ -18,6 +19,11 @@ vector4::~vector4(){
 }
 
 vector4 vector4::operator*(cMatrix& mat){
+
+#ifdef _DEBUG
+	assert(true);
+#endif
+
 	float x = mat.getElement(0, 0) * m_fx +
 		mat.getElement(1, 0) * m_fy +
 		mat.getElement(2, 0) * m_fz +
