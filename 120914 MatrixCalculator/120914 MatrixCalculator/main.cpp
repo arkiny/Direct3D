@@ -6,8 +6,34 @@
 using namespace std;
 
 int main(){
-	cParser a;
-	a.loadandParse("matrix_data.txt");
+	/*cParser a;
+	a.loadandParse("matrix_data.txt");*/
+
+	cMatrix b(4);
+	b.setElement(0, 0, 2);
+	b.setElement(0, 1, 3);
+	b.setElement(0, 2, 4);
+	b.setElement(0, 3, 5);
+	b.setElement(1, 0, 8);
+	b.setElement(1, 1, 5);
+	b.setElement(1, 2, 5);
+	b.setElement(1, 3, 3);
+	b.setElement(2, 0, 9);
+	b.setElement(2, 1, 3);
+	b.setElement(2, 2, 7);
+	b.setElement(2, 3, 7);
+	b.setElement(3, 0, 2);
+	b.setElement(3, 1, 3);
+	b.setElement(3, 2, 4);
+	b.setElement(3, 3, 8);
+	
+	cMatrix c(4);
+	for (int i = 0; i < c.getSize(); i++){
+		for (int j = 0; j < c.getSize(); j++){
+			c.setElement(i, j, c.cofactor(i, j, b));
+		}
+	}
+	c.print();
 	//cout << "<<< A >>>" <<endl;
 	//cMatrix A(2);
 
