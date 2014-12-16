@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{f0406089-4ca6-40cd-9bf7-5c750686c16e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{ebc8c4a2-d84e-4df1-a53c-2cf40e86225a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="121614 Simple2DGame.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="cObjectPlayer.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="cObjectCircle.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="IObject.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="cControl.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="cDeviceManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="cGameTimer.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="cMainGame.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="cObjectShit.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="cObject.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="121614 Simple2DGame.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="cObjectPlayer.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="cObjectCircle.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="cControl.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="cDeviceManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="cGameTimer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="cMainGame.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="cObjectShit.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="cObject.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="121614 Simple2DGame.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="121614 Simple2DGame.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

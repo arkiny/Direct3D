@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "121314 DrawingCircle", "121314 DrawingCircle\121314 DrawingCircle.vcxproj", "{64483AA4-4253-408C-8B1B-11420699DD90}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "121614 Simple2DGame", "121614 Simple2DGame\121614 Simple2DGame.vcxproj", "{A1DC46EA-2212-4AB6-A52E-04126A826261}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +17,10 @@ Global
 		{64483AA4-4253-408C-8B1B-11420699DD90}.Debug|Win32.Build.0 = Debug|Win32
 		{64483AA4-4253-408C-8B1B-11420699DD90}.Release|Win32.ActiveCfg = Release|Win32
 		{64483AA4-4253-408C-8B1B-11420699DD90}.Release|Win32.Build.0 = Release|Win32
+		{A1DC46EA-2212-4AB6-A52E-04126A826261}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A1DC46EA-2212-4AB6-A52E-04126A826261}.Debug|Win32.Build.0 = Debug|Win32
+		{A1DC46EA-2212-4AB6-A52E-04126A826261}.Release|Win32.ActiveCfg = Release|Win32
+		{A1DC46EA-2212-4AB6-A52E-04126A826261}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

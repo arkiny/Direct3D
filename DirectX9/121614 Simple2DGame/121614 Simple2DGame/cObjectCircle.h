@@ -1,8 +1,10 @@
 #pragma once
 
+#include "IObject.h"
+
 #define PI 3.14159265f
 
-class cObjectCircle
+class cObjectCircle : public IObject_Circle
 {
 public:
 	cObjectCircle();
@@ -20,6 +22,22 @@ public:
 
 	D3DXVECTOR4 getOrigin(){ return m_vOrigin; }
 	float getRad(){ return m_fRad; }
+
+	virtual void setPos(float x, float y){
+		ChangeOrigin(x, y);
+	}
+
+	virtual float getRad() const {
+		return m_fRad;
+	}
+	virtual D3DXVECTOR4 getPos() const{
+		return m_vOrigin;
+	}
+
+	virtual bool isCollided(const IObject* target){
+		return false;
+	}
+
 
 private:
 	std::vector<ST_RHW_VERTEX>	m_vecVertex;
