@@ -1,9 +1,10 @@
-// DX11INIT.cpp : Defines the entry point for the application.
+// 141214 MyFirstD3D11Project.cpp : Defines the entry point for the application.
 //
 
 #include "stdafx.h"
-#include "DX11INIT.h"
+#include "141214 MyFirstD3D11Project.h"
 #include "cMainGame.h"
+#include "cGameTimer.h"
 
 #define MAX_LOADSTRING 100
 
@@ -14,7 +15,9 @@ TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
 
 ///
 HWND g_hWnd;
-cMainGame* g_pGame;
+cGameTimer g_GameTimer;
+cMainGame* g_pMainGame;
+
 ///
 
 // Forward declarations of functions included in this code module:
@@ -37,7 +40,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 	// Initialize global strings
 	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-	LoadString(hInstance, IDC_DX11INIT, szWindowClass, MAX_LOADSTRING);
+	LoadString(hInstance, IDC_MY141214MYFIRSTD3D11PROJECT, szWindowClass, MAX_LOADSTRING);
 	MyRegisterClass(hInstance);
 
 	// Perform application initialization:
@@ -45,28 +48,39 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	{
 		return FALSE;
 	}
-	g_pGame = new cMainGame;
-	g_pGame->setup();
 
-	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_DX11INIT));
+	g_pMainGame = new cMainGame;
+	g_pMainGame->init();
+
+	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MY141214MYFIRSTD3D11PROJECT));
 
 	// Main message loop:
+	//while (GetMessage(&msg, NULL, 0, 0))
+	//{
+	//	if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+	//	{
+	//		TranslateMessage(&msg);
+	//		DispatchMessage(&msg);
+	//	}
+	//}
+
 	while (true){
-		if (PeekMessage(&msg, NULL, NULL, NULL, PM_REMOVE)){
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)){
 			if (msg.message == WM_QUIT){
 				break;
 			}
-			else{
+			else {
 				TranslateMessage(&msg);
 				DispatchMessage(&msg);
 			}
 		}
 		else{
-			g_pGame->update();
-			g_pGame->render();
-		}		
+			g_pMainGame->update(0.0f);
+			g_pMainGame->render();
+		}
 	}
 
+	delete g_pMainGame;
 	return (int) msg.wParam;
 }
 
@@ -88,10 +102,10 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 	wcex.cbClsExtra		= 0;
 	wcex.cbWndExtra		= 0;
 	wcex.hInstance		= hInstance;
-	wcex.hIcon			= LoadIcon(hInstance, MAKEINTRESOURCE(IDI_DX11INIT));
+	wcex.hIcon			= LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MY141214MYFIRSTD3D11PROJECT));
 	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
 	wcex.hbrBackground	= (HBRUSH)(COLOR_WINDOW+1);
-	wcex.lpszMenuName	= MAKEINTRESOURCE(IDC_DX11INIT);
+	wcex.lpszMenuName	= MAKEINTRESOURCE(IDC_MY141214MYFIRSTD3D11PROJECT);
 	wcex.lpszClassName	= szWindowClass;
 	wcex.hIconSm		= LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -114,15 +128,24 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    hInst = hInstance; // Store instance handle in our global variable
 
-   hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
+   RECT windRect = { 0, 0, 1280, 720 };
+   ::AdjustWindowRect(&windRect, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU, NULL);
+
+   hWnd = CreateWindow(szWindowClass, 
+	   szTitle, 
+	   WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU,
+      CW_USEDEFAULT, 0, 
+	  windRect.right-windRect.left, 
+	  windRect.bottom-windRect.top, 
+	  NULL, NULL, hInstance, NULL);
 
    if (!hWnd)
    {
       return FALSE;
    }
-
+   ///
    g_hWnd = hWnd;
+   ///
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 

@@ -1,18 +1,18 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by DX11INIT.rc
+// Used by 121314 DrawingCircle.rc
 //
 
 #define IDS_APP_TITLE			103
 
 #define IDR_MAINFRAME			128
-#define IDD_DX11INIT_DIALOG	102
+#define IDD_MY121314DRAWINGCIRCLE_DIALOG	102
 #define IDD_ABOUTBOX			103
 #define IDM_ABOUT				104
 #define IDM_EXIT				105
-#define IDI_DX11INIT			107
+#define IDI_MY121314DRAWINGCIRCLE			107
 #define IDI_SMALL				108
-#define IDC_DX11INIT			109
+#define IDC_MY121314DRAWINGCIRCLE			109
 #define IDC_MYICON				2
 #ifndef IDC_STATIC
 #define IDC_STATIC				-1
