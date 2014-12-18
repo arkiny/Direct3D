@@ -7,9 +7,11 @@ cObjectPlayer::cObjectPlayer()
 {
 	// 플레이어 초기 위치
 	m_stPlayerSize = { 36.0f, 91.0f };
-	m_vPosition = D3DXVECTOR4(200.f, 600.f, 0, 1.0f);
+	m_vPosition = D3DXVECTOR4(200.f, 600.f, 0.0f, 1.0f);
 	m_fCollisionRad = 10.0f;//플레이어 충돌 범위
-	m_pTexture = NULL;
+	m_pTextureST = NULL;
+	m_pTextureL = NULL;
+	m_pTextureR = NULL;
 	m_pColisionCircle = new cObjectCircle(
 		D3DXVECTOR4(
 		m_vPosition.x,
@@ -22,6 +24,9 @@ cObjectPlayer::cObjectPlayer()
 
 cObjectPlayer::~cObjectPlayer()
 {
+	SAFE_RELESE(m_pTextureST);
+	SAFE_RELESE(m_pTextureL);
+	SAFE_RELESE(m_pTextureR);
 	delete m_pColisionCircle;
 }
 
@@ -39,11 +44,40 @@ void cObjectPlayer::init(){
 		, D3DCOLOR_XRGB(255, 255, 255)
 		, NULL
 		, NULL
-		, &m_pTexture);
+		, &m_pTextureST);
 	/*D3DXCreateTextureFromFile(
 		g_pD3DDevice,
 		L"../Resource/pstraight.png",
 		&m_pTexture);*/
+	D3DXCreateTextureFromFileEx(g_pD3DDevice
+		, L"../Resource/pleft.png"
+		, D3DX_DEFAULT_NONPOW2
+		, D3DX_DEFAULT_NONPOW2
+		, 1
+		, 0
+		, D3DFMT_UNKNOWN
+		, D3DPOOL_MANAGED
+		, 0x0000001
+		, 0x0000001
+		, D3DCOLOR_XRGB(255, 255, 255)
+		, NULL
+		, NULL
+		, &m_pTextureL);
+
+	D3DXCreateTextureFromFileEx(g_pD3DDevice
+		, L"../Resource/pright.png"
+		, D3DX_DEFAULT_NONPOW2
+		, D3DX_DEFAULT_NONPOW2
+		, 1
+		, 0
+		, D3DFMT_UNKNOWN
+		, D3DPOOL_MANAGED
+		, 0x0000001
+		, 0x0000001
+		, D3DCOLOR_XRGB(255, 255, 255)
+		, NULL
+		, NULL
+		, &m_pTextureR);
 
 	ST_RHW_PT_VERTEX v;
 
@@ -109,18 +143,23 @@ void cObjectPlayer::init(){
 	
 	m_pColisionCircle->init();
 	m_pColisionCircle->ChangeColor(D3DCOLOR_XRGB(0, 0, 255));
-	g_pD3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, true);
+	/*g_pD3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, true);
 	g_pD3DDevice->SetRenderState(D3DRS_ALPHAREF, 1);
-	g_pD3DDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);
+	g_pD3DDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);*/
 }
 
 void cObjectPlayer::update(float delta){
 	D3DXVECTOR4 temp = m_vPosition;
 	if (g_pControl->getKeyControlInfo(VK_LEFT)){
 		m_vPosition.x = m_vPosition.x - (200.0f*delta);
+		m_nDirection = 1;
 	}
 	else if (g_pControl->getKeyControlInfo(VK_RIGHT)){
 		m_vPosition.x = m_vPosition.x + (200.0f*delta);
+		m_nDirection = 2; 
+	}
+	else{
+		m_nDirection = 0;
 	}
 	if (temp != m_vPosition){
 		ChangePosUptoOrigin();
@@ -177,10 +216,25 @@ void cObjectPlayer::ChangePosUptoOrigin(){
 }
 
 void cObjectPlayer::render(){
-	g_pD3DDevice->SetTexture(0, m_pTexture);
+	g_pD3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, true);
+	g_pD3DDevice->SetRenderState(D3DRS_ALPHAREF, 1);
+	g_pD3DDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);
+	if (m_nDirection == 1){
+		g_pD3DDevice->SetTexture(0, m_pTextureL);
+	}
+	else if (m_nDirection == 2){
+		g_pD3DDevice->SetTexture(0, m_pTextureR);
+	}
+	else{
+		g_pD3DDevice->SetTexture(0, m_pTextureST);
+	}
 	g_pD3DDevice->SetFVF(ST_RHW_PT_VERTEX::FVF);
 	g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, 6, &m_vecVertex[0], sizeof(ST_RHW_PT_VERTEX));
 	m_pColisionCircle->render();
+
+	g_pD3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, false);
+	g_pD3DDevice->SetRenderState(D3DRS_ALPHAREF, 0);
+	g_pD3DDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_ALWAYS);
 }
 
 bool cObjectPlayer::isCollided(const IObject* target){

@@ -4,8 +4,10 @@ class cMainGame
 {
 private:
 	// background
-	std::vector<ST_RHW_TEXTURE_VERTEX>	m_vecVertex;
-	LPDIRECT3DTEXTURE9					m_pTexture;
+	std::vector<ST_RHW_VERTEX>			m_vecVertex;
+	LPD3DXFONT							m_pFont;
+	RECT								m_recFontRect;
+	//bool								m_bPause = false;
 
 	//ST_RHW_VERTEX v2[3];
 	//LPDIRECT3DVERTEXBUFFER9 v_buffer;
@@ -13,6 +15,8 @@ private:
 	IObject_Circle* m_cCircle2;*/
 	IObject* m_oPlayer;
 	std::vector<IObject*> m_vecoShit;
+	std::vector<IObject*> m_vecoRoadLine;
+
 	int m_nDifficulty;
 	float m_faccumTime = 0.0f;
 	float m_fTotalTime = 0.0f;

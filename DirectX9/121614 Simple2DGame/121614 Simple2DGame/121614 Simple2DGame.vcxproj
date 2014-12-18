@@ -89,6 +89,7 @@
     <ClInclude Include="cObject.h" />
     <ClInclude Include="cObjectCircle.h" />
     <ClInclude Include="cObjectPlayer.h" />
+    <ClInclude Include="cObjectRectangle.h" />
     <ClInclude Include="cObjectShit.h" />
     <ClInclude Include="IObject.h" />
     <ClInclude Include="Resource.h" />
@@ -104,6 +105,7 @@
     <ClCompile Include="cObject.cpp" />
     <ClCompile Include="cObjectCircle.cpp" />
     <ClCompile Include="cObjectPlayer.cpp" />
+    <ClCompile Include="cObjectRectangle.cpp" />
     <ClCompile Include="cObjectShit.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

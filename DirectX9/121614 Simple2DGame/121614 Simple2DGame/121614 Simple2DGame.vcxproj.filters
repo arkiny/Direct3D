@@ -47,6 +47,9 @@
     <ClInclude Include="cObject.h">
       <Filter>Objects</Filter>
     </ClInclude>
+    <ClInclude Include="cObjectRectangle.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="121614 Simple2DGame.cpp" />
@@ -73,6 +76,9 @@
       <Filter>Objects</Filter>
     </ClCompile>
     <ClCompile Include="cObject.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="cObjectRectangle.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
   </ItemGroup>

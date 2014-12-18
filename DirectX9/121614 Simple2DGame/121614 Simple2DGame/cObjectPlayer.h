@@ -29,12 +29,15 @@ public:
 private:
 	void ChangePosUptoOrigin();
 
-	POINTFLOAT m_stPlayerSize;
-	std::vector<ST_RHW_PT_VERTEX>	m_vecVertex;
-	LPDIRECT3DTEXTURE9					m_pTexture;
+	POINTFLOAT							m_stPlayerSize;
+	std::vector<ST_RHW_PT_VERTEX>		m_vecVertex;
+	LPDIRECT3DTEXTURE9					m_pTextureST;
+	LPDIRECT3DTEXTURE9					m_pTextureL;
+	LPDIRECT3DTEXTURE9					m_pTextureR;
 
-	IObject_Circle* m_pColisionCircle;
-	D3DXVECTOR4 m_vPosition;
-	float m_fCollisionRad;
+	IObject_Circle*						m_pColisionCircle;
+	D3DXVECTOR4							m_vPosition;
+	float								m_fCollisionRad;
+	int									m_nDirection = 0;
 };
 

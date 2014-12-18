@@ -147,10 +147,17 @@ void cObjectShit::ChangePosUptoOrigin(){
 }
 
 void cObjectShit::render(){
+	g_pD3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, true);
+	g_pD3DDevice->SetRenderState(D3DRS_ALPHAREF, 1);
+	g_pD3DDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);
+	//
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	g_pD3DDevice->SetFVF(ST_RHW_PT_VERTEX::FVF);
 	g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, 6, &m_vecVertex[0], sizeof(ST_RHW_PT_VERTEX));
 	//m_pColisionCircle->render();
+	g_pD3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, false);
+	g_pD3DDevice->SetRenderState(D3DRS_ALPHAREF, 0);
+	g_pD3DDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_ALWAYS);
 }
 
 bool cObjectShit::isCollided(const IObject* target){

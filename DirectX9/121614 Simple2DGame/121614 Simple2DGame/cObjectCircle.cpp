@@ -5,7 +5,7 @@
 
 cObjectCircle::cObjectCircle()
 {
-	m_vOrigin = D3DXVECTOR4(0, 0, 0, 1.0f);
+	m_vOrigin = D3DXVECTOR4(0, 0, 1.0f, 1.0f);
 	m_fRad = 0.0f;
 	m_stColor = D3DCOLOR_XRGB(255, 255, 255);
 	m_pTexture = NULL;
