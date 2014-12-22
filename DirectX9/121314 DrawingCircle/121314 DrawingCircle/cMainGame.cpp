@@ -6,8 +6,7 @@ cMainGame::cMainGame(void)
 	: m_pTexture(NULL)
 {
 	//v_buffer = NULL;
-	m_cCircle1 = new cObjectCircle(D3DXVECTOR4(400.0f, 400.0f, 0, 1.0f), 100.0f);
-	m_cCircle2 = new cObjectCircle(D3DXVECTOR4(0.0f, 0.0f, 0, 1.0f), 50.0f);
+
 }
 
 
@@ -96,6 +95,16 @@ void cMainGame::Setup()
 	g_pD3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, true);
 	g_pD3DDevice->SetRenderState(D3DRS_ALPHAREF, 1);
 	g_pD3DDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);*/
+
+	
+
+	D3DVIEWPORT9 vp;
+	g_pD3DDevice->GetViewport(&vp);
+	m_cCircle1 = new cObjectCircle(
+		D3DXVECTOR4(static_cast<float>(vp.Width/2), 
+		static_cast<float>(vp.Height/2), 0, 1.0f), 100.0f);
+	m_cCircle2 = new cObjectCircle(
+		D3DXVECTOR4(0.0f, 0.0f, 0, 1.0f), 50.0f);
 	
 	m_cCircle1->init();
 	m_cCircle2->init();
