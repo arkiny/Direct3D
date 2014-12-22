@@ -14,6 +14,7 @@
     <ProjectGuid>{2622B5E0-3A16-4ED8-9E26-5FF6D8AB857B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>My141214MyFirstD3D11Project</RootNamespace>
+    <ProjectName>121414 MyFirstD3D11Project</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
