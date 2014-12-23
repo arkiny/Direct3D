@@ -1,11 +1,13 @@
 #include "stdafx.h"
 #include "cMyCube.h"
+#include <math.h>
 
 
 cMyCube::cMyCube(D3DXVECTOR3 origin, float edgeLength)
 {
 	m_vec3Origin = origin;
-	m_fEdgeLength = edgeLength;
+	m_fEdgeLength = edgeLength; 
+	m_fAngleDegree = 0.0f;
 }
 
 
@@ -128,19 +130,34 @@ void cMyCube::init(){
 
 void cMyCube::update(float delta){
 	if (GetKeyState('A') & 0x8000){
-		m_vec3Origin.x = m_vec3Origin.x - 10.0f*delta;
+		m_fAngleDegree -= 90.0f * delta;
+		//m_vec3Origin.x = m_vec3Origin.x - 10.0f*delta;
 	}
 	if (GetKeyState('D') & 0x8000){
-		m_vec3Origin.x = m_vec3Origin.x + 10.0f*delta;
+		m_fAngleDegree += 90.0f * delta;
+		//m_vec3Origin.x = m_vec3Origin.x + 10.0f*delta;
+	}
+	if (GetKeyState('W') & 0x8000){
+		//m_fAngleDegree += 10.0f * delta;
+		m_vec3Origin.y;
+		m_vec3Origin.x = m_vec3Origin.x + 10.0f * delta * sinf(D3DXToRadian(m_fAngleDegree));
+		m_vec3Origin.z = m_vec3Origin.z + 10.0f * delta * cosf(D3DXToRadian(m_fAngleDegree));
+	}
+	if (GetKeyState('S') & 0x8000){
+		//m_fAngleDegree += 10.0f * delta;
+		m_vec3Origin.y;
+		m_vec3Origin.x = m_vec3Origin.x - 10.0f * delta * sinf(D3DXToRadian(m_fAngleDegree));
+		m_vec3Origin.z = m_vec3Origin.z - 10.0f * delta * cosf(D3DXToRadian(m_fAngleDegree));
 	}
 }
 
 void cMyCube::render(){
-	float fAngle = 0;
+	//float fAngle = 0;
 	//fAngle += 0.1f;
 	D3DXMATRIXA16 matWorld, matR, matT;
-	D3DXMatrixRotationY(&matR, fAngle);
+	D3DXMatrixRotationY(&matR, D3DXToRadian(m_fAngleDegree));
 	D3DXMatrixTranslation(&matT, m_vec3Origin.x, m_vec3Origin.y, m_vec3Origin.z);
+
 	matWorld = matR * matT;
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
 

@@ -10,6 +10,7 @@ public:
 
 private:
 	D3DXVECTOR3					m_vec3Origin;
+	float						m_fAngleDegree;
 	std::vector<ST_PC_VERTEX>	m_vecVertex;
 	float						m_fEdgeLength;
 };

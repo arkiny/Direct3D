@@ -51,6 +51,12 @@
     <ClInclude Include="..\Common\cCamera.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="cAxis.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cGrid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -76,6 +82,12 @@
     </ClCompile>
     <ClCompile Include="..\Common\cCamera.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="cAxis.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cGrid.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
