@@ -7,7 +7,7 @@ public:
 	void init();
 	void update(float delta);
 	void render();
-
+	//D3DXVECTOR3& getPos();
 private:
 	D3DXVECTOR3					m_vec3Origin;
 	float						m_fAngleDegree;

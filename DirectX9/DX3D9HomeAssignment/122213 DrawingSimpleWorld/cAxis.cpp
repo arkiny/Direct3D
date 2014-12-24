@@ -112,9 +112,7 @@ void cAxis::init(){
 	}
 	m_vecVertexLineYPyramid = original_payrimid;
 
-	
-	
-	D3DXMatrixRotationZ(&matRotate, D3DXToRadian(270.0f));
+	D3DXMatrixRotationZ(&matRotate, D3DXToRadian(90.0f));
 	
 	matFinal = matRotate;
 	for (UINT i = 0; i < original_payrimid.size(); i++){
@@ -125,7 +123,7 @@ void cAxis::init(){
 	m_vecVertexLineXPyramid = original_payrimid;
 
 	D3DXMatrixIdentity(&matRotate);
-	D3DXMatrixRotationY(&matRotate, D3DXToRadian(270.0f));
+	D3DXMatrixRotationY(&matRotate, D3DXToRadian(90.0f));
 	for (UINT i = 0; i < original_payrimid.size(); i++){
 		original_payrimid[i].c = D3DCOLOR_XRGB(0, 0, 255);
 		D3DXVec3Transform(&new_vec4, &original_payrimid[i].p, &matRotate);
