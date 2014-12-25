@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "122414 MMOCamera.h"
+#include "cMainGame.h"
 
 #define MAX_LOADSTRING 100
 
@@ -10,6 +11,12 @@
 HINSTANCE hInst;								// current instance
 TCHAR szTitle[MAX_LOADSTRING];					// The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
+///
+HWND g_hWnd;
+cMainGame* g_pMainGame;
+cGameTimer* g_pTimer;
+///
+
 
 // Forward declarations of functions included in this code module:
 ATOM				MyRegisterClass(HINSTANCE hInstance);
@@ -40,17 +47,38 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 		return FALSE;
 	}
 
+	g_pMainGame = new cMainGame;
+	g_pMainGame->Init();
+	g_pTimer = new cGameTimer;
+	g_pTimer->Reset();
+
 	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MY122414MMOCAMERA));
 
 	// Main message loop:
-	while (GetMessage(&msg, NULL, 0, 0))
+	while (true)
 	{
-		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
+			if (msg.message == WM_QUIT)
+			{
+				break;
+			}
+			else
+			{
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+			}
+		}
+		else
+		{
+			g_pTimer->Tick();
+			g_pMainGame->Update(g_pTimer->DeltaTime());
+			g_pMainGame->Render();
 		}
 	}
+
+	delete g_pTimer;
+	delete g_pMainGame;
 
 	return (int) msg.wParam;
 }
@@ -107,6 +135,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
 
+   g_hWnd = hWnd;
+
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
@@ -128,6 +158,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	int wmId, wmEvent;
 	PAINTSTRUCT ps;
 	HDC hdc;
+
+	if (g_pMainGame)
+		g_pMainGame->WndProc(hWnd, message, wParam, lParam);
 
 	switch (message)
 	{

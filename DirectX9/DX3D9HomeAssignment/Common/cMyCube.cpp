@@ -4,10 +4,12 @@
 
 
 cMyCube::cMyCube(D3DXVECTOR3 origin, float edgeLength)
+	: m_vecForward(0,0,1)
+	, m_vec3Origin(origin)
+	, m_fEdgeLength(edgeLength)
+	, m_fAngleDegree(0.0f)
+	, m_fSpeed(10.0f)
 {
-	m_vec3Origin = origin;
-	m_fEdgeLength = edgeLength; 
-	m_fAngleDegree = 0.0f;
 }
 
 
@@ -129,25 +131,31 @@ void cMyCube::init(){
 }
 
 void cMyCube::update(float delta){
+	D3DXMATRIXA16 matR;
 	if (GetKeyState('A') & 0x8000){
 		m_fAngleDegree -= 90.0f * delta;
+		D3DXMatrixRotationY(&matR, D3DXToRadian(m_fAngleDegree));
+		m_vecForward = D3DXVECTOR3(0, 0, 1);
+		D3DXVec3TransformNormal(&m_vecForward, &m_vecForward, &matR);
 		//m_vec3Origin.x = m_vec3Origin.x - 10.0f*delta;
 	}
 	if (GetKeyState('D') & 0x8000){
 		m_fAngleDegree += 90.0f * delta;
+		D3DXMatrixRotationY(&matR, D3DXToRadian(m_fAngleDegree));
+		m_vecForward = D3DXVECTOR3(0, 0, 1);
+		D3DXVec3TransformNormal(&m_vecForward, &m_vecForward, &matR);
 		//m_vec3Origin.x = m_vec3Origin.x + 10.0f*delta;
 	}
 	if (GetKeyState('W') & 0x8000){
 		//m_fAngleDegree += 10.0f * delta;
-		m_vec3Origin.y;
-		m_vec3Origin.x = m_vec3Origin.x + 10.0f * delta * sinf(D3DXToRadian(m_fAngleDegree));
-		m_vec3Origin.z = m_vec3Origin.z + 10.0f * delta * cosf(D3DXToRadian(m_fAngleDegree));
+		m_vec3Origin += m_vecForward*m_fSpeed*delta;
 	}
 	if (GetKeyState('S') & 0x8000){
 		//m_fAngleDegree += 10.0f * delta;
-		m_vec3Origin.y;
+		/*m_vec3Origin.y;
 		m_vec3Origin.x = m_vec3Origin.x - 10.0f * delta * sinf(D3DXToRadian(m_fAngleDegree));
-		m_vec3Origin.z = m_vec3Origin.z - 10.0f * delta * cosf(D3DXToRadian(m_fAngleDegree));
+		m_vec3Origin.z = m_vec3Origin.z - 10.0f * delta * cosf(D3DXToRadian(m_fAngleDegree));*/
+		m_vec3Origin -= m_vecForward*m_fSpeed*delta;
 	}
 }
 

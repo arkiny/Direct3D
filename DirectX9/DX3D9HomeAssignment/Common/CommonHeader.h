@@ -1,3 +1,9 @@
+#include <vector>
+#include <list>
+#include <map>
+#include <set>
+#include <string>
+
 #include <d3dx9.h>
 
 #pragma comment(lib, "d3d9.lib")
@@ -36,4 +42,10 @@ struct ST_PC_VERTEX
 	D3DXVECTOR3 p;
 	D3DCOLOR	c;
 	enum { FVF = D3DFVF_XYZ | D3DFVF_DIFFUSE };
+};
+
+struct ST_PT_VERTEX{
+	D3DXVECTOR3 p;
+	D3DXVECTOR2 t;
+	enum { FVF = D3DFVF_XYZ | D3DFVF_TEX1 };
 };

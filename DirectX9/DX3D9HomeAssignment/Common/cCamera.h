@@ -18,6 +18,8 @@ public:
 		_mm_free(p);
 	}
 
+	void movefoward(float speed);
+
 private:
 	float m_fViewRangeX = -10.0f;
 	float m_fViewRangeZ = 2.0f;
