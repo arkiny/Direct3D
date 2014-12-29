@@ -13,7 +13,8 @@ m_cCamera(NULL),
 m_cCharacter(NULL),
 m_bClicked(false)
 {
-	m_mousePos = { 0, 0 };
+	GetCursorPos(&m_mousePos);
+	//m_mousePos = { 0, 0 };
 }
 
 
@@ -110,33 +111,37 @@ void cMainGame::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
 		//	m_pControl->onKeyDown(wParam);
 		//	break;
 
-	case WM_MOUSEMOVE:
+	case WM_MOUSEMOVE:{
 		cControl::GetInstance()->OnMouseMove(lParam);
+		int mX = LOWORD(lParam);
+		int mY = HIWORD(lParam);
 		if (wParam == MK_RBUTTON){
-			int mX = LOWORD(lParam);
-			int mY = HIWORD(lParam);
+			float fDeltaX = (mX - m_mousePos.x) / 10.0f;
+			float fDeltaY = -(mY - m_mousePos.y) / 10.0f;
+
 			if (mX > m_mousePos.x){
-				m_cCamera->rotateX(-4.0f);
+				m_cCamera->rotateX(fDeltaX);
 			}
 			else if (mX < m_mousePos.x){
-				m_cCamera->rotateX(4.0f);
+				m_cCamera->rotateX(fDeltaX);
 			}
 			else {
 				// do nothing
 			}
 			if (mY > m_mousePos.y){
-				m_cCamera->rotateY(-3.0f);
+				m_cCamera->rotateY(fDeltaY);
 			}
 			else if (mY < m_mousePos.y){
-				m_cCamera->rotateY(3.0f);
+				m_cCamera->rotateY(fDeltaY);
 			}
 			else {
 				// do nothing
 			}
-			m_mousePos = { mX, mY };
-		}
-		break;
 
+		}
+		m_mousePos = { mX, mY };
+		break;
+	}
 	case WM_MOUSEWHEEL:
 		if (GET_WHEEL_DELTA_WPARAM(wParam) > 0){
 			// wheel up
