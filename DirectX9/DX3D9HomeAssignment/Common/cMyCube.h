@@ -8,6 +8,7 @@ public:
 	void update(float delta);
 	void render();
 	D3DXVECTOR3& getPosition(){ return m_vec3Origin; }
+
 	//D3DXVECTOR3& getPos();
 private:
 	D3DXVECTOR3					m_vec3Origin;

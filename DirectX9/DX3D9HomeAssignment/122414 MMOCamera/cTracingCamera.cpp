@@ -149,3 +149,16 @@ void cTracingCamera::updatePosition(D3DXVECTOR3& objPos){
 	D3DXMatrixLookAtLH(&matView, &m_vEye, &m_vLookAt, &m_vUp);
 	g_pD3DDevice->SetTransform(D3DTS_VIEW, &matView);
 }
+
+void cTracingCamera::backlook(D3DXVECTOR3& objfoward){
+	D3DXVECTOR3 m_normal;
+	D3DXVec3Normalize(&m_normal, &objfoward);
+
+	m_vEye = m_vLookAt - (m_normal * 10.0f);
+	m_vlength = m_vEye - m_vLookAt;
+	m_fAngleDegree = 0.0f;
+
+	D3DXMATRIXA16 matView;
+	D3DXMatrixLookAtLH(&matView, &m_vEye, &m_vLookAt, &m_vUp);
+	g_pD3DDevice->SetTransform(D3DTS_VIEW, &matView);
+}

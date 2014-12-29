@@ -55,6 +55,11 @@ void cMainGame::Init(){
 void cMainGame::Update(float delta){
 	m_cCamera->updatePosition(m_cCharacter->getPosition());
 	m_cCharacter->update(delta);
+
+	if (GetKeyState(VK_SPACE) & 0x8000){
+		//m_fAngleDegree += 10.0f * delta;
+		m_cCamera->backlook(m_cCharacter->getForward());
+	}
 }
 
 void cMainGame::Render(){
