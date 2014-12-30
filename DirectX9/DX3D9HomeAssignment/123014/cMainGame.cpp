@@ -40,6 +40,7 @@ void cMainGame::Init(){
 
 	m_cCharacter = new cCharacter;
 	m_cCharacter->init();
+	m_cCharacter->setPosition(D3DXVECTOR3(0.0, 4.5f, 0.0f));
 
 	D3DXMATRIX matProj;
 	D3DVIEWPORT9 vp;
