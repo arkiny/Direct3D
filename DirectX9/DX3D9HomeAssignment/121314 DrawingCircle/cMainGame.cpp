@@ -15,8 +15,8 @@ cMainGame::~cMainGame(void)
 {
 	delete m_cCircle1;
 	delete m_cCircle2;
-	SAFE_RELESE(m_pTexture);
-	//SAFE_RELESE(v_buffer);
+	SAFE_RELEASE(m_pTexture);
+	//SAFE_RELEASE(v_buffer);
 	cDeviceManager* pDevice = cDeviceManager::GetInstance();
 	pDevice->Destroy();
 }

@@ -32,7 +32,7 @@
 
 extern HWND g_hWnd;
 
-#define SAFE_RELESE(p) if(p){p->Release(); p = NULL;}
+#define SAFE_RELEASE(p) if(p){p->Release(); p = NULL;}
 
 #define SINGLETONE(class_name) private: class_name(void); ~class_name(void); \
 public: static class_name* GetInstance() { static class_name instance; return &instance; }

@@ -45,6 +45,6 @@ cDeviceManager::~cDeviceManager(void)
 
 void cDeviceManager::Destroy()
 {
-	SAFE_RELESE(m_pD3D);
-	SAFE_RELESE(m_pD3DDevice);
+	SAFE_RELEASE(m_pD3D);
+	SAFE_RELEASE(m_pD3DDevice);
 }

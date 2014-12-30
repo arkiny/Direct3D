@@ -22,7 +22,7 @@ m_vecForward(0,0,1)
 
 cCharacter::~cCharacter()
 {
-	SAFE_RELESE(m_pTexture);
+	SAFE_RELEASE(m_pTexture);
 }
 
 void cCharacter::init(){

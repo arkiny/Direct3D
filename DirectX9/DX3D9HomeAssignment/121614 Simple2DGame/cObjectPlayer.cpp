@@ -24,9 +24,9 @@ cObjectPlayer::cObjectPlayer()
 
 cObjectPlayer::~cObjectPlayer()
 {
-	SAFE_RELESE(m_pTextureST);
-	SAFE_RELESE(m_pTextureL);
-	SAFE_RELESE(m_pTextureR);
+	SAFE_RELEASE(m_pTextureST);
+	SAFE_RELEASE(m_pTextureL);
+	SAFE_RELEASE(m_pTextureR);
 	delete m_pColisionCircle;
 }
 

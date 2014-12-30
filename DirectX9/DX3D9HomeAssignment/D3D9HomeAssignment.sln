@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "122313 DrawingSimpleWorld",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "122414 MMOCamera", "122414 MMOCamera\122414 MMOCamera.vcxproj", "{C1D102E4-D4A7-45CF-8F8E-FFA592D762C5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "123014 CharacterAnimation", "123014\123014.vcxproj", "{B48E755C-AEE9-4229-BDDC-33590752DA83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -39,6 +41,10 @@ Global
 		{C1D102E4-D4A7-45CF-8F8E-FFA592D762C5}.Debug|Win32.Build.0 = Debug|Win32
 		{C1D102E4-D4A7-45CF-8F8E-FFA592D762C5}.Release|Win32.ActiveCfg = Release|Win32
 		{C1D102E4-D4A7-45CF-8F8E-FFA592D762C5}.Release|Win32.Build.0 = Release|Win32
+		{B48E755C-AEE9-4229-BDDC-33590752DA83}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B48E755C-AEE9-4229-BDDC-33590752DA83}.Debug|Win32.Build.0 = Debug|Win32
+		{B48E755C-AEE9-4229-BDDC-33590752DA83}.Release|Win32.ActiveCfg = Release|Win32
+		{B48E755C-AEE9-4229-BDDC-33590752DA83}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

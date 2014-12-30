@@ -104,11 +104,11 @@ cMainGame::~cMainGame(void)
 	}
 
 	for (int i = 0; i < 6; i++){
-		SAFE_RELESE(m_pArrShitTexture[i]);
+		SAFE_RELEASE(m_pArrShitTexture[i]);
 	}
 	//delete m_oShit;
-	//SAFE_RELESE(m_pTexture);
-	//SAFE_RELESE(v_buffer);
+	//SAFE_RELEASE(m_pTexture);
+	//SAFE_RELEASE(v_buffer);
 	cDeviceManager* pDevice = cDeviceManager::GetInstance();
 	pDevice->Destroy();
 }
