@@ -438,8 +438,10 @@ void cCube::render(){
 	D3DXMatrixRotationY(&matR, m_fAngle);
 	D3DXMatrixTranslation(&matT, m_vPosition.x, m_vPosition.y, m_vPosition.z);
 	matWorld = matR * matT;
+
 	if (m_worldMatrix)
 		matWorld = matWorld * (*m_worldMatrix);
+	
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	g_pD3DDevice->SetFVF(ST_PT_VERTEX::FVF);
