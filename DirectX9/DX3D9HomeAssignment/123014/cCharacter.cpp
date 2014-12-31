@@ -43,13 +43,13 @@ void cCharacter::init(){
 
 	p = new cCube;
 	p->init(1.0f, 3.0f, 1.0f, cCube::Cube_Part::PT_arm_left); // actually right
-	p->setPosition(D3DXVECTOR3(m_vPosition.x+1.5f, 0, 0));
+	p->setPosition(D3DXVECTOR3(m_vPosition.x-1.5f, 0, 0));
 	p->SetTexture(m_pTexture);
 	m_vecCube.push_back(p);
 
 	p = new cCube;
 	p->init(1.0f, 3.0f, 1.0f, cCube::Cube_Part::PT_arm_right); // actually right
-	p->setPosition(D3DXVECTOR3(m_vPosition.x- 1.5f, 0, 0));
+	p->setPosition(D3DXVECTOR3(m_vPosition.x+ 1.5f, 0, 0));
 	p->SetTexture(m_pTexture);
 	m_vecCube.push_back(p);
 

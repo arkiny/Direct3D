@@ -23,7 +23,6 @@ private:
 	cCharacter* m_cCharacter;
 	cTracingCamera* m_cCamera;
 
-	bool m_bClicked;
 	POINT m_mousePos;
 };
 

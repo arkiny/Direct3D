@@ -22,8 +22,6 @@ cCube::~cCube()
 void cCube::init(float fWidth, float fHeight, float fDepth, Cube_Part type){
 	m_eType = type;
 
-
-
 	ST_PT_VERTEX v;
 	D3DXMATRIXA16 matScale, matRotate, matTrans, matFinal;
 
@@ -204,30 +202,35 @@ void cCube::init(float fWidth, float fHeight, float fDepth, Cube_Part type){
 		m_vecVertex[3].t = D3DXVECTOR2(704.0f / 1024.0f, 512.0f / 512.0f);
 		m_vecVertex[4].t = D3DXVECTOR2(768.0f / 1024.0f, 320.0f / 512.0f);
 		m_vecVertex[5].t = D3DXVECTOR2(768.0f / 1024.0f, 512.0f / 512.0f);
-		m_vecVertex[6].t = D3DXVECTOR2(768.0f / 1024.0f, 320.0f / 512.0f);
-		m_vecVertex[7].t = D3DXVECTOR2(832.0f / 1024.0f, 320.0f / 512.0f);
-		m_vecVertex[8].t = D3DXVECTOR2(768.0f / 1024.0f, 512.0f / 512.0f);
-		m_vecVertex[9].t = D3DXVECTOR2(768.0f / 1024.0f, 512.0f / 512.0f);
-		m_vecVertex[10].t = D3DXVECTOR2(832.0f / 1024.0f, 320.0f / 512.0f);
-		m_vecVertex[11].t = D3DXVECTOR2(768.0f / 1024.0f, 512.0f / 512.0f);
+		
+		m_vecVertex[6].t = D3DXVECTOR2(640.0f / 1024.0f, 320.0f / 512.0f);
+		m_vecVertex[7].t = D3DXVECTOR2(704.0f / 1024.0f, 320.0f / 512.0f);
+		m_vecVertex[8].t = D3DXVECTOR2(640.0f / 1024.0f, 512.0f / 512.0f);
+		m_vecVertex[9].t = D3DXVECTOR2(640.0f / 1024.0f, 512.0f / 512.0f);
+		m_vecVertex[10].t = D3DXVECTOR2(704.0f / 1024.0f, 320.0f / 512.0f);
+		m_vecVertex[11].t = D3DXVECTOR2(704.0f / 1024.0f, 512.0f / 512.0f);
+		
 		m_vecVertex[12].t = D3DXVECTOR2(832.0f / 1024.0f, 320.0f / 512.0f);
 		m_vecVertex[13].t = D3DXVECTOR2(896.0f / 1024.0f, 320.0f / 512.0f);
 		m_vecVertex[14].t = D3DXVECTOR2(832.0f / 1024.0f, 512.0f / 512.0f);
 		m_vecVertex[15].t = D3DXVECTOR2(832.0f / 1024.0f, 512.0f / 512.0f);
 		m_vecVertex[16].t = D3DXVECTOR2(896.0f / 1024.0f, 320.0f / 512.0f);
 		m_vecVertex[17].t = D3DXVECTOR2(896.0f / 1024.0f, 512.0f / 512.0f);
-		m_vecVertex[18].t = D3DXVECTOR2(640.0f / 1024.0f, 320.0f / 512.0f);
-		m_vecVertex[19].t = D3DXVECTOR2(704.0f / 1024.0f, 320.0f / 512.0f);
-		m_vecVertex[20].t = D3DXVECTOR2(640.0f / 1024.0f, 512.0f / 512.0f);
-		m_vecVertex[21].t = D3DXVECTOR2(640.0f / 1024.0f, 512.0f / 512.0f);
-		m_vecVertex[22].t = D3DXVECTOR2(704.0f / 1024.0f, 320.0f / 512.0f);
-		m_vecVertex[23].t = D3DXVECTOR2(704.0f / 1024.0f, 512.0f / 512.0f);
-		m_vecVertex[24].t = D3DXVECTOR2(704.0f / 1024.0f, (128.0f * 2) / 512.0f);
-		m_vecVertex[25].t = D3DXVECTOR2(768.0f / 1024.0f, (128.0f * 2) / 512.0f);
-		m_vecVertex[26].t = D3DXVECTOR2(704.0f / 1024.0f, 320.0f / 512.0f);
-		m_vecVertex[27].t = D3DXVECTOR2(704.0f / 1024.0f, 320.0f / 512.0f);
-		m_vecVertex[28].t = D3DXVECTOR2(768.0f / 1024.0f, (128.0f * 2) / 512.0f);
-		m_vecVertex[29].t = D3DXVECTOR2(768.0f / 1024.0f, 320.0f / 512.0f);
+		
+		m_vecVertex[18].t = D3DXVECTOR2(768.0f / 1024.0f, 320.0f / 512.0f);
+		m_vecVertex[19].t = D3DXVECTOR2(832.0f / 1024.0f, 320.0f / 512.0f);
+		m_vecVertex[20].t = D3DXVECTOR2(768.0f / 1024.0f, 512.0f / 512.0f);
+		m_vecVertex[21].t = D3DXVECTOR2(768.0f / 1024.0f, 512.0f / 512.0f);
+		m_vecVertex[22].t = D3DXVECTOR2(832.0f / 1024.0f, 320.0f / 512.0f);
+		m_vecVertex[23].t = D3DXVECTOR2(768.0f / 1024.0f, 512.0f / 512.0f);
+		
+		m_vecVertex[24].t = D3DXVECTOR2(768.0f / 1024.0f, (128.0f * 2) / 512.0f);
+		m_vecVertex[25].t = D3DXVECTOR2(704.0f / 1024.0f, (128.0f * 2) / 512.0f);
+		m_vecVertex[26].t = D3DXVECTOR2(768.0f / 1024.0f, 320.0f / 512.0f);
+		m_vecVertex[27].t = D3DXVECTOR2(768.0f / 1024.0f, 320.0f / 512.0f);
+		m_vecVertex[28].t = D3DXVECTOR2(704.0f / 1024.0f, (128.0f * 2) / 512.0f);
+		m_vecVertex[29].t = D3DXVECTOR2(704.0f / 1024.0f, 320.0f / 512.0f);
+
 		m_vecVertex[30].t = D3DXVECTOR2(768.0f / 1024.0f, (128.0f * 2) / 512.0f);
 		m_vecVertex[31].t = D3DXVECTOR2(832.0f / 1024.0f, (128.0f * 2) / 512.0f);
 		m_vecVertex[32].t = D3DXVECTOR2(768.0f / 1024.0f, 320.0f / 512.0f);
@@ -393,9 +396,9 @@ void cCube::update(float delta){
 			break;
 		case cCube::PT_arm_left:
 			D3DXMatrixTranslation(&matT, 0, -2.0f, 0);
-			D3DXMatrixRotationX(&matR, D3DXToRadian(-m_fShakingAngleUnit));
+			D3DXMatrixRotationX(&matR, D3DXToRadian(m_fShakingAngleUnit));
 			D3DXMatrixTranslation(&matT2, 0, 2.0f, 0);
-			m_fShakingAngle += -m_fShakingAngleUnit * delta;
+			m_fShakingAngle += m_fShakingAngleUnit * delta;
 			if (m_fShakingAngle > 0.5f || m_fShakingAngle < -0.5f){
 				m_fShakingAngleUnit *= -1;
 			}
@@ -406,9 +409,9 @@ void cCube::update(float delta){
 			break;
 		case cCube::PT_arm_right:
 			D3DXMatrixTranslation(&matT, 0, -2.0f, 0);
-			D3DXMatrixRotationX(&matR, D3DXToRadian(m_fShakingAngleUnit));
+			D3DXMatrixRotationX(&matR, D3DXToRadian(-m_fShakingAngleUnit));
 			D3DXMatrixTranslation(&matT2, 0, 2.0f, 0);
-			m_fShakingAngle += m_fShakingAngleUnit * delta;
+			m_fShakingAngle += -m_fShakingAngleUnit * delta;
 			if (m_fShakingAngle > 0.5f || m_fShakingAngle < -0.5f){
 				m_fShakingAngleUnit *= -1;
 			}

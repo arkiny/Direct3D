@@ -9,8 +9,7 @@ cMainGame::cMainGame() :
 m_cAxis(NULL),
 m_cGrid(NULL),
 m_cCamera(NULL),
-m_cCharacter(NULL),
-m_bClicked(false)
+m_cCharacter(NULL)
 {
 	GetCursorPos(&m_mousePos);
 	//m_mousePos = { 0, 0 };
