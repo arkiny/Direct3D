@@ -31,7 +31,7 @@ private:
 	std::vector<gIObject*> m_vecBox;
 
 	int			m_nScore = 0;
-	float		m_fTimeLeft = 15.0f;
+	float		m_fTimeLeft = 5000.0f;
 
 	cPlayer* m_pPlayer;
 	//cCharacter* m_cCharacter;

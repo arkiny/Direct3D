@@ -6,7 +6,7 @@
 
 cPlayer::cPlayer()
 	: m_eCurrAnim(E_ANIM_IDLE)
-	, m_vPosition(0, 0, 0)
+	, m_vPosition(0, 4.5f, 0)
 	, m_vForward(0, 0, 1)
 	, m_fAngle(0.0f)
 	, m_fSpeed(10.0f)
@@ -114,7 +114,7 @@ void cPlayer::Update(float delta){
 	else if (m_eCurrAnim == E_ANIM_ATTACK){	// 공격중인 상태일때
 		m_fAttackAnimationTime += delta;
 	
-		if (m_fAttackAnimationTime > 0.125f && m_bAttacked == false){
+		if (m_fAttackAnimationTime > 0.180f && m_bAttacked == false){
 			// Attack triggered (callback) 0.125sec
 			m_bAttacked = true;
 			m_pGame->CollisionCheck(this);

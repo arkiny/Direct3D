@@ -3,7 +3,7 @@
 
 
 cBox::cBox()
-	:m_vPosition(0,0,0),
+	:m_vPosition(0, 2.5f, 0),
 	m_stGridPosition(0,0,0)
 {
 }

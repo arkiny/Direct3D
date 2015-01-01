@@ -99,7 +99,7 @@ void cAxis::init(){
 
 	v.p = D3DXVECTOR3(-1, -4, 1);
 	original_payrimid.push_back(v);
-
+ 
 	D3DXMATRIXA16 matRotate;
 	D3DXMATRIXA16 matScaling;
 	D3DXMATRIXA16 matFinal;
