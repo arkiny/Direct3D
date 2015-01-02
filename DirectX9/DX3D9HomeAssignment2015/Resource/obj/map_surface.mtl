@@ -1,0 +1,34 @@
+# Max2Mtl Version 4.0 Mar 10th, 2001
+#
+newmtl 09_-_Default
+Ka  0.2 0.4 0.9
+Kd  0.2 0.4 0.9
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.5
+illum 2
+map_Kd seafloor.dds
+#
+# Multi/Sub Material__14 (2) to come 
+#
+newmtl 13_-_Default
+Ka  0.2 0.1 0.7
+Kd  0.2 0.1 0.7
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  4.6
+illum 2
+map_Kd seafloor.dds
+#
+newmtl 09_-_Default
+Ka  0.2 0.4 0.9
+Kd  0.2 0.4 0.9
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  3.5
+illum 2
+map_Kd seafloor.dds
+#
+# Multi/Sub Material__14 done 
+#
+# EOF
