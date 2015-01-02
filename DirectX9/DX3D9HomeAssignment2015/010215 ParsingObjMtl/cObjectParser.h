@@ -27,6 +27,5 @@ private:
 	std::string m_sFileName;
 	obj_t m_stObjectInfo;
 	std::vector<ST_PNT_VERTEX> m_vecVertex;
-
 };
 
