@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DX3D9HomeAssignment2015", "DX3D9HomeAssignment2015\DX3D9HomeAssignment2015.vcxproj", "{E2BA3D42-D9A9-4105-A1E3-55542929B254}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "010115 Simple3DGame", "DX3D9HomeAssignment2015\DX3D9HomeAssignment2015.vcxproj", "{E2BA3D42-D9A9-4105-A1E3-55542929B254}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "010215 ParsingObj", "010215 ParsingObjMtl\010214 ParsingObjMtl.vcxproj", "{06BD99BE-4340-4867-A6F9-A2B2660252D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{E2BA3D42-D9A9-4105-A1E3-55542929B254}.Debug|Win32.Build.0 = Debug|Win32
 		{E2BA3D42-D9A9-4105-A1E3-55542929B254}.Release|Win32.ActiveCfg = Release|Win32
 		{E2BA3D42-D9A9-4105-A1E3-55542929B254}.Release|Win32.Build.0 = Release|Win32
+		{06BD99BE-4340-4867-A6F9-A2B2660252D9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{06BD99BE-4340-4867-A6F9-A2B2660252D9}.Debug|Win32.Build.0 = Debug|Win32
+		{06BD99BE-4340-4867-A6F9-A2B2660252D9}.Release|Win32.ActiveCfg = Release|Win32
+		{06BD99BE-4340-4867-A6F9-A2B2660252D9}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
