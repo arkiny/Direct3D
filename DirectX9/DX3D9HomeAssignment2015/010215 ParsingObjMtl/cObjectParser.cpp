@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "cObjectParser.h"
 
+#include <sstream>
+
+using namespace std;
+
 //#include <fstream>
 //#include <sstream>
 //#include <queue>
@@ -12,9 +16,15 @@ cObjectParser::cObjectParser(const char* fileName)
 	m_sFileName = fileName;
 }
 
-
 cObjectParser::~cObjectParser()
 {
+	std::map<std::string, LPDIRECT3DTEXTURE9>::iterator itr = m_mapTextureList.begin();
+	while (itr != m_mapTextureList.end()) {
+		std::map<std::string, LPDIRECT3DTEXTURE9>::iterator toErase = itr;
+		++itr;
+		SAFE_RELEASE(toErase->second);
+		m_mapTextureList.erase(toErase);
+	}
 }
 
 void cObjectParser::LoadAndParse(){
@@ -31,20 +41,38 @@ void cObjectParser::LoadAndParse(){
 #endif
 	
 	char* mtlPath = new char[1024];
+	FiNalObjectInfo ret;
 	
+	ZeroMemory(&ret.fileName, sizeof(ret.fileName));
+	ZeroMemory(&ret.stMTL, sizeof(ret.stMTL));
+	ZeroMemory(&ret.m_vecVertex, sizeof(ret.m_vecVertex));
+
+	bool firstflag = false;
 	while (!feof(fp)){
 		// 줄별로 로딩
-		fgets(buffer, sizeof(buffer), fp);
+		fgets(buffer, szbuffer, fp);
 		if (buffer[0] == '#'){
 			continue;
 		}
 		else if (buffer[0] == 'm'){
 			sscanf_s(buffer, "%*s %s", mtlPath, szbuffer);
-			//string folder = "../Resource/obj"
-			//LoadMaterial(mtlPath);
+			std::string folder = "../Resource/obj/";
+			folder.append(mtlPath);
+			LoadMaterial(folder.c_str());
 		}
 		else if (buffer[0] == 'g'){
-			continue;
+			std::string mtln(buffer);
+			int i = mtln.size();
+			if (firstflag){
+				if (mtln.size() == 2 || mtln.size() == 1){
+					ret.m_vecVertex = m_vecVertex;
+					m_objectInfo.push_back(ret);
+					m_vecVertex.clear();
+				}
+				else {
+				}
+			}
+			firstflag = true;
 		}
 		else if (buffer[0] == 'v'){
 			if (buffer[1] == ' '){
@@ -65,21 +93,27 @@ void cObjectParser::LoadAndParse(){
 			}
 		}
 		else if (buffer[0] == 'u'){
-			continue;
-			// @todo mtl info 
+			char* mtlName = new char[1024];
+			sscanf_s(buffer, "%*s %s", mtlName, szbuffer);
+			std::string mtln(mtlName);
+			mtl_t info = m_mtlInfo.at(mtln);
+
+			ret.stMTL = info.stMTL;
+			ret.fileName = info.fileName;
+			delete[] mtlName;
 		}
 		else if (buffer[0] == 'f'){
 			ST_PNT_VERTEX vertex;
 			int vp, vt, vn;
-			char d1[sizeof(UINT)];
-			char d2[sizeof(UINT)];
-			char d3[sizeof(UINT)];
-			char d4[sizeof(UINT)];
-			char d5[sizeof(UINT)];
-			char d6[sizeof(UINT)];
-			char d7[sizeof(UINT)];
-			char d8[sizeof(UINT)];
-			char d9[sizeof(UINT)];
+			char d1[10];
+			char d2[10];
+			char d3[10];
+			char d4[10];
+			char d5[10];
+			char d6[10];
+			char d7[10];
+			char d8[10];
+			char d9[10];
 
 			sscanf(buffer, 
 				"%*s %[^'/']/%[^'/']/%[^'/'' '] %[^'/']/%[^'/']/%[^'/'' '] %[^'/']/%[^'/']/%[^'/'' '] ", 
@@ -205,12 +239,14 @@ void cObjectParser::LoadMaterial(const char* fileName){
 #ifdef _DEBUG
 	_ASSERT(!err && "file read err");
 #endif
-
-	//D3DMATERIAL9 stMTL;
+		
 	//LPD3DXMATERIAL pMTL;
+	
+	mtl_t m;
 	while (!feof(fp)){
 		// 줄별로 로딩
 		fgets(buffer, sizeof(buffer), fp);
+		
 		if (buffer[0] == '#'){
 			continue;
 		}
@@ -218,17 +254,17 @@ void cObjectParser::LoadMaterial(const char* fileName){
 			if (buffer[1] == 'a'){
 				float r, g, b;
 				sscanf_s(buffer, "%*s %f %f %f", &r, &g, &b);
-				stMTL2.MatD3D.Ambient = D3DXCOLOR(r, g, b, 1.0f);
+				m.stMTL.Ambient = D3DXCOLOR(r, g, b, 1.0f);
 			}
 			else if (buffer[1] == 'd'){
 				float r, g, b;
 				sscanf_s(buffer, "%*s %f %f %f", &r, &g, &b);
-				stMTL2.MatD3D.Diffuse = D3DXCOLOR(r, g, b, 1.0f);
+				m.stMTL.Diffuse = D3DXCOLOR(r, g, b, 1.0f);
 			}
 			else if (buffer[1] == 's'){
 				float r, g, b;
 				sscanf_s(buffer, "%*s %f %f %f", &r, &g, &b);
-				stMTL2.MatD3D.Specular = D3DXCOLOR(r, g, b, 1.0f);
+				m.stMTL.Specular = D3DXCOLOR(r, g, b, 1.0f);
 			}
 		}
 		else if (buffer[0] == 'd'){
@@ -240,10 +276,61 @@ void cObjectParser::LoadMaterial(const char* fileName){
 		else if (buffer[0] == 'i'){
 			continue;
 		}
+		else if (buffer[0] == 'n'){
+			char* mtlName = new char[1024];
+			sscanf_s(buffer, "%*s %s", mtlName, szbuffer);
+			std::string mtln(mtlName);
+			
+			m.mtlName = mtln;
+
+			delete[] mtlName;
+		}
 		else if (buffer[0] == 'm'){
-			char filePath[1024];
-			sscanf_s(buffer, "%*s %s", filePath);
-			stMTL2.pTextureFilename = filePath;
+			char* filePath = new char[1024];
+			sscanf_s(buffer, "%*s %s", filePath, szbuffer);
+			std::string p(filePath);
+			delete[] filePath;
+			filePath = NULL;
+
+			m.fileName = p;
+
+			//stMTL2.pTextureFilename = filePath;
+			//std::wstring fileName(filePath);
+			//_tcscpy_s(szProxyAddr, CA2T(internetprotocol.c_str()));
+			//#include <atlstr.h>
+			//_tcscpy_s(wfilePath, CA2T(p.c_str()));
+			//mbstowcs(wfilePath, p.c_str(), p.size());
+			//TCHAR* wfilePath = new TCHAR[512];
+
+			TCHAR *param = new TCHAR[p.size() + 1];
+			param[p.size()] = 0;
+			std::copy(p.begin(), p.end(), param);
+			std::wstring wFolder(L"../Resource/obj/");
+			std::wstring wPath(param);
+			wPath = wFolder + wPath;
+			delete[] param;
+			param = NULL;
+			
+			if (m_mapTextureList.count(p) >= 1){
+				// already loaded
+				LPDIRECT3DTEXTURE9 point = m_mapTextureList.at(p);
+				m_mtlInfo.insert(pair<string, mtl_t>(m.mtlName, m));
+			}
+			else {
+				LPDIRECT3DTEXTURE9 pTexture;
+				HRESULT hr = D3DXCreateTextureFromFile(
+					g_pD3DDevice,
+					wPath.c_str(),
+					&pTexture);
+#ifdef _DEBUG
+				_ASSERT(hr == S_OK);
+#endif
+				m_mapTextureList.insert(
+					pair<string, LPDIRECT3DTEXTURE9>(p, pTexture));
+				m_mtlInfo.insert(pair<string, mtl_t>(m.mtlName, m));
+			}
+			
+			
 		}
 	}
 }

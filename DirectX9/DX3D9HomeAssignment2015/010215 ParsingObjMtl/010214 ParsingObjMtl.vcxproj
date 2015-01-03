@@ -89,9 +89,12 @@
     <ClInclude Include="cBoxfromFile.h" />
     <ClInclude Include="cCamera.h" />
     <ClInclude Include="cMainGame.h" />
+    <ClInclude Include="cObject.h" />
+    <ClInclude Include="cObjectFromParser.h" />
     <ClInclude Include="cObjectParser.h" />
     <ClInclude Include="cPart.h" />
     <ClInclude Include="cPlayer.h" />
+    <ClInclude Include="cPyramid.h" />
     <ClInclude Include="DX3D9HomeAssignment2015.h" />
     <ClInclude Include="gIObject.h" />
     <ClInclude Include="Resource.h" />
@@ -107,9 +110,12 @@
     <ClCompile Include="cBoxfromFile.cpp" />
     <ClCompile Include="cCamera.cpp" />
     <ClCompile Include="cMainGame.cpp" />
+    <ClCompile Include="cObject.cpp" />
+    <ClCompile Include="cObjectFromParser.cpp" />
     <ClCompile Include="cObjectParser.cpp" />
     <ClCompile Include="cPart.cpp" />
     <ClCompile Include="cPlayer.cpp" />
+    <ClCompile Include="cPyramid.cpp" />
     <ClCompile Include="DX3D9HomeAssignment2015.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

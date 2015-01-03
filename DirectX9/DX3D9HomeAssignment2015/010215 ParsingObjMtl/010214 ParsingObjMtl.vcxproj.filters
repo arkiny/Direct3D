@@ -38,6 +38,9 @@
     <ClCompile Include="cBoxfromFile.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+    <ClCompile Include="cObjectFromParser.cpp" />
+    <ClCompile Include="cObject.cpp" />
+    <ClCompile Include="cPyramid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cObjectParser.h" />
@@ -87,6 +90,9 @@
     <ClInclude Include="cBoxfromFile.h">
       <Filter>Objects</Filter>
     </ClInclude>
+    <ClInclude Include="cObjectFromParser.h" />
+    <ClInclude Include="cObject.h" />
+    <ClInclude Include="cPyramid.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX3D9HomeAssignment2015.rc" />
