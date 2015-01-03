@@ -37,7 +37,7 @@ private:
 	int			m_nScore = 0;
 	float		m_fTimeLeft = 30.0f;
 
-	//cPlayer* m_pPlayer;
+	cPlayer* m_pPlayer;
 	//cBoxfromFile* m_pBoxFile;
 	//cCharacter* m_cCharacter;
 	cAxis* m_cAxis;

@@ -9,7 +9,7 @@ cPlayer::cPlayer()
 	, m_vPosition(0, 4.5f, 0)
 	, m_vForward(0, 0, 1)
 	, m_fAngle(0.0f)
-	, m_fSpeed(10.0f)
+	, m_fSpeed(100.0f)
 	, m_pRoot(NULL)
 	, m_pGame(NULL)
 {

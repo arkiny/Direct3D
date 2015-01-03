@@ -20,9 +20,9 @@ m_cCamera(NULL),
 m_pObject(NULL),
 m_pObject2(NULL),
 m_pObject3(NULL),
-m_pPyramid(NULL)/*,
-m_pPlayer(NULL),
-m_pBoxFile(NULL)*/
+m_pPyramid(NULL),
+m_pPlayer(NULL)
+/*m_pBoxFile(NULL)*/
 {
 	srand(GetTickCount());
 	GetCursorPos(&m_mousePos);
@@ -39,7 +39,7 @@ cMainGame::~cMainGame()
 	SAFE_RELEASE(m_pFont);
 	SAFE_DELETE(m_pPyramid);
 	//SAFE_DELETE(m_pBoxFile)
-	//SAFE_DELETE(m_pPlayer);
+	SAFE_DELETE(m_pPlayer);
 	SAFE_DELETE(m_pObject);
 	SAFE_DELETE(m_pObject2);
 	SAFE_DELETE(m_pObject3);
@@ -57,8 +57,8 @@ void cMainGame::Init(){
 	m_cGrid = new cGrid(100.0f, 100);
 	m_cGrid->init();
 
-//	m_pPlayer = new cPlayer;
-//	m_pPlayer->Setup(this);
+	m_pPlayer = new cPlayer;
+	m_pPlayer->Setup(this);
 ////	m_cCharacter->setPosition(D3DXVECTOR3(0.0, 4.5f, 0.0f));
 //
 //	m_pBoxFile = new cBoxfromFile;
@@ -66,7 +66,7 @@ void cMainGame::Init(){
 
 	m_cCamera = new cCamera;
 	m_cCamera->Setup();
-	//m_cCamera->SetTarget(&m_pPlayer->GetPosition());
+	m_cCamera->SetTarget(&m_pPlayer->GetPosition());
 	
 	D3DXMATRIX matS, matR, matT, matF;
 
@@ -178,7 +178,7 @@ void cMainGame::Update(float delta){
 	//	}
 	//}
 	//
-	//m_pPlayer->Update(delta);
+	m_pPlayer->Update(delta);
 	m_cCamera->Update();
 }
 
@@ -200,6 +200,7 @@ void cMainGame::Render(){
 	m_pObject2->render();
 	m_pObject3->render();
 	m_pPyramid->render();
+	m_pPlayer->Render();
 	//for (auto box : m_vecBox){
 	//	box->render();
 	//}

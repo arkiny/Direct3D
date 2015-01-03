@@ -14,8 +14,6 @@ cPyramid::~cPyramid()
 void cPyramid::setup(){
 	// pyramid
 	std::vector<ST_PN_VERTEX> original_payrimid;
-
-
 	std::vector<ST_PN_VERTEX> plane;
 	ST_PN_VERTEX v;
 
