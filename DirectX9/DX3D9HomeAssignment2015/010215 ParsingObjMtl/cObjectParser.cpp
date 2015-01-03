@@ -25,12 +25,13 @@ void cObjectParser::LoadAndParse(){
 	errno_t err;
 
 	err = fopen_s(&fp, m_sFileName.c_str(), "r");
+
 #ifdef _DEBUG
 	_ASSERT(!err && "file read err");
 #endif
 	
 	char* mtlPath = new char[1024];
-
+	
 	while (!feof(fp)){
 		// 줄별로 로딩
 		fgets(buffer, sizeof(buffer), fp);
@@ -39,6 +40,8 @@ void cObjectParser::LoadAndParse(){
 		}
 		else if (buffer[0] == 'm'){
 			sscanf_s(buffer, "%*s %s", mtlPath, szbuffer);
+			//string folder = "../Resource/obj"
+			//LoadMaterial(mtlPath);
 		}
 		else if (buffer[0] == 'g'){
 			continue;
@@ -80,7 +83,7 @@ void cObjectParser::LoadAndParse(){
 
 			sscanf(buffer, 
 				"%*s %[^'/']/%[^'/']/%[^'/'' '] %[^'/']/%[^'/']/%[^'/'' '] %[^'/']/%[^'/']/%[^'/'' '] ", 
-				d1, d2, d3, d4, d5, d6, d7, d8, d9, szbuffer);
+				d1, d2, d3, d4, d5, d6, d7, d8, d9);
 
 			vp = atoi(d1) - 1;
 			vt = atoi(d2) - 1;
@@ -189,4 +192,58 @@ void cObjectParser::LoadAndParse(){
 	//		}
 	//	}
 	//}
+}
+
+void cObjectParser::LoadMaterial(const char* fileName){
+	char buffer[1024];
+	size_t szbuffer(sizeof(buffer));
+	FILE* fp;
+	errno_t err;
+
+	err = fopen_s(&fp, fileName, "r");
+
+#ifdef _DEBUG
+	_ASSERT(!err && "file read err");
+#endif
+
+	//D3DMATERIAL9 stMTL;
+	//LPD3DXMATERIAL pMTL;
+	while (!feof(fp)){
+		// 줄별로 로딩
+		fgets(buffer, sizeof(buffer), fp);
+		if (buffer[0] == '#'){
+			continue;
+		}
+		else if (buffer[0] == 'K'){
+			if (buffer[1] == 'a'){
+				float r, g, b;
+				sscanf_s(buffer, "%*s %f %f %f", &r, &g, &b);
+				stMTL2.MatD3D.Ambient = D3DXCOLOR(r, g, b, 1.0f);
+			}
+			else if (buffer[1] == 'd'){
+				float r, g, b;
+				sscanf_s(buffer, "%*s %f %f %f", &r, &g, &b);
+				stMTL2.MatD3D.Diffuse = D3DXCOLOR(r, g, b, 1.0f);
+			}
+			else if (buffer[1] == 's'){
+				float r, g, b;
+				sscanf_s(buffer, "%*s %f %f %f", &r, &g, &b);
+				stMTL2.MatD3D.Specular = D3DXCOLOR(r, g, b, 1.0f);
+			}
+		}
+		else if (buffer[0] == 'd'){
+			continue;
+		}
+		else if (buffer[0] == 'N'){
+			continue;
+		}
+		else if (buffer[0] == 'i'){
+			continue;
+		}
+		else if (buffer[0] == 'm'){
+			char filePath[1024];
+			sscanf_s(buffer, "%*s %s", filePath);
+			stMTL2.pTextureFilename = filePath;
+		}
+	}
 }

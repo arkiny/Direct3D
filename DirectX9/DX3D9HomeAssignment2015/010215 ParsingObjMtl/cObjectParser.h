@@ -18,6 +18,7 @@ public:
 	cObjectParser(const char* fileName = NULL);
 	~cObjectParser();
 	void LoadAndParse();
+	void LoadMaterial(const char* fileName = NULL);
 
 	std::vector<ST_PNT_VERTEX>& getObjectInfo(){
 		return m_vecVertex;
@@ -26,6 +27,10 @@ public:
 private:
 	std::string m_sFileName;
 	obj_t m_stObjectInfo;
+
+	D3DXMATERIAL stMTL2;
+
 	std::vector<ST_PNT_VERTEX> m_vecVertex;
+	std::map<std::string, LPDIRECT3DTEXTURE9> m_mapTextureList;
 };
 
