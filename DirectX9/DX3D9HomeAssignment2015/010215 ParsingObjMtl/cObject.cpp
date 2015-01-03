@@ -32,8 +32,6 @@ void cObject::render(){
 	
 	
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_worldMat);
-
-	
 	m_stMaterial.Emissive = D3DXCOLOR(0, 0, 0, 1.0f);
 	m_stMaterial.Power = 5.0f;
 

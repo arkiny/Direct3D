@@ -3,14 +3,14 @@
 
 
 cCamera::cCamera(void)
-	: m_vEye(0, 0, -300)
+	: m_vEye(0, 0, -40)
 	, m_vLookAt(0, 0, 0)
 	, m_vUp(0, 1, 0)
 	, m_fAngleX(0.0f)
 	, m_fAngleY(0.0f)
 	, m_isRButtonDown(false)
 	, m_pvTarget(NULL)
-	, m_fDist(300.0f)
+	, m_fDist(40.0f)
 {
 }
 

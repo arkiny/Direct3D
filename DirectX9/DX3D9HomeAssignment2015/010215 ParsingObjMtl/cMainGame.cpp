@@ -11,6 +11,7 @@
 #include "cPlayer.h"
 #include "cBoxfromFile.h"
 #include "cObjectFromParser.h"
+#include "cPyramid.h"
 
 cMainGame::cMainGame() :
 m_cAxis(NULL),
@@ -18,7 +19,8 @@ m_cGrid(NULL),
 m_cCamera(NULL),
 m_pObject(NULL),
 m_pObject2(NULL),
-m_pObject3(NULL)/*,
+m_pObject3(NULL),
+m_pPyramid(NULL)/*,
 m_pPlayer(NULL),
 m_pBoxFile(NULL)*/
 {
@@ -35,6 +37,7 @@ cMainGame::~cMainGame()
 	//	delete p;
 	//}
 	SAFE_RELEASE(m_pFont);
+	SAFE_DELETE(m_pPyramid);
 	//SAFE_DELETE(m_pBoxFile)
 	//SAFE_DELETE(m_pPlayer);
 	SAFE_DELETE(m_pObject);
@@ -96,6 +99,9 @@ void cMainGame::Init(){
 	//		m_vecBox[j + i * 20] = _box;
 	//	}
 	//}	
+
+	m_pPyramid = new cPyramid;
+	m_pPyramid->setup();
 
 	D3DXCreateFont(g_pD3DDevice,     //D3D Device
 		40,               //Font height
@@ -193,6 +199,7 @@ void cMainGame::Render(){
 	m_pObject->render();
 	m_pObject2->render();
 	m_pObject3->render();
+	m_pPyramid->render();
 	//for (auto box : m_vecBox){
 	//	box->render();
 	//}

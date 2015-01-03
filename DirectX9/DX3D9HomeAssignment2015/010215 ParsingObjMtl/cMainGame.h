@@ -5,6 +5,7 @@
 class cAxis;
 class cGrid;
 class cCamera;
+class cPyramid;
 
 //class cCharacter;
 class cPlayer;
@@ -42,6 +43,7 @@ private:
 	cAxis* m_cAxis;
 	cGrid* m_cGrid;
 	cCamera* m_cCamera;
+	cPyramid* m_pPyramid;
 	cObjectFromParser* m_pObject;
 	cObjectFromParser* m_pObject2;
 	cObjectFromParser* m_pObject3;
