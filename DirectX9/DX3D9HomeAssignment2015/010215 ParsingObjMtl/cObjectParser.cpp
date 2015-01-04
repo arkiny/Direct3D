@@ -114,7 +114,7 @@ void cObjectParser::LoadAndParse(){
 			char d7[10];
 			char d8[10];
 			char d9[10];
-
+			
 			sscanf(buffer, 
 				"%*s %[^'/']/%[^'/']/%[^'/'' '] %[^'/']/%[^'/']/%[^'/'' '] %[^'/']/%[^'/']/%[^'/'' '] ", 
 				d1, d2, d3, d4, d5, d6, d7, d8, d9);
@@ -314,7 +314,9 @@ void cObjectParser::LoadMaterial(const char* fileName){
 			if (m_mapTextureList.count(p) >= 1){
 				// already loaded
 				LPDIRECT3DTEXTURE9 point = m_mapTextureList.at(p);
-				m_mtlInfo.insert(pair<string, mtl_t>(m.mtlName, m));
+				if (m_mtlInfo.count(m.mtlName) < 1){
+					m_mtlInfo.insert(pair<string, mtl_t>(m.mtlName, m));
+				}
 			}
 			else {
 				LPDIRECT3DTEXTURE9 pTexture;
@@ -327,7 +329,9 @@ void cObjectParser::LoadMaterial(const char* fileName){
 #endif
 				m_mapTextureList.insert(
 					pair<string, LPDIRECT3DTEXTURE9>(p, pTexture));
-				m_mtlInfo.insert(pair<string, mtl_t>(m.mtlName, m));
+				if (m_mtlInfo.count(m.mtlName) < 1){
+					m_mtlInfo.insert(pair<string, mtl_t>(m.mtlName, m));
+				}
 			}
 			
 			

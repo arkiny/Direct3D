@@ -73,7 +73,7 @@ void cPlayer::Setup(cMainGame* game){
 	cPart* pPart2 = new cPart;
 	pPart2->Setup(1, 1, 1, cPart::Cube_Part::PT_fist);
 	pPart2->SetTexture(pTexture);
-	pPart2->SetAngleSpeed(-4.0f);
+	pPart2->SetAngleSpeed(0.0f);
 	D3DXMatrixTranslation(&matPrevT, 0, 0, 0);
 	D3DXMatrixTranslation(&matPostT, 0, -1.5f, 0);
 	pPart2->SetTransform(matPrevT, matPostT);
