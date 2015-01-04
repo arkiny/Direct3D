@@ -76,26 +76,22 @@ void cPyramid::setup(){
 	
 	v.p = D3DXVECTOR3(-1, -4, -1);
 	v.n = D3DXVECTOR3(0, -1.0f, 0);
+	D3DXVec3Normalize(&v.n, &v.n);
 	original_payrimid.push_back(v);
 
 	v.p = D3DXVECTOR3(1, -4, -1);
-	v.n = D3DXVECTOR3(0, -1.0f, 0);
 	original_payrimid.push_back(v);
 
 	v.p = D3DXVECTOR3(-1, -4, 1);
-	v.n = D3DXVECTOR3(0, -1.0f, 0);
 	original_payrimid.push_back(v);
 
 	v.p = D3DXVECTOR3(1, -4, -1);
-	v.n = D3DXVECTOR3(0, -1.0f, 0);
 	original_payrimid.push_back(v);
 
 	v.p = D3DXVECTOR3(1, -4, 1);
-	v.n = D3DXVECTOR3(0, -1.0f, 0);
 	original_payrimid.push_back(v);
 
 	v.p = D3DXVECTOR3(-1, -4, 1);
-	v.n = D3DXVECTOR3(0, -1.0f, 0);
 	original_payrimid.push_back(v);
 
 	ZeroMemory(&m_stMaterialLineY, sizeof(D3DMATERIAL9));
@@ -176,7 +172,7 @@ void cPyramid::render(){
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
 
 	D3DXMatrixScaling(&matWorld, 3.0f, 3.0f, 3.0f);
-	D3DXMatrixRotationZ(&matRot, D3DXToRadian(90.0f));
+	D3DXMatrixRotationZ(&matRot, D3DXToRadian(270.0f));
 	matWorld = matWorld*matRot;
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
 
