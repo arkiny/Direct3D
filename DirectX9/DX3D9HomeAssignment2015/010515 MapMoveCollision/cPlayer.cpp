@@ -1,8 +1,12 @@
 #include "stdafx.h"
+#include <math.h>
+
 #include "cPlayer.h"
 
 #include "cPart.h"
 #include "cMainGame.h"
+
+
 
 cPlayer::cPlayer()
 	: m_eCurrAnim(E_ANIM_IDLE)
@@ -104,9 +108,51 @@ void cPlayer::Setup(cMainGame* game){
 	SAFE_RELEASE(pTexture);
 }
 
+float cPlayer::GetParabolaY(float x, float VERT_X, float VERT_Y){
+	float a = VERT_Y / (-VERT_X*-VERT_X);
+	float y = a*((x - VERT_X)*(x - VERT_X)) + (-VERT_Y);
+	return y;
+}
+
+
+
 void cPlayer::Update(float delta){
 	
-	if (GetKeyState(VK_SPACE) & 0x8000 && m_eCurrAnim != E_ANIM_ATTACK){
+	if (GetKeyState(VK_SPACE) & 0x8000 && !m_bJumped){
+		m_fJumpAccumTime = 0.0f;
+		m_fJumpAccumTime += delta;
+		m_bJumped = true;
+		jumpStartedPosY = m_vPosition.y;
+	}	
+	else if (m_bJumped){
+		m_fJumpAccumTime += delta;
+		//float jumpheight = 50.0f;
+
+
+		float pos = m_vPosition.y + jumpSpeed*delta*unit;
+		
+
+		//pos = m_vPosition.y + jumpheight*delta*sinf(D3DXToRadian(m_fJumpAccumTime * 100));
+		//pos = m_vPosition.y + ry;
+
+		float y;
+		m_pGame->moveCheck(this, m_vPosition, y);
+		
+		if (pos >= jumpLimit+jumpStartedPosY){
+			unit *= -1.0f;
+		}
+
+		if (pos <= y){
+			m_bJumped = false;
+			unit = 1.0f;
+			m_vPosition.y = y;						
+		}
+		else{
+ 			m_vPosition.y = pos;
+		}
+	}
+
+	if (GetKeyState(VK_CONTROL) & 0x8000 && m_eCurrAnim != E_ANIM_ATTACK){
 		m_fAttackAnimationTime += delta;
 		m_eCurrAnim = E_ANIM_ATTACK;
 		m_pRoot->SetState(cPart::eAnimationPT::E_STATE_ATTACK);
@@ -153,9 +199,18 @@ void cPlayer::Update(float delta){
 			D3DXVECTOR3 target = m_vPosition + (m_vForward * m_fSpeed * delta);
 			float yCoord;
 			if (m_pGame->moveCheck(this, target, yCoord)){
-				m_vPosition += (m_vForward * m_fSpeed * delta);
-				m_vPosition.y = yCoord;
-				//int a = 1;
+				if (m_bJumped){
+					m_vPosition += (m_vForward * m_fSpeed * delta);
+				}
+				else {
+					if (yCoord - m_vPosition.y > 1.0f){
+
+					}
+					else {
+						m_vPosition += (m_vForward * m_fSpeed * delta);
+						m_vPosition.y = yCoord;
+					}
+				}
 			}
 		}
 		else if (GetKeyState('S') & 0x8000)
@@ -165,9 +220,21 @@ void cPlayer::Update(float delta){
 			D3DXVECTOR3 target = m_vPosition - (m_vForward * m_fSpeed * delta);
 			float yCoord;
 			if (m_pGame->moveCheck(this, target, yCoord)){
-				m_vPosition -= (m_vForward * m_fSpeed * delta);
-				m_vPosition.y = yCoord;
-				//int a = 1;
+				if (m_bJumped){
+					m_vPosition -= (m_vForward * m_fSpeed * delta);
+				}
+				else {
+					
+					if (yCoord - m_vPosition.y > 1.0f){
+
+					}
+					else {
+						m_vPosition -= (m_vForward * m_fSpeed * delta);
+						m_vPosition.y = yCoord;
+					}
+					
+				}
+				//m_vPosition.y = yCoord;
 			}
 		}
 		else
@@ -175,8 +242,9 @@ void cPlayer::Update(float delta){
 			m_eCurrAnim = E_ANIM_IDLE;
 			m_pRoot->SetState(cPart::eAnimationPT::E_STATE_IDLE);
 		}
-
 	}
+
+
 
 	if (m_eCurrAnim == E_ANIM_IDLE)
 	{

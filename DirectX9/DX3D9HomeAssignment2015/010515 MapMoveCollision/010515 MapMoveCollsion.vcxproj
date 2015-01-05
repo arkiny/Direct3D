@@ -87,7 +87,6 @@
     <ClInclude Include="..\Common\CommonHeader.h" />
     <ClInclude Include="cBox.h" />
     <ClInclude Include="cCamera.h" />
-    <ClInclude Include="cCollisionChecker.h" />
     <ClInclude Include="cGroup.h" />
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cMtlTex.h" />
@@ -110,7 +109,6 @@
     <ClCompile Include="..\Common\cGrid.cpp" />
     <ClCompile Include="cBox.cpp" />
     <ClCompile Include="cCamera.cpp" />
-    <ClCompile Include="cCollisionChecker.cpp" />
     <ClCompile Include="cGroup.cpp" />
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cMtlTex.cpp" />

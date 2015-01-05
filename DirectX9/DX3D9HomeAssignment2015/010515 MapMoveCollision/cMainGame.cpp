@@ -13,7 +13,6 @@
 #include "cPyramid.h"
 #include "cObjLoader.h"
 #include "cGroup.h"
-#include "cCollisionChecker.h"
 
 cMainGame::cMainGame() :
 m_cAxis(NULL),
@@ -187,8 +186,12 @@ bool cMainGame::moveCheck(cPlayer* player, D3DXVECTOR3& target, float& yo){
 			//	player->setPos(D3DXVECTOR3(target.x, a.y, target.z));
 								
 				//player->setPos(angle*l);
-				yo = _dist - (fDist + (player->GetPosition().y - player->getHeight()));
-				
+				if (player->isJumping()){
+					yo = _dist - (fDist + (player->GetPosition().y - player->getHeight()));
+				}
+				else {
+					yo = _dist - (fDist + (player->GetPosition().y - player->getHeight()));
+				}
 				return true;
 			}
 		}
@@ -210,6 +213,9 @@ bool cMainGame::moveCheck(cPlayer* player, D3DXVECTOR3& target, float& yo){
 	return false;
 }
 
+float cMainGame::heightCheck(cPlayer* player){
+	return 0.0f;
+}
 
 void cMainGame::Render(){
 	D3DXMATRIXA16 matRot, matWorld;

@@ -9,10 +9,12 @@ class cPlayer
 	{
 		E_ANIM_WALK,
 		E_ANIM_IDLE,
-		E_ANIM_ATTACK
+		E_ANIM_ATTACK,
+		E_ANIM_JUMP
 	};
 
 private:
+	bool					m_bJumped = false;
 	eAnimation				m_eCurrAnim;
 	//std::vector<cCube*>		m_vecCube;
 	cPart*					m_pRoot;
@@ -27,6 +29,15 @@ private:
 	float					m_fSpeed;
 	float					m_fAttackAnimationTime = 0.0f;
 	const float				m_fHeight = 4.5f;
+
+	float jumpSpeed = 100.0f;
+	float jumpAccum = 0.0f;
+	const float jumpLimit = 10.0f;
+	float unit = 1.0f;
+
+	float GetParabolaY(float x, float VERT_X, float VERT_Y);
+	float m_fJumpAccumTime = 0.0f;
+	float jumpStartedPosY;
 
 public:
 	cPlayer(void);
@@ -52,5 +63,7 @@ public:
 	}
 
 	D3DXVECTOR3& getFistPosition();
+
+	bool isJumping(){ return m_bJumped; }
 };
 

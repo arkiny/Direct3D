@@ -28,6 +28,8 @@ public:
 
 	bool moveCheck(cPlayer* player, D3DXVECTOR3& target, float& y);
 
+	float heightCheck(cPlayer* player);
+
 private:
 
 	// Grid Picking
