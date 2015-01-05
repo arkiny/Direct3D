@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "010115 Simple3DGame", "DX3D
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "010215 ParsingObj", "010215 ParsingObjMtl\010214 ParsingObjMtl.vcxproj", "{06BD99BE-4340-4867-A6F9-A2B2660252D9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "010515 MapMoveCollision", "010515 MapMoveCollision\010515 MapMoveCollsion.vcxproj", "{E3D91577-090E-4B5E-9DEA-BED02CCCC581}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -21,6 +23,10 @@ Global
 		{06BD99BE-4340-4867-A6F9-A2B2660252D9}.Debug|Win32.Build.0 = Debug|Win32
 		{06BD99BE-4340-4867-A6F9-A2B2660252D9}.Release|Win32.ActiveCfg = Release|Win32
 		{06BD99BE-4340-4867-A6F9-A2B2660252D9}.Release|Win32.Build.0 = Release|Win32
+		{E3D91577-090E-4B5E-9DEA-BED02CCCC581}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E3D91577-090E-4B5E-9DEA-BED02CCCC581}.Debug|Win32.Build.0 = Debug|Win32
+		{E3D91577-090E-4B5E-9DEA-BED02CCCC581}.Release|Win32.ActiveCfg = Release|Win32
+		{E3D91577-090E-4B5E-9DEA-BED02CCCC581}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

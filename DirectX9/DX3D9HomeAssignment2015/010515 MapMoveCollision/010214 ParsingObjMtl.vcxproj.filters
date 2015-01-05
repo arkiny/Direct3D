@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="cObjectParser.cpp" />
+    <ClCompile Include="..\Common\cGrid.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\cGameTimer.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\cDeviceManager.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\cAxis.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="cMainGame.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="cBox.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="cPart.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="cPlayer.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="DX3D9HomeAssignment2015.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="cCamera.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="cBoxfromFile.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="cObjectFromParser.cpp" />
+    <ClCompile Include="cObject.cpp" />
+    <ClCompile Include="cPyramid.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cObjectParser.h" />
+    <ClInclude Include="DX3D9HomeAssignment2015.h" />
+    <ClInclude Include="..\Common\cGrid.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\cGameTimer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\cDeviceManager.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\cAxis.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\CommonHeader.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="cMainGame.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="cBox.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="cPart.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="cPlayer.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="gIObject.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="cCamera.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="cBoxfromFile.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="cObjectFromParser.h" />
+    <ClInclude Include="cObject.h" />
+    <ClInclude Include="cPyramid.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DX3D9HomeAssignment2015.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="DX3D9HomeAssignment2015.ico" />
+    <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{3d364386-7d44-4084-a340-976f4b4bce21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{1a404891-1cc1-418c-a089-81cc79561d67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{363605ca-725d-46a2-9abb-29182ec0b613}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{3e15b193-5651-444a-912d-8209df15cfeb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
