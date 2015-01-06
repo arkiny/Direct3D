@@ -132,30 +132,6 @@ void cPyramid::setup(){
 	}
 	m_vecVertexLineYPyramid = original_payrimid;
 
-	//D3DXMatrixRotationZ(&matRotate, D3DXToRadian(90.0f));
-
-	//matFinal = matRotate;
-	//for (UINT i = 0; i < original_payrimid.size(); i++){
-	//	//
-	//	D3DXVec3Transform(&new_vec4, &original_payrimid[i].p, &matFinal);
-	//	original_payrimid[i].p = D3DXVECTOR3(new_vec4.x, new_vec4.y, new_vec4.z);
-	//}
-	//m_vecVertexLineXPyramid = original_payrimid;
-
-	//D3DXMatrixIdentity(&matRotate);
-	//D3DXMatrixRotationY(&matRotate, D3DXToRadian(90.0f));
-	//for (UINT i = 0; i < original_payrimid.size(); i++){
-	//	//
-	//	D3DXVec3Transform(&new_vec4, &original_payrimid[i].p, &matRotate);
-	//	original_payrimid[i].p = D3DXVECTOR3(new_vec4.x, new_vec4.y, new_vec4.z);
-	//}
-	//m_vecVertexLineZPyramid = original_payrimid;
-	//m_vecVertexLineZPyramid;*/
-
-
-
-	//size_t fullSize = m_vecVertexLineZPyramid.size() + m_vecVertexLineYPyramid.size() + m_vecVertexLineXPyramid.size();
-
 	g_pD3DDevice->CreateVertexBuffer(
 		m_vecVertexLineYPyramid.size() * sizeof(ST_PN_VERTEX),
 		D3DUSAGE_WRITEONLY,
@@ -164,7 +140,6 @@ void cPyramid::setup(){
 		&m_pVertexBufferY,
 		0
 		);
-
 
 	ST_PN_VERTEX* buffy;
 
@@ -192,7 +167,7 @@ void cPyramid::render(){
 
 	g_pD3DDevice->DrawPrimitive(D3DPT_TRIANGLELIST,
 		0,
-		m_vecVertexLineYPyramid.size());
+		m_vecVertexLineYPyramid.size()/3);
 
 	D3DXMatrixIdentity(&matWorld);
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
@@ -209,7 +184,7 @@ void cPyramid::render(){
 
 	g_pD3DDevice->DrawPrimitive(D3DPT_TRIANGLELIST,
 		0,
-		m_vecVertexLineYPyramid.size());
+		m_vecVertexLineYPyramid.size()/3);
 
 
 	D3DXMatrixIdentity(&matWorld);
@@ -227,7 +202,7 @@ void cPyramid::render(){
 
 	g_pD3DDevice->DrawPrimitive(D3DPT_TRIANGLELIST,
 		0,
-		m_vecVertexLineYPyramid.size());
+		m_vecVertexLineYPyramid.size()/3);
 
 
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);

@@ -58,5 +58,5 @@ void cGroup::Render()
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 	g_pD3DDevice->DrawPrimitive(D3DPT_TRIANGLELIST,
 		0,
-		m_vecVertex.size());
+		m_vecVertex.size()/3);
 }

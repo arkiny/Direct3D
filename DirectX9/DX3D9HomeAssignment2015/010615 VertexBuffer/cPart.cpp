@@ -426,7 +426,7 @@ void cPart::Render(){
 
 	g_pD3DDevice->DrawPrimitive(D3DPT_TRIANGLELIST,
 		0,
-		m_vecVertex.size());
+		m_vecVertex.size()/3);
 
 	D3DXMATRIXA16 matWorld;
 	D3DXMatrixIdentity(&matWorld);
