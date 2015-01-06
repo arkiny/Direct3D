@@ -53,6 +53,7 @@ private:
 	//cObjectOldFromParser* m_pObject2;
 	//cObjectOldFromParser* m_pObject3;
 
+	std::vector<cGroup*>	m_vecGroupBox;
 	std::vector<cGroup*>	m_vecGroup;
 	std::vector<cGroup*>	m_vecSurface;
 

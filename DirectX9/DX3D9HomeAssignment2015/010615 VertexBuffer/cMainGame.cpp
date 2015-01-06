@@ -59,6 +59,10 @@ cMainGame::~cMainGame()
 	{
 		SAFE_DELETE(p);
 	}
+	for each(auto p in m_vecGroupBox)
+	{
+		SAFE_DELETE(p);
+	}
 
 	g_pTextureManager->Destroy();
 
@@ -88,6 +92,8 @@ void cMainGame::Init(){
 	cObjLoader ObjLoader;
 	std::string sFolder("../Resource/");
 	sFolder += std::string("obj/");
+
+	ObjLoader.Load(m_vecGroupBox, sFolder, std::string("box.obj"));
 	ObjLoader.Load(m_vecGroup, sFolder, std::string("Map.obj"));
 	ObjLoader.Load(m_vecSurface, sFolder, std::string("map_surface.obj"));
 	for each(auto p in m_vecSurface)
@@ -99,6 +105,10 @@ void cMainGame::Init(){
 	{
 		p->Buffering();
 	}	
+	for each(auto p in m_vecGroupBox)
+	{
+		p->Buffering();
+	}
 
 	D3DXMATRIXA16 matWorld;
 	D3DXMatrixScaling(&matS, 0.1f, 0.1f, 0.1f);
@@ -259,6 +269,11 @@ void cMainGame::Render(){
 
 	///
 
+	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
+	for each(auto p in m_vecGroupBox)
+	{
+		p->Render();
+	}
 	D3DXMATRIXA16 matT, matS, matR;
 	D3DXMatrixTranslation(&matT, -5.0f, 0.0f, 5.0f);
 	D3DXMatrixScaling(&matS, 0.1f, 0.1f, 0.1f);
@@ -267,7 +282,7 @@ void cMainGame::Render(){
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
 
 	//g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
+
 
 
 	if (GetKeyState(VK_TAB) & 0x8000)
@@ -284,6 +299,8 @@ void cMainGame::Render(){
 			p->Render();
 		}
 	}
+
+	
 
 	g_pD3DDevice->EndScene();
 	g_pD3DDevice->Present(NULL, NULL, NULL, NULL);
