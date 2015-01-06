@@ -32,7 +32,8 @@ void cGroup::Buffering(){
 		D3DPOOL_MANAGED,
 		&m_pVertexBuffer,
 		0
-		);
+		)
+		;	
 
 	ST_PNT_VERTEX* buffv;
 	m_pVertexBuffer->Lock(0, 0, (void**)&buffv, 0);
@@ -55,7 +56,7 @@ void cGroup::Render()
 		sizeof(ST_PNT_VERTEX));*/
 	
 	g_pD3DDevice->SetStreamSource(0, m_pVertexBuffer, 0, sizeof(ST_PNT_VERTEX));
-	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
+	//g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 	g_pD3DDevice->DrawPrimitive(D3DPT_TRIANGLELIST,
 		0,
 		m_vecVertex.size()/3);

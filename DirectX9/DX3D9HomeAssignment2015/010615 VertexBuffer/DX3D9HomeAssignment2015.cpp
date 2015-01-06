@@ -3,8 +3,9 @@
 
 #include "stdafx.h"
 #include "DX3D9HomeAssignment2015.h"
-
+#include <sstream>
 #include "cMainGame.h"
+
 
 #define MAX_LOADSTRING 100
 
@@ -17,12 +18,15 @@ TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
 HWND g_hWnd;
 cMainGame* g_pMainGame;
 cGameTimer* g_pTimer;
+std::string g_wsMainWndCaption;
 ///
+
 // Forward declarations of functions included in this code module:
 ATOM				MyRegisterClass(HINSTANCE hInstance);
 BOOL				InitInstance(HINSTANCE, int);
 LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
+void CalculateFrameStats();
 
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -72,6 +76,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 		else
 		{
 			g_pTimer->Tick();
+			CalculateFrameStats();
 			g_pMainGame->Update(g_pTimer->DeltaTime());
 			g_pMainGame->Render();
 		}
@@ -83,6 +88,35 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	return (int) msg.wParam;
 }
 
+
+void CalculateFrameStats(){
+	// Code computes the average frames per second, and also the 
+	// average time it takes to render one frame.  These stats 
+	// are appended to the window caption bar.
+
+	static int frameCnt = 0;
+	static float timeElapsed = 0.0f;
+
+	frameCnt++;
+
+	// Compute averages over one second period.
+	if ((g_pTimer->TotalTime() - timeElapsed) >= 1.0f)
+	{
+		float fps = (float)frameCnt; // fps = frameCnt / 1
+		float mspf = 1000.0f / fps;
+
+		std::stringstream outs;
+		outs.precision(6);
+		outs << g_wsMainWndCaption << "    "
+			<< "FPS: " << fps << "    "
+			<< "Frame Time: " << mspf << " (ms)";
+		SetWindowText(g_hWnd, outs.str().c_str());
+
+		// Reset for next average.
+		frameCnt = 0;
+		timeElapsed += 1.0f;
+	}
+}
 
 
 //

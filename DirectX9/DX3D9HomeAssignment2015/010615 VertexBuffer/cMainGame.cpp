@@ -94,8 +94,9 @@ void cMainGame::Init(){
 	sFolder += std::string("obj/");
 
 	ObjLoader.Load(m_vecGroupBox, sFolder, std::string("box.obj"));
-	ObjLoader.Load(m_vecGroup, sFolder, std::string("Map.obj"));
+	ObjLoader.Load(m_vecGroup, sFolder, std::string("MapC.obj"));
 	ObjLoader.Load(m_vecSurface, sFolder, std::string("map_surface.obj"));
+
 	for each(auto p in m_vecSurface)
 	{
 		p->Buffering();
@@ -242,62 +243,78 @@ void cMainGame::Render(){
 		1.0f, 0);
 	g_pD3DDevice->BeginScene();
 
-	// 그림을 그린다.
-	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
-	m_cGrid->render();
-	m_cAxis->render();
 	
-	m_pPyramid->render();
-	m_pPlayer->Render();
 
-	m_pIndexBuffCube->render();
+	
 
-	///
-
-	//D3DXMATRIXA16 matRot, matWorld;
-	//D3DXMatrixIdentity(&matWorld);
-	//g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
-	//g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
-
-	//g_pD3DDevice->SetTexture(0, NULL);
-	//g_pD3DDevice->SetFVF(ST_PN_VERTEX::FVF);
-
-	//g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST,
-	//	m_vecTest.size() / 3,
-	//	&m_vecTest[0],
-	//	sizeof(ST_PN_VERTEX));
-
-	///
-
-	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
-	for each(auto p in m_vecGroupBox)
-	{
-		p->Render();
-	}
-	D3DXMATRIXA16 matT, matS, matR;
-	D3DXMatrixTranslation(&matT, -5.0f, 0.0f, 5.0f);
-	D3DXMatrixScaling(&matS, 0.1f, 0.1f, 0.1f);
-	D3DXMatrixRotationX(&matR, -D3DX_PI / 2.f);
-	matWorld = matT * matS * matR;
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
-
+	
 	//g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 
 
-
+	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 	if (GetKeyState(VK_TAB) & 0x8000)
 	{
+		// 그림을 그린다.
+		g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
+		m_cGrid->render();
+		m_cAxis->render();
+
+		m_pPyramid->render();
+		m_pPlayer->Render();
+
+		m_pIndexBuffCube->render();
+
+		///
+
+		//D3DXMATRIXA16 matRot, matWorld;
+		//D3DXMatrixIdentity(&matWorld);
+		//g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
+		//g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
+
+		//g_pD3DDevice->SetTexture(0, NULL);
+		//g_pD3DDevice->SetFVF(ST_PN_VERTEX::FVF);
+
+		//g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST,
+		//	m_vecTest.size() / 3,
+		//	&m_vecTest[0],
+		//	sizeof(ST_PN_VERTEX));
+
+		///
+
+		g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
+		for each(auto p in m_vecGroupBox)
+		{
+			p->Render();
+		}
+
+
+		D3DXMATRIXA16 matT, matS, matR;
+		D3DXMatrixTranslation(&matT, -5.0f, 0.0f, 5.0f);
+		D3DXMatrixScaling(&matS, 0.1f, 0.1f, 0.1f);
+		D3DXMatrixRotationX(&matR, -D3DX_PI / 2.f);
+		matWorld = matT * matS *  matR;
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
 		for each(auto p in m_vecSurface)
 		{
 			p->Render();
 		}
+		D3DXMatrixIdentity(&matWorld);
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
 	}
 	else
 	{
+		D3DXMATRIXA16 matT, matS, matR;
+		D3DXMatrixTranslation(&matT, -5.0f, 0.0f, 5.0f);
+		D3DXMatrixScaling(&matS, 0.01f, 0.01f, 0.01f);
+		D3DXMatrixRotationX(&matR, 0.0f);
+		matWorld = matS * matR * matT;
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
 		for each(auto p in m_vecGroup)
 		{
 			p->Render();
 		}
+		D3DXMatrixIdentity(&matWorld);
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
 	}
 
 	

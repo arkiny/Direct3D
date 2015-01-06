@@ -119,16 +119,16 @@ void cObjLoader::LoadMtlLib(std::string& sFolder, std::string& sFileName)
 
 		if (szLineBuf[0] == '#')
 			continue;
-		else if (szLineBuf[0] == 'n')
+		else if (szLineBuf[0] == 'n' || szLineBuf[1] == 'n')
 		{
 			char szMtlName[1024];
 			sscanf(szLineBuf, "%*s %s", szMtlName);
 			sMtlName = std::string(szMtlName);
 			m_mapMtlTex[sMtlName] = new cMtlTex;
 		}
-		else if (szLineBuf[0] == 'K')
+		else if (szLineBuf[0] == 'K' || szLineBuf[1] == 'K')
 		{
-			if (szLineBuf[1] == 'a')
+			if (szLineBuf[1] == 'a' || szLineBuf[2] == 'a')
 			{
 				float r, g, b;
 				sscanf(szLineBuf, "%*s %f %f %f", &r, &g, &b);
@@ -137,7 +137,7 @@ void cObjLoader::LoadMtlLib(std::string& sFolder, std::string& sFileName)
 				m_mapMtlTex[sMtlName]->stMtl.Ambient.b = b;
 				m_mapMtlTex[sMtlName]->stMtl.Ambient.a = 1.0f;
 			}
-			else if (szLineBuf[1] == 'd')
+			else if (szLineBuf[1] == 'd' || szLineBuf[2] == 'd')
 			{
 				float r, g, b;
 				sscanf(szLineBuf, "%*s %f %f %f", &r, &g, &b);
@@ -146,7 +146,7 @@ void cObjLoader::LoadMtlLib(std::string& sFolder, std::string& sFileName)
 				m_mapMtlTex[sMtlName]->stMtl.Diffuse.b = b;
 				m_mapMtlTex[sMtlName]->stMtl.Diffuse.a = 1.0f;
 			}
-			else if (szLineBuf[1] == 's')
+			else if (szLineBuf[1] == 's' || szLineBuf[2] == 's')
 			{
 				float r, g, b;
 				sscanf(szLineBuf, "%*s %f %f %f", &r, &g, &b);
@@ -156,7 +156,7 @@ void cObjLoader::LoadMtlLib(std::string& sFolder, std::string& sFileName)
 				m_mapMtlTex[sMtlName]->stMtl.Specular.a = 1.0f;
 			}
 		}
-		else if (szLineBuf[0] == 'm')
+		else if (szLineBuf[0] == 'm' || (szLineBuf[1] == 'm' && szLineBuf[6] == 'a'))
 		{
 			char szTexture[1024];
 			sscanf(szLineBuf, "%*s %s", szTexture);
