@@ -5,3 +5,4 @@ VertexBuffer와 IndexBuffer를 이용해서 Render하기
  - cPart
  - cGroup
  - cCubeIndexBuffer
+ - cPyramid
