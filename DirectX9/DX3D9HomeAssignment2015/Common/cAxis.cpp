@@ -152,20 +152,20 @@ void cAxis::render(){
 		&m_vecVertexLineZAxis[0],
 		sizeof(ST_PC_VERTEX));
 
-	g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST,
-		m_vecVertexLineXPyramid.size() / 3,
-		&m_vecVertexLineXPyramid[0],
-		sizeof(ST_PC_VERTEX));
+	//g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST,
+	//	m_vecVertexLineXPyramid.size() / 3,
+	//	&m_vecVertexLineXPyramid[0],
+	//	sizeof(ST_PC_VERTEX));
 
-	g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST,
-		m_vecVertexLineYPyramid.size() / 3,
-		&m_vecVertexLineYPyramid[0],
-		sizeof(ST_PC_VERTEX));
+	//g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST,
+	//	m_vecVertexLineYPyramid.size() / 3,
+	//	&m_vecVertexLineYPyramid[0],
+	//	sizeof(ST_PC_VERTEX));
 
-	g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST,
-		m_vecVertexLineZPyramid.size() / 3,
-		&m_vecVertexLineZPyramid[0],
-		sizeof(ST_PC_VERTEX));
+	//g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST,
+	//	m_vecVertexLineZPyramid.size() / 3,
+	//	&m_vecVertexLineZPyramid[0],
+	//	sizeof(ST_PC_VERTEX));
 
 	//std::vector<ST_PC_VERTEX>	m_vecVertexLineXAxis;
 	//std::vector<ST_PC_VERTEX>	m_vecVertexLineYAxis;
