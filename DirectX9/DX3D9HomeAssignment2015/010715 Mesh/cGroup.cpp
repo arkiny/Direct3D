@@ -24,6 +24,8 @@ void cGroup::SetMtlTex(cMtlTex* pMtlTex)
 	}
 }
 
+
+
 void cGroup::Buffering(){
 	g_pD3DDevice->CreateVertexBuffer(
 		m_vecVertex.size() * sizeof(ST_PNT_VERTEX),

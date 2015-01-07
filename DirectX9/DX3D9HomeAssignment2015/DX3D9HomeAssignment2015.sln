@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "010515 MapMoveCollision", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "010615 VertexBuffer", "010615 VertexBuffer\010615 VertexBuffer.vcxproj", "{CDAC0182-0D44-4C38-BD7D-97FBFE4712CD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "010715 Mesh", "010715 Mesh\010715 VertexBuffer.vcxproj", "{8E6704A6-B177-4A4B-B5E4-B2B64F89CCA2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -33,6 +35,10 @@ Global
 		{CDAC0182-0D44-4C38-BD7D-97FBFE4712CD}.Debug|Win32.Build.0 = Debug|Win32
 		{CDAC0182-0D44-4C38-BD7D-97FBFE4712CD}.Release|Win32.ActiveCfg = Release|Win32
 		{CDAC0182-0D44-4C38-BD7D-97FBFE4712CD}.Release|Win32.Build.0 = Release|Win32
+		{8E6704A6-B177-4A4B-B5E4-B2B64F89CCA2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8E6704A6-B177-4A4B-B5E4-B2B64F89CCA2}.Debug|Win32.Build.0 = Debug|Win32
+		{8E6704A6-B177-4A4B-B5E4-B2B64F89CCA2}.Release|Win32.ActiveCfg = Release|Win32
+		{8E6704A6-B177-4A4B-B5E4-B2B64F89CCA2}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
