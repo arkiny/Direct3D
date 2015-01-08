@@ -18,7 +18,6 @@ extern HWND g_hWnd;
 public: static class_name* GetInstance() { static class_name instance; return &instance; }
 
 #include "../Common/cDeviceManager.h"
-#include "../Common/cControl.h"
 #include "../Common/cGameTimer.h"
 
 struct ST_RHWC_VERTEX
