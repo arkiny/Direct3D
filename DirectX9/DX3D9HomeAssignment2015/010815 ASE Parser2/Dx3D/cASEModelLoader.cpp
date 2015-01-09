@@ -118,14 +118,30 @@ void cASEModelLoader::ASE_GEOMOBJECT(std::fstream& file){
 				aLine = stringstream(buffer);
 				aLine >> token;
 			}
+			file.getline(buffer, sizeof(buffer));
+			aLine = stringstream(buffer);
+			aLine >> token;
+			if (token == "*MATERIAL_REF"){
+				aLine >> token;
+				if (info->ref == 0){
+					int a = 0; // hit
+				}
+				info->ref = atoi(token.c_str());
+				vecAttrID.push_back(info->ref);
+				vecMeshInfo.push_back(info);
+				info = new stMeshInfo;
+			}
+
 		}
-		else if (token == "*MATERIAL_REF"){
+		else if (token == "*MATERIAL_REF"){			
 			aLine >> token;
 			info->ref = atoi(token.c_str());
-			vecAttrID.push_back(info->ref);
-			if (info->ref != INT_MAX){
-				vecMeshInfo.push_back(info);
+			if (info->ref == 0){
+				int a = 0; // hit
 			}
+			vecAttrID.push_back(info->ref);			
+			vecMeshInfo.push_back(info);
+			
 			info = new stMeshInfo;
 		}
 		else if (token == "*MESH")
