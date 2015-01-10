@@ -22,7 +22,7 @@ void cMyASELoader::LoadMesh(){
 	_ASSERT(m_bLoaded && "Data Not Loaded");
 #endif
 	int check = 0;
-	for (int i = 0; i < m_vecASENode.size(); i++){
+	for (size_t i = 0; i < m_vecASENode.size(); i++){
 		if (m_vecASENode[i].nRef != INT_MAX){
 			m_vecsubSet.push_back(m_vecASENode[i].nRef);
 			LPD3DXMESH pMesh = NULL;
@@ -73,7 +73,7 @@ void cMyASELoader::Load(std::string& folderName, std::string& fileName){
 	
 	while (char* szToken = GetToken()){
 		if (strcmp(szToken, ID_SCENE) == 0)
-			SkipBlock();
+			ParseScene();
 		else if (isEqual(szToken, ID_MATERIAL_LIST))
 			ParseBlockMaterialList();
 		else if (isEqual(szToken, ID_GEOMETRY)){
@@ -94,6 +94,152 @@ void cMyASELoader::Load(std::string& folderName, std::string& fileName){
 #endif
 	m_bLoaded = true;
 	fclose(m_fp);
+}
+
+void cMyASELoader::ParseScene(){
+	int nLevel = 0;
+	do{
+		char* szToken = GetToken();
+		if (isEqual(szToken, "{")){
+			++nLevel;
+		}
+		else if (isEqual(szToken, "}")){
+			--nLevel;
+		}
+		else if (isEqual(szToken, ID_FIRSTFRAME)){
+			m_stSceneInfo.uiFrameFirst = GetInteger();
+		}
+		else if (isEqual(szToken, ID_LASTFRAME)){
+			m_stSceneInfo.uiFrameLast = GetInteger();
+		}
+		else if (isEqual(szToken, ID_FRAMESPEED)){
+			m_stSceneInfo.uiFrameSpeed = GetInteger();
+		}
+		else if (isEqual(szToken, ID_TICKSPERFRAME)){
+			m_stSceneInfo.uiFrameTick = GetInteger();
+		}
+	} while (nLevel > 0);
+}
+
+void cMyASELoader::ParseTMAnimation(stAseTrackAni& stAseT){
+	int nLevel = 0;
+	
+	do{
+		char* szToken = GetToken();
+		if (isEqual(szToken, "{")){
+			++nLevel;
+		}
+		else if (isEqual(szToken, "}")){
+			--nLevel;
+		}
+		else if (isEqual(szToken, ID_NODE_NAME)){
+			stAseT.sNodeCur = GetToken();
+		}
+		else if (isEqual(szToken, ID_POS_TRACK)){
+			stAseTrack pos;
+			ParsePosTrack(pos);
+			stAseT.vTrs.push_back(pos);
+		}
+		else if (isEqual(szToken, ID_ROT_TRACK)){
+			stAseTrack pos;
+			ParseRotTrack(stAseT);
+			stAseT.vTrs.push_back(pos);
+		}
+		else if (isEqual(szToken, ID_SCALE_TRACK)){
+			stAseTrack pos;
+			ParseSclTrack(pos);
+			stAseT.vTrs.push_back(pos);
+		}
+	} while (nLevel > 0);
+}
+
+void cMyASELoader::ParsePosTrack(stAseTrack& stAseT){
+	int nLevel = 0;
+	do{
+		char* szToken = GetToken();
+		if (isEqual(szToken, "{")){
+			++nLevel;
+		}
+		else if (isEqual(szToken, "}")){
+			--nLevel;
+		}
+		else if (isEqual(szToken, ID_POS_SAMPLE)){
+			stAseT.nf = GetInteger() / m_stSceneInfo.uiFrameTick;
+			stAseT.x = GetFloat();
+			stAseT.y = GetFloat();
+			stAseT.z = GetFloat();
+			stAseT.w = 0.0f;
+		}		
+	} while (nLevel > 0);
+}
+
+void cMyASELoader::ParseRotTrack(stAseTrackAni& stAseT){
+	int nLevel = 0;
+	do{
+		char* szToken = GetToken();
+		if (isEqual(szToken, "{")){
+			++nLevel;
+		}
+		else if (isEqual(szToken, "}")){
+			--nLevel;
+		}
+		else if (isEqual(szToken, ID_ROT_SAMPLE)){
+			int nf = GetInteger() / m_stSceneInfo.uiFrameTick;
+			float fx, fy, fz, fw;
+			fx = GetFloat();
+			fy = GetFloat();
+			fz = GetFloat();
+			fw = GetFloat();
+			float x, y, z, w;
+			x = sinf(fw / 2.0f) * fx; 
+			y = sinf(fw / 2.0f) * fy;
+			z = sinf(fw / 2.0f) * fz;
+			w = cosf(fw / 2.0f);
+			if (stAseT.vRot.empty()){
+				stAseTrack v;
+				v.nf = nf; 
+				v.x = x;
+				v.y = y;
+				v.z = z;
+				v.w = w;
+				stAseT.vRot.push_back(v);
+			}
+			else {
+				D3DXQUATERNION q1(x, y, z, w);
+				D3DXQUATERNION* q2;
+				D3DXQUATERNION q3;
+				q2 = (D3DXQUATERNION*)&stAseT.vRot.back();
+				D3DXQuaternionMultiply(&q3, q2, &q1);
+				stAseTrack v;
+				v.nf = nf;
+				v.x = q3.x;
+				v.y = q3.y;
+				v.z = q3.z;
+				v.w = q3.w;
+				stAseT.vRot.push_back(v);
+			}
+		}
+	} while (nLevel > 0);
+}
+
+void cMyASELoader::ParseSclTrack(stAseTrack& stAseT){
+	int nLevel = 0;
+	do{
+		char* szToken = GetToken();
+		if (isEqual(szToken, "{")){
+			++nLevel;
+		}
+		else if (isEqual(szToken, "}")){
+			--nLevel;
+		}
+		else if (isEqual(szToken, ID_SCALE_SAMPLE)){
+			stAseT.nf = GetInteger() / m_stSceneInfo.uiFrameTick;
+			stAseT.x = GetFloat();
+			stAseT.y = GetFloat();
+			stAseT.z = GetFloat();
+			stAseT.w = 0.0f;
+		}
+	} while (nLevel > 0);
 }
 
 void cMyASELoader::ParseMesh(stASENode& node){
@@ -357,7 +503,7 @@ void cMyASELoader::ParseGeometry(stASENode& node){
 			//do nothing
 		}
 		else if (isEqual(szToken, ID_TM_ANIMATION)){
-			//@todo
+			ParseTMAnimation(node.AnimationInfo);
 		}
 		else if (isEqual(szToken, ID_WIRECOLOR)){
 			//do nothing
@@ -445,11 +591,8 @@ void cMyASELoader::ParseNodeTM(D3DXMATRIXA16& mat){
 		}
 		else if (isEqual(szToken, ID_TM_SCALEAXISANG)){
 			_scaleAngle = GetFloat();
-		}
-		
+		}		
 	} while (nLevel > 0);
-
-	//mat = _matTrans * _matRot * _matScale;
 }
 
 
@@ -592,7 +735,7 @@ void cMyASELoader::Render(){
 	_ASSERT(m_bMeshed && "Mesh Not Loaded");
 #endif
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
-	for (int i = 0; i < m_vecMeshs.size(); i++){
+	for (size_t i = 0; i < m_vecMeshs.size(); i++){
 		g_pD3DDevice->SetTexture(0, m_vecMtl[m_vecsubSet[i]]->pTex);
 		g_pD3DDevice->SetMaterial(&m_vecMtl[m_vecsubSet[i]]->stMtl);
 		m_vecMeshs[i]->DrawSubset(m_vecsubSet[i]);

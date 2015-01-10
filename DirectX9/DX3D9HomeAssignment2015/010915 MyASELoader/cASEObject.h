@@ -17,6 +17,12 @@ private:
 	float						m_fAngleSpeed;
 
 	stASENode					m_stNodeInfo;
+	stAseTrackAni				m_stNodeAni;
+
+	int nFrameR = 0;
+	int nFrameUnitR = 1;
+	int nFrameT = 0;
+	int nFrameUnitT = 1;
 
 public:
 	cASEObject();

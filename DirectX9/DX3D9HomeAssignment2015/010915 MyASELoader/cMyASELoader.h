@@ -1,9 +1,6 @@
 #pragma once
 
-
-
 class cMtlTex;
-
 
 class cMyASELoader
 {
@@ -37,7 +34,14 @@ private:
 	void ParseMapDiffuse(cMtlTex* pMtlTex);
 	void ParseGeometry(stASENode& node);
 	void ParseMesh(stASENode& node);
-	// todo
+
+	// animation
+	void ParseScene();
+	void ParseTMAnimation(OUT stAseTrackAni& stAseT);
+	void ParsePosTrack(OUT stAseTrack& stAseT);
+	void ParseRotTrack(OUT stAseTrackAni& stAseT);
+	void ParseSclTrack(OUT stAseTrack& stAseT);
+
 	void ParseVertexList(std::vector<D3DXVECTOR3>& vec);
 	void ParseFaceList(std::vector<D3DXVECTOR3>& vec, std::vector<ST_PNT_VERTEX>& vecPNT);
 	void ParseTVertList(std::vector<D3DXVECTOR2>& vec);
@@ -46,10 +50,12 @@ private:
 	void ParseNormals(std::vector<ST_PNT_VERTEX>& vecPNT);
 	void ParseNodeTM(D3DXMATRIXA16& mat);
 
-	std::vector<cMtlTex*> m_vecMtl;
-	std::vector<stASENode> m_vecASENode;
-	std::vector<LPD3DXMESH> m_vecMeshs;
-	std::vector<int> m_vecsubSet;
+	//Data
+	std::vector<cMtlTex*>					m_vecMtl;
+	std::vector<stASENode>					m_vecASENode;
+	std::vector<LPD3DXMESH>					m_vecMeshs;
+	std::vector<int>						m_vecsubSet;
+	stSceneInfo								m_stSceneInfo;
 
 	bool m_bLoaded = false;
 	bool m_bMeshed = false;

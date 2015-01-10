@@ -21,7 +21,8 @@ void cASEObject::setup(stASENode& nodeinfo, D3DXMATRIXA16* pmatParentWorld/* = N
 	m_stNodeInfo = nodeinfo;		
 	m_matWorldTM = nodeinfo.LocalMat;
 	m_matOriginalWorld = nodeinfo.LocalMat;
-
+	m_stNodeAni = nodeinfo.AnimationInfo;
+	
 	if (pmatParentWorld){
 		D3DXMATRIXA16 mtPrnI;
 		D3DXMatrixInverse(&mtPrnI, NULL, pmatParentWorld);
@@ -93,23 +94,64 @@ void cASEObject::setup(stASENode& nodeinfo, D3DXMATRIXA16* pmatParentWorld/* = N
 }
 
 void cASEObject::update(float delta, D3DXMATRIXA16* pmatParentWorld/* = NULL*/){
+
+	/*D3DXMATRIX mtA, mtT, mtF;
+	D3DXMatrixIdentity(&mtA);
+	D3DXMatrixIdentity(&mtT);
+	size_t iSizeR = m_stNodeAni.vRot.size();
+	size_t iSizeT = m_stNodeAni.vTrs.size();
+	D3DXQUATERNION* q = NULL;
+	D3DXVECTOR3* p = NULL;
 	
-	//for (int i = 0; i < m_stNodeInfo.vecVertex.size(); i++){
-	//	if (pmatParentWorld){
-	//		D3DXMatrixInverse(&parentInv, NULL, pmatParentWorld);
-	//		m_matLocalMat = m_matWorldTM * *pmatParentWorld;
-	//	}
-	//	D3DXVec3TransformCoord(
-	//		&m_stNodeInfo.vecVertex[i].p,
-	//		&m_stNodeInfo.vecVertex[i].p,
-	//		&m_matWorldTM);
-	//	D3DXVec3TransformNormal(
-	//		&m_stNodeInfo.vecVertex[i].n,
-	//		&m_stNodeInfo.vecVertex[i].n,
-	//		&m_matWorldTM
-	//		);
-	//}
-	//D3DXMATRIXA16 parentInv;
+
+	if (!m_stNodeAni.vTrs.empty()){
+		p = (D3DXVECTOR3*)&m_stNodeAni.vTrs[nFrameT];
+	}
+	if (!m_stNodeAni.vRot.empty()){
+		q = (D3DXQUATERNION*)&m_stNodeAni.vRot[nFrameR];
+	}
+
+	if (nFrameT >= iSizeT - 1 || nFrameT <= 0){
+		nFrameUnitT *= -1;
+	}
+	if (nFrameR >= iSizeR - 1 || nFrameR <= 0){
+		nFrameUnitR *= -1;
+	}
+	if (!m_stNodeAni.vTrs.empty()){
+		nFrameT += nFrameUnitT;
+		if (nFrameT <= 0){
+			nFrameT = 0;
+		}
+		if (nFrameT >= iSizeT - 1){
+			nFrameT = iSizeT - 1;
+		}
+	}
+	if (!m_stNodeAni.vRot.empty()){
+		nFrameR += nFrameUnitR;
+		if (nFrameR <= 0){
+			nFrameR = 0;
+		}
+		if (nFrameR >= iSizeR - 1){
+			nFrameR = iSizeR - 1;
+		}
+	}
+
+	if (q){
+		D3DXMatrixRotationQuaternion(&mtA, q);
+	}
+	if (p){
+		D3DXMatrixTranslation(&mtT, p->x, p->y, p->z);
+	}
+
+	mtF = mtT * mtA;*/
+
+	D3DXMATRIX mtA, mtT, mtF;
+	D3DXMatrixIdentity(&mtA);
+	D3DXMatrixIdentity(&mtT);
+	D3DXMatrixRotationX(&mtA, D3DXToRadian(1.0f));
+	mtF = mtA * mtT;
+
+	m_matLocalMat = m_matLocalMat * mtF;
 	
 	if (pmatParentWorld){
 		m_matWorldTM = m_matLocalMat * *pmatParentWorld;
@@ -133,6 +175,10 @@ void cASEObject::render(std::vector<cMtlTex*>& vecMtl){
 
 	if (GetKeyState(VK_TAB) & 0x8000){
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matOriginalWorld);
+	}
+
+	if (GetKeyState(VK_SHIFT) & 0x8000){
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorldTM);
 	}
 	
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
