@@ -41,13 +41,15 @@ void cObjectGirl::setup(){
 	for (int i = 0; i < vecNodeList.size(); i++){
 		if (m_pRoot){
 			pPart = new cASEObject;
-			pPart->setup(vecNodeList[i]);
+			D3DXMATRIXA16 parentMat;
+			parentMat = vecNodeTree.at(vecNodeList[i].NodeParent)->getNodeInfo().LocalMat;
+			pPart->setup(vecNodeList[i], &parentMat);		
 			vecNodeTree.insert(std::pair<std::string, cASEObject*>(vecNodeList[i].NodeName, pPart));
 			vecNodeTree.at(vecNodeList[i].NodeParent)->AddChild(pPart);
 		}
 		else {
 			pPart = new cASEObject;
-			pPart->setup(vecNodeList[i]);
+			pPart->setup(vecNodeList[i], &m_matworldMat);
 			vecNodeTree.insert(std::pair<std::string, cASEObject*>(vecNodeList[i].NodeName, pPart));
 			m_pRoot = pPart;
 		}

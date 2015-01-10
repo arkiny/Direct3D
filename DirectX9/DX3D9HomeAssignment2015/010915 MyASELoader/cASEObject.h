@@ -5,11 +5,13 @@ __declspec(align(16)) class cASEObject
 private:
 	std::vector<cASEObject*>	m_vecChilds;
 	LPD3DXMESH					m_pMesh;
+	LPD3DXMESH					m_pNodeMesh;
 
 	D3DXMATRIXA16				m_matLocalMat;
 	D3DXMATRIXA16				m_matRot;
 	D3DXMATRIXA16				m_matPostT;
 	D3DXMATRIXA16				m_matWorldTM;
+	D3DXMATRIXA16				m_matOriginalWorld;
 	float						m_fAngle;
 	float						m_fXAngle;
 	float						m_fAngleSpeed;
@@ -38,7 +40,7 @@ public:
 		return m_stNodeInfo.NodeName;
 	}
 
-	void setup(stASENode& nodeinfo);
+	void setup(stASENode& nodeinfo, D3DXMATRIXA16* pmatParentWorld = NULL);
 	
 	void update(float delta, D3DXMATRIXA16* pmatParentWorld = NULL);
 
@@ -47,5 +49,7 @@ public:
 	void AddChild(cASEObject* pObj);
 
 	void destroy();
+
+	stASENode& getNodeInfo(){ return m_stNodeInfo; }
 };
 
