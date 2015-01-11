@@ -50,7 +50,7 @@ void cASEObject::setup(stASENode& nodeinfo, D3DXMATRIXA16* pmatParentWorld/* = N
 			);
 	}
 
-	D3DXCreateSphere(g_pD3DDevice, 0.025f, 20, 20, &m_pNodeMesh, NULL);
+	D3DXCreateSphere(g_pD3DDevice, 0.025f, 10, 10, &m_pNodeMesh, NULL);
 
 	if (m_stNodeInfo.nRef != INT_MAX){
 		m_pMesh = NULL;
@@ -218,15 +218,18 @@ void cASEObject::render(std::vector<cMtlTex*>& vecMtl){
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matOriginalWorld);
 	}
 
-	if (GetKeyState(VK_SHIFT) & 0x8000){
+	if (GetKeyState(VK_F1) & 0x8000){
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorldTM);
 	}
 	
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 	if (m_pMesh){
 		g_pD3DDevice->SetTexture(0, vecMtl[m_stNodeInfo.nRef]->pTex);
+		//g_pD3DDevice->SetTexture(0, NULL);
 		g_pD3DDevice->SetMaterial(&vecMtl[m_stNodeInfo.nRef]->stMtl);
 		m_pMesh->DrawSubset(m_stNodeInfo.nRef);
+	}
+	if (m_pNodeMesh){
 		m_pNodeMesh->DrawSubset(0);
 	}
 	for (auto p : m_vecChilds){
