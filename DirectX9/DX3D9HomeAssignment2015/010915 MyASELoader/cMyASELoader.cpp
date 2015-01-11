@@ -90,7 +90,7 @@ void cMyASELoader::Load(std::string& folderName, std::string& fileName){
 			debug++;
 		}
 	}
-	_ASSERT(debug == 26);
+	_ASSERT(debug == 26 && "All Texutresed GeomObject Not loaded // Woman_all.ase");
 #endif
 	m_bLoaded = true;
 	fclose(m_fp);

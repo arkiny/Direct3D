@@ -2,9 +2,12 @@
 #include "cASEObject.h"
 #include "cMtlTex.h"
 
-cASEObject::cASEObject():
+cASEObject::cASEObject() :
 m_pMesh(NULL),
-m_pNodeMesh(NULL)
+m_pNodeMesh(NULL),
+m_fAngle(0.0f),
+m_fXAngle(0.0f),
+m_fAngleSpeed(1.0f)
 {
 	D3DXMatrixIdentity(&m_matWorldTM);
 	D3DXMatrixIdentity(&m_matLocalMat);
@@ -145,13 +148,51 @@ void cASEObject::update(float delta, D3DXMATRIXA16* pmatParentWorld/* = NULL*/){
 
 	mtF = mtT * mtA;*/
 
-	D3DXMATRIX mtA, mtT, mtF;
-	D3DXMatrixIdentity(&mtA);
-	D3DXMatrixIdentity(&mtT);
-	D3DXMatrixRotationX(&mtA, D3DXToRadian(1.0f));
-	mtF = mtA * mtT;
+	//D3DXMATRIX mtR, mtT, mtF;
+	//D3DXMatrixIdentity(&mtR);
+	//D3DXMatrixIdentity(&mtT);
+	//if (!m_stNodeAni.vTrs.empty()){
+	//	D3DXVECTOR3 axis(m_stNodeAni.vTrs[0].x, m_stNodeAni.vTrs[0].y, m_stNodeAni.vTrs[0].z);
+	//	D3DXMatrixRotationAxis(&mtR, &axis, m_stNodeAni.vTrs[0].w);
+	//}
+	////D3DXMatrixRotationX(&mtA, D3DXToRadian(1.0f));
+	//mtF = mtR * mtT;
+	//m_matLocalMat = m_matLocalMat * mtF;
+	D3DXMATRIX mtR, mtT;
+	D3DXMatrixIdentity(&mtR);
+	if (m_stNodeInfo.NodeName == "Bip01RUpperArm" ){
+		m_fAngle += m_fAngleSpeed * delta;
+		D3DXMatrixRotationX(&mtR, D3DXToRadian(m_fAngle));
+		
+	}
+	else if (m_stNodeInfo.NodeName == "Bip01LUpperArm" ||
+		m_stNodeInfo.NodeName == "Bip01RThigh"){
+		m_fAngle += m_fAngleSpeed * delta;
+		D3DXMatrixRotationX(&mtR, D3DXToRadian(m_fAngle));
+	}
+	else if (m_stNodeInfo.NodeName == "Bip01LThigh"){
+		m_fAngle += m_fAngleSpeed * delta;
+		D3DXMatrixRotationY(&mtR, D3DXToRadian(m_fAngle));
+	}
+	else if (m_stNodeInfo.NodeName == "Bip01RThigh"){
+		m_fAngle += m_fAngleSpeed * delta;
+		D3DXMatrixRotationY(&mtR, D3DXToRadian(m_fAngle));
+	}
 
-	m_matLocalMat = m_matLocalMat * mtF;
+	if (m_fAngle < -D3DX_PI / 4.0f)
+	{
+		m_fAngle = (-D3DX_PI / 4.0f);
+		m_fAngleSpeed *= -1;
+	}
+
+	if (m_fAngle > D3DX_PI / 4.0f)
+	{
+		m_fAngle = (D3DX_PI / 4.0f);
+		m_fAngleSpeed *= -1;
+	}
+
+
+	m_matLocalMat = m_matLocalMat * mtR;
 	
 	if (pmatParentWorld){
 		m_matWorldTM = m_matLocalMat * *pmatParentWorld;
