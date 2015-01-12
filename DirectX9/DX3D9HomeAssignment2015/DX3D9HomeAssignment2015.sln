@@ -19,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "010815 ASE Parser2", "01081
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "010915 MyAseLoader", "010915 MyASELoader\010915 MyASELoader.vcxproj", "{D633B6D8-D9FA-4C48-8ED2-007BCD7A9F88}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "010915 MyAseLoader", "011215 Interpolation\011215 Interpolation.vcxproj", "{F58B9825-59B1-4B8F-82A7-808F200A2A5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -57,6 +59,10 @@ Global
 		{D633B6D8-D9FA-4C48-8ED2-007BCD7A9F88}.Debug|Win32.Build.0 = Debug|Win32
 		{D633B6D8-D9FA-4C48-8ED2-007BCD7A9F88}.Release|Win32.ActiveCfg = Release|Win32
 		{D633B6D8-D9FA-4C48-8ED2-007BCD7A9F88}.Release|Win32.Build.0 = Release|Win32
+		{F58B9825-59B1-4B8F-82A7-808F200A2A5A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F58B9825-59B1-4B8F-82A7-808F200A2A5A}.Debug|Win32.Build.0 = Debug|Win32
+		{F58B9825-59B1-4B8F-82A7-808F200A2A5A}.Release|Win32.ActiveCfg = Release|Win32
+		{F58B9825-59B1-4B8F-82A7-808F200A2A5A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
