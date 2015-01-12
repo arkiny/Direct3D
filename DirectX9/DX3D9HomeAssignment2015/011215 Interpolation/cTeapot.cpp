@@ -4,7 +4,7 @@
 #include "cMtlTex.h"
 #include "cVertexPoints.h"
 
-#define SPEED
+#define SPEED 2
 
 D3DXVECTOR3& linearInterpolition(D3DXVECTOR3& prev, D3DXVECTOR3& next, float delta){
 	return	prev + (next - prev) * delta;
@@ -83,7 +83,7 @@ void cTeapot::update(float delta){
 		float currTime = GetTickCount() * 0.001f;
 		float tick = currTime - fPrevTime;
 		fPrevTime = currTime;
-		fAccum += tick;
+		fAccum += tick * SPEED;
 		if (fAccum >= 1.0f){
 			linearInterpolition(m_vecPos, m_vecTarget, fAccum);
 			m_vecPos = m_vecTarget;
@@ -119,7 +119,7 @@ void cTeapot::update(float delta){
 		float currTime = GetTickCount() * 0.001f;
 		float tick = currTime - fPrevTime;
 		fPrevTime = currTime;
-		fAccum += tick/2.0f;
+		fAccum += (tick*SPEED/2.0f);
 
 		if (fAccum >= 1.0f){
 			bezierInterpolition(m_vecPos, m_vecTarget, m_vecTarget2, fAccum);
