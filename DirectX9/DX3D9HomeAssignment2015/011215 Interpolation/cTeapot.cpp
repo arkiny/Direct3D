@@ -4,6 +4,9 @@
 #include "cMtlTex.h"
 #include "cVertexPoints.h"
 
+// 1 6sec for a circle
+// 2 3sec for a circle
+// 3 1sec for a circle
 #define SPEED 2
 
 D3DXVECTOR3& linearInterpolition(D3DXVECTOR3& prev, D3DXVECTOR3& next, float delta){
@@ -39,17 +42,20 @@ cTeapot::~cTeapot()
 void cTeapot::setup(cVertexPoints* points, eINTERPOLATIONTYPE type){
 	fPrevTime = GetTickCount() * 0.001f;
 	m_pTargets = points;
+	m_eType = type;
+
 	D3DXCreateTeapot(g_pD3DDevice, &m_pMesh, NULL);
 	m_pMtlTex = new cMtlTex;
 	m_pMtlTex->pTex = NULL;
-	m_pMtlTex->stMtl.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-	m_pMtlTex->stMtl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-	m_pMtlTex->stMtl.Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-	m_pMtlTex->stMtl.Emissive = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-	m_pMtlTex->stMtl.Power = 5.0f;
-	m_eType = type;
-
+	
 	if (m_eType == eINTERPOLATIONTYPE::eLinear){
+		m_pMtlTex->stMtl.Ambient = D3DXCOLOR(0.5f, 0.5f, 1.0f, 1.0f);
+		m_pMtlTex->stMtl.Diffuse = D3DXCOLOR(0.5f, 0.5f, 1.0f, 1.0f);
+		m_pMtlTex->stMtl.Specular = D3DXCOLOR(0.5f, 0.5f, 1.0f, 1.0f);
+		m_pMtlTex->stMtl.Emissive = D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f);
+		m_pMtlTex->stMtl.Power = 5.0f;
+
+
 		m_vecPos = m_pTargets->getPointAt(0);
 		m_vecStart = m_pTargets->getPointAt(0);
 		m_vecTarget = m_pTargets->getPointAt(1);
@@ -66,6 +72,12 @@ void cTeapot::setup(cVertexPoints* points, eINTERPOLATIONTYPE type){
 		}
 	}
 	else {
+		m_pMtlTex->stMtl.Ambient = D3DXCOLOR(0.5f, 1.0f, 0.5f, 1.0f);
+		m_pMtlTex->stMtl.Diffuse = D3DXCOLOR(0.5f, 1.0f, 0.5f, 1.0f);
+		m_pMtlTex->stMtl.Specular = D3DXCOLOR(0.5f, 1.0f, 0.5f, 1.0f);
+		m_pMtlTex->stMtl.Emissive = D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f);
+		m_pMtlTex->stMtl.Power = 5.0f;
+
 		m_vecPos	= m_pTargets->getPointAt(0);
 		m_vecStart = m_vecPos;
 		m_vecTarget = m_pTargets->getPointAt(1);
@@ -80,10 +92,7 @@ void cTeapot::setPos(D3DXVECTOR3& vec){
 
 void cTeapot::update(float delta){	
 	if (m_eType == eINTERPOLATIONTYPE::eLinear){
-		float currTime = GetTickCount() * 0.001f;
-		float tick = currTime - fPrevTime;
-		fPrevTime = currTime;
-		fAccum += tick * SPEED;
+		fAccum += delta * SPEED;
 		if (fAccum >= 1.0f){
 			linearInterpolition(m_vecPos, m_vecTarget, fAccum);
 			m_vecPos = m_vecTarget;
@@ -116,10 +125,7 @@ void cTeapot::update(float delta){
 
 	}
 	else if (m_eType = eINTERPOLATIONTYPE::eBezier){
-		float currTime = GetTickCount() * 0.001f;
-		float tick = currTime - fPrevTime;
-		fPrevTime = currTime;
-		fAccum += (tick*SPEED/2.0f);
+		fAccum += (delta*SPEED / 2.0f);
 
 		if (fAccum >= 1.0f){
 			bezierInterpolition(m_vecPos, m_vecTarget, m_vecTarget2, fAccum);
