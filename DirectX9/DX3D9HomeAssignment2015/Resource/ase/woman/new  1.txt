@@ -1,0 +1,137 @@
+#pragma once
+
+#define g_pObjectManager cObjectManger::GetInstance()
+
+class cObject;
+
+
+// if you add more description,
+// you can check memory leak easier.
+class cObjectManger{
+private:
+	SINGLETONE(cObjectMAnager);
+	std::set<cObject*> m_stObject; // Tree structured, only using value
+	
+public:
+	void AddObject(cObject* pObject){
+		m_stObject.insert(pObject);
+	}
+	
+	void RemoveObject(cObject* pObject){
+		m_setObject.erase(pObject);
+	}
+	
+	void Destory(){
+		if (!m_setObject.empty()){
+			assert(false && "There are remain objects in the manager");
+			for (auto p : m_setObject){
+				OutPutDebugString(p->GetDesc().c_str());
+			}
+		}
+	}
+}
+
+
+//
+class cObject{
+	protected:
+		std::String m_sDesc;
+	
+	cOBject{
+		g_pObjectMAnager>addObject(this);
+	}
+
+	virtual ~cObject{
+		g_pObjectManager->removeobject(this);
+	}
+	
+	virtual void SetDesc(std::string& s){
+		m_sDesc = s;
+	}
+	
+	virtual std::String Desc(){
+			return m_sDesc;
+	}
+}
+
+//
+
+//
+class cMain{
+	
+}
+
+//
+class apimain{
+	after delete main game
+	g_pObjectManager->Destory();
+}
+
+//
+
+class cTransform;
+class cGameObject : public cObject{
+	protected:
+		SYNTHESIZE_PASS_BY_REF(cTransform, m_Trasnform, Transform);
+		D3DXMTARIXA16 m_matTransfrom;
+		
+	public:
+		cGameObject();
+		~cGameObject();
+		
+		D3DXMATRIXA16* GetTransformMatrix(){
+				return &m_matTransform;
+		}
+		
+			
+}
+
+// ""Reference count have to be released where it is added.""
+// GetterSetter Macro
+#define SYNTHESIZE(varType, nvarNAme, funcName)\
+protected: vartype varName;\
+public: inline varType Get##funcName(void) const { return varName; } \
+public: inline void Set##funcName(varType var){varName = var; }
+
+#define SYNTHESIZE_PASS_BY_REF(varType, nvarNAme, funcName)\
+protected: vartype varName;\
+public: inline varType Get##funcName(void) const { return varName; } \
+public: inline void Set##funcName(const varType& var){varName = var; }
+
+#dfine SYNTHESIZE_ADD_REF(varType, varName, funcName)
+
+class cTransform : public cObject{
+	protected:
+		//D3DXVECTOR3 m_vPosition(0,0,0);
+		SYNTHESIZE_PASS_BY_REF(D3DXVECTOR3, m_vPosition, Position);
+		
+		
+		
+	public:
+		cTramsform(void);
+		~cTransform(void);
+		
+		
+		// D3DXVETOR3 GetPosition{
+			// return m_vPosition;
+		// }
+		
+		// void SetPoistion(D3DXVECTOR3 v){
+			// m_vPosition = v;
+		// }
+				
+}
+
+#define SAFE_ADD_REF(p) if(p){p->AddRef();}
+//
+void cGroup::SetMtlTex(cMtlTex* pMtlTex){
+	if(m_pMtlTex != pMtlTex){
+		SAFE_RELEASE(m_pMtlTex);
+		SAFE_ADD_REF(pMtlTex);
+		m_pMtlTex = pMtlTex;
+	}
+}
+
+//
+
+class 
