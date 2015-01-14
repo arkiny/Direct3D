@@ -23,6 +23,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "011215 Interpolation", "011
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "011315 ObjectRefactoring", "011315 ObjectRefactoring\011315 ObjectRefactoring.vcxproj", "{F978A817-A761-4B1C-B94A-43ED392DEE56}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "011415 AseAnimationParser", "011415 AseAnimationParser\011415 AseAnimationParser.vcxproj", "{99DDB537-EAFA-4376-9B74-7A1BE93C03FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -69,6 +71,10 @@ Global
 		{F978A817-A761-4B1C-B94A-43ED392DEE56}.Debug|Win32.Build.0 = Debug|Win32
 		{F978A817-A761-4B1C-B94A-43ED392DEE56}.Release|Win32.ActiveCfg = Release|Win32
 		{F978A817-A761-4B1C-B94A-43ED392DEE56}.Release|Win32.Build.0 = Release|Win32
+		{99DDB537-EAFA-4376-9B74-7A1BE93C03FD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{99DDB537-EAFA-4376-9B74-7A1BE93C03FD}.Debug|Win32.Build.0 = Debug|Win32
+		{99DDB537-EAFA-4376-9B74-7A1BE93C03FD}.Release|Win32.ActiveCfg = Release|Win32
+		{99DDB537-EAFA-4376-9B74-7A1BE93C03FD}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
