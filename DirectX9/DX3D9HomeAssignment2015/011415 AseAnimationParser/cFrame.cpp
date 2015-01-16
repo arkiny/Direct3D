@@ -91,14 +91,20 @@ void cFrame::SetMtlTex(cMtlTex* pMtlTex)
 void cFrame::Update(D3DXMATRIXA16* pmatParent, float delta)
 {
 	//m_matWorldTM = m_matWorldTM * GetTranslationMatrixFromAnimation(delta);
+	m_fTotalAccum += delta;
+	
 
 	m_matWorldTM = m_matLocalTM;
 	D3DXMATRIXA16 mat;
 	D3DXMatrixIdentity(&mat);
-	
-	GetRotationMatrixFromAnimation(delta, mat);
-	GetTranslationMatrixFromAnimation(delta, mat);
 
+	//float a = GetTickCount();
+	
+	//GetTCBRotationMatrixFromAnimation(delta, mat);	
+	
+	GetRotationMatrixFromAnimation(delta, mat);	
+	GetTranslationMatrixFromAnimation(delta, mat);	
+		
 	m_matWorldTM = mat;
 
 	if (pmatParent)
@@ -134,17 +140,18 @@ void cFrame::Destroy()
 	delete this;
 }
 
-
-
 void cFrame::GetTranslationMatrixFromAnimation(float delta, D3DXMATRIXA16& mat){
 	D3DXMATRIXA16 trans;
-	if (m_stNodeAni.vTrs.size() > 2){
+	if (m_stNodeAni.vTrs.size() >= 2){
 		int nextIndex = (m_nTrsIndex + 1) % m_stNodeAni.vTrs.size();
 		int Index = m_nTrsIndex % m_stNodeAni.vTrs.size();
-		float duration = (m_stNodeAni.vTrs[nextIndex].nf - m_stNodeAni.vTrs[Index].nf) / 640.0f;
+
+		float time = (float)(m_stSceneInfo.uiFrameSpeed * m_stSceneInfo.uiFrameTick);
+		float duration = (m_stNodeAni.vTrs[nextIndex].nf - m_stNodeAni.vTrs[Index].nf) / time;
+		
+		
 		m_fTransAccum = m_fTransAccum + delta;
 		float fUnit = m_fTransAccum / duration;
-		
 
 		D3DXVECTOR3 from(m_stNodeAni.vTrs[Index].x, m_stNodeAni.vTrs[Index].y, m_stNodeAni.vTrs[Index].z);
 		D3DXVECTOR3 to(m_stNodeAni.vTrs[nextIndex].x, m_stNodeAni.vTrs[nextIndex].y, m_stNodeAni.vTrs[nextIndex].z);
@@ -152,53 +159,23 @@ void cFrame::GetTranslationMatrixFromAnimation(float delta, D3DXMATRIXA16& mat){
 		D3DXVec3Lerp(&moved, &from, &to, fUnit);
 	
 
-		if (m_fTransAccum > duration){
+		if (m_fTransAccum >= duration){
 			m_fTransAccum = 0.0f;
 			m_nTrsIndex++;
-			if (m_nTrsIndex % m_stNodeAni.vTrs.size() == 0){
+			if ((m_nTrsIndex+1) % (m_stNodeAni.vTrs.size()) == 0){
 				m_nTrsIndex = 0;
 			}
 		}
 
+		D3DXMatrixTranslation(&trans, moved.x, moved.y, moved.z);	
+		mat = mat * trans;
 		
-		D3DXMatrixTranslation(&trans, moved.x, moved.y, moved.z);
-		//m_matWorldTM *= trans;
-
-		mat._41 = trans._41;
-		mat._42 = trans._42;
-		mat._43 = trans._43;
-		mat._44 = trans._44;
-		/*mat._11 = trans._11;
-		mat._12 = trans._12;
-		mat._13 = trans._13;
-		mat._21 = trans._21;
-		mat._22 = trans._22;
-		mat._23 = trans._23;
-		mat._31 = trans._31;
-		mat._32 = trans._32;
-		mat._33 = trans._33;*/
 	}
 	else if (m_stNodeAni.vTrs.size() == 1){
 		D3DXMatrixTranslation(&trans, m_stNodeAni.vTrs[0].x, m_stNodeAni.vTrs[0].y, m_stNodeAni.vTrs[0].z);
-		//m_fTransAccum += delta;
-		//m_matWorldTM *= trans;
-		mat._41 = trans._41;
-		mat._42 = trans._42;
-		mat._43 = trans._43;
-		mat._44 = trans._44;
+		mat = mat * trans;
 	}
 	else if (m_stNodeAni.vTrs.size() == 0){
-		//m_fTransAccum += delta;
-		/*trans._11 = m_matLocalTM._11;
-		trans._12 = m_matLocalTM._12;
-		trans._13 = m_matLocalTM._13;
-		trans._21 = m_matLocalTM._21;
-		trans._22 = m_matLocalTM._22;
-		trans._23 = m_matLocalTM._23;
-		trans._31 = m_matLocalTM._31;
-		trans._32 = m_matLocalTM._32;
-		trans._33 = m_matLocalTM._33;*/
-
 		mat._41 = m_matLocalTM._41;
 		mat._42 = m_matLocalTM._42;
 		mat._43 = m_matLocalTM._43;
@@ -212,65 +189,38 @@ void cFrame::GetRotationMatrixFromAnimation(float delta, OUT D3DXMATRIXA16& mat)
 	// frame from, frame to
 	// 640 = 1sec, duration = (to - from) / 640
 	// in quateronion -> m_fRotAccum shoulud < 1.0f
-
-	_ASSERT(m_stNodeAni.vRot.size() == m_vecAccumRotQuat.size());
-
-	if (m_stNodeAni.vRot.size() > 2){
-		int nextIndex = (m_nRotIndex + 1) % m_stNodeAni.vRot.size();
-		int Index = m_nRotIndex % m_stNodeAni.vRot.size();
-		float duration = (m_stNodeAni.vRot[nextIndex].nf - m_stNodeAni.vRot[Index].nf) / 640.0f;
-		
+	if (m_vecAccumRotQuat.size() >= 2){
+		int nextIndex = (m_nRotIndex + 1) % m_vecAccumRotQuat.size();
+		int Index = m_nRotIndex % m_vecAccumRotQuat.size();
+		float time = (float)(m_stSceneInfo.uiFrameSpeed * m_stSceneInfo.uiFrameTick);
+		float duration = (m_vecFrame[nextIndex] - m_vecFrame[Index]) / time;
 		m_fRotAccum = m_fRotAccum + delta;
 		float fUnit = m_fRotAccum / duration;
 
 		D3DXQUATERNION from = m_vecAccumRotQuat[Index];
 		D3DXQUATERNION to = m_vecAccumRotQuat[nextIndex];
 		D3DXQUATERNION moved;
-		//FLOAT w = FLOAT(nFrame - pGeo->vRot[i].nF)/(pGeo->vRot[i+1].nF- pGeo->vRot[i].nF);
 
 		D3DXQuaternionSlerp(&moved, &from, &to, fUnit);
 
-		if (m_fRotAccum > duration){
+		if (m_fRotAccum >= duration){
 			m_fRotAccum = 0.0f;
 			m_nRotIndex++;
-			if (m_nRotIndex % m_stNodeAni.vRot.size() == 0){
+			if ((m_nRotIndex + 1) % (m_vecAccumRotQuat.size()) == 0){
 				m_nRotIndex = 0;
 			}
-
-			/*if (m_sNodeName == "Bip01 Spine"){
-				int a = 0;
-			}*/
-			
 		}
 
 		D3DXMATRIXA16 rot;
 		D3DXMatrixRotationQuaternion(&rot, &moved);
-
-		mat._11 = rot._11;
-		mat._12 = rot._12;
-		mat._13 = rot._13;
-		mat._21 = rot._21;
-		mat._22 = rot._22;
-		mat._23 = rot._23;
-		mat._31 = rot._31;
-		mat._32 = rot._32;
-		mat._33 = rot._33;
-
+		mat = mat * rot;
 	}
 	else if (m_stNodeAni.vRot.size() == 1){
 		D3DXMATRIXA16 rot;
 		D3DXMatrixRotationQuaternion(&rot, &m_vecAccumRotQuat[0]);
-		mat._11 = rot._11;
-		mat._12 = rot._12;
-		mat._13 = rot._13;
-		mat._21 = rot._21;
-		mat._22 = rot._22;
-		mat._23 = rot._23;
-		mat._31 = rot._31;
-		mat._32 = rot._32;
-		mat._33 = rot._33;
+		mat = mat * rot;
 	}
-	else if (m_stNodeAni.vRot.size() == 0){
+	else {
 		mat._11 = m_matLocalTM._11;
 		mat._12 = m_matLocalTM._12;
 		mat._13 = m_matLocalTM._13;
@@ -281,7 +231,55 @@ void cFrame::GetRotationMatrixFromAnimation(float delta, OUT D3DXMATRIXA16& mat)
 		mat._32 = m_matLocalTM._32;
 		mat._33 = m_matLocalTM._33;
 	}
+	
 }
+
+//void cFrame::GetTCBRotationMatrixFromAnimation(float delta, OUT D3DXMATRIXA16& mat){
+	//if (m_vecAccumTCBRotQuat.size() >= 2){
+	//	int nextIndex	= (m_nTRotIndex + 1) % (m_vecAccumTCBRotQuat.size());
+	//	int Index		= m_nTRotIndex % (m_vecAccumTCBRotQuat.size());
+	//	float time		= (float)(m_stSceneInfo.uiFrameSpeed * m_stSceneInfo.uiFrameTick);
+	//	float duration	= (m_stNodeAni.vTRot[nextIndex+1].nf - m_stNodeAni.vTRot[(Index+1)].nf) / time;
+	//	
+	//	m_fTRotAccum	= m_fTRotAccum + delta;
+
+	//	float fUnit		= m_fTRotAccum / duration;
+	//	if (fUnit > 1.0f) fUnit = 1.0f;
+
+	//	D3DXQUATERNION from = m_vecAccumTCBRotQuat[Index];
+	//	D3DXQUATERNION to	= m_vecAccumTCBRotQuat[nextIndex];
+	//	D3DXQUATERNION moved;
+
+	//	D3DXQuaternionSlerp(&moved, &from, &to, fUnit);
+
+	//	if (m_fTRotAccum > duration){
+	//		m_fTRotAccum = 0.0f;
+	//		m_nTRotIndex++;
+	//		if ((m_nTRotIndex+1) % ((m_vecAccumTCBRotQuat.size())) == 0){
+	//			m_nTRotIndex = 0;
+	//		}
+	//	}
+	//	D3DXMATRIXA16 rot;
+	//	D3DXMatrixRotationQuaternion(&rot, &moved);
+	//	mat = mat * rot;
+	//}
+	//else if (m_vecAccumTCBRotQuat.size() == 1){
+	//	D3DXMATRIXA16 rot;
+	//	D3DXMatrixRotationQuaternion(&rot, &m_vecAccumTCBRotQuat[0]);
+	//	mat = mat * rot;
+	//}
+	//else if (m_vecAccumTCBRotQuat.size() == 0){
+	//	mat._11 = m_matLocalTM._11;
+	//	mat._12 = m_matLocalTM._12;
+	//	mat._13 = m_matLocalTM._13;
+	//	mat._21 = m_matLocalTM._21;
+	//	mat._22 = m_matLocalTM._22;
+	//	mat._23 = m_matLocalTM._23;
+	//	mat._31 = m_matLocalTM._31;
+	//	mat._32 = m_matLocalTM._32;
+	//	mat._33 = m_matLocalTM._33;
+	//}
+//}
 
 void cFrame::CalcAccumRotTracks(){
 	if (!m_stNodeAni.vRot.empty()){
@@ -291,6 +289,7 @@ void cFrame::CalcAccumRotTracks(){
 		float qz = itr->z * sin(itr->w / 2);
 		float qw = cos(itr->w / 2);
 		D3DXQUATERNION q = { qx, qy, qz, qw };
+		m_vecFrame.push_back(itr->nf);
 		m_vecAccumRotQuat.push_back(q);
 		itr++;
 		while (itr != m_stNodeAni.vRot.end()){
@@ -306,9 +305,45 @@ void cFrame::CalcAccumRotTracks(){
 			D3DXQUATERNION nq = { qx, qy, qz, qw };
 			D3DXQUATERNION fq;
 			D3DXQuaternionMultiply(&fq, &pred, &nq);
+			m_vecFrame.push_back(itr->nf);
 			m_vecAccumRotQuat.push_back(fq);
 			itr++;
 		}
 	}
 }
 
+void cFrame::CalcAccumRotTracksTCB(){
+	if (!m_stNodeAni.vTRot.empty()){
+		std::vector<stAseTrack>::iterator itr = m_stNodeAni.vTRot.begin();
+		float qx = itr->x * sin(itr->w / 2);
+		float qy = itr->y * sin(itr->w / 2);
+		float qz = itr->z * sin(itr->w / 2);
+		float qw = cos(itr->w / 2);
+		D3DXQUATERNION q = { qx, qy, qz, qw };
+		itr++;
+
+		qx = itr->x * sin(itr->w / 2);
+		qy = itr->y * sin(itr->w / 2);
+		qz = itr->z * sin(itr->w / 2);
+		qw = cos(itr->w / 2);
+		D3DXQUATERNION nq = { qx, qy, qz, qw };
+		D3DXQUATERNION fq;
+		D3DXQuaternionMultiply(&fq, &q, &nq);
+		m_vecAccumRotQuat.push_back(fq);
+		m_vecFrame.push_back(itr->nf);
+		itr++;
+
+		while (itr != m_stNodeAni.vTRot.end()){
+			qx = itr->x * sin(itr->w / 2);
+			qy = itr->y * sin(itr->w / 2);
+			qz = itr->z * sin(itr->w / 2);
+			qw = cos(itr->w / 2);
+			D3DXQUATERNION nq = { qx, qy, qz, qw };
+			D3DXQUATERNION fq;
+			D3DXQuaternionMultiply(&fq, &m_vecAccumRotQuat.back(), &nq);
+			m_vecFrame.push_back(itr->nf);
+			m_vecAccumRotQuat.push_back(fq);
+			itr++;
+		}
+	}
+}

@@ -10,10 +10,11 @@ private:
 	char		m_szToken[1024];
 	cFrame*		m_pRootFrame;
 	std::string	m_sFolder;
+	stSceneInfo s;
 
 	std::vector<cMtlTex*>			m_vecMtlTex;
 	std::map<std::string, cFrame*>	m_mapFrame;
-
+	
 public:
 	cAseLoader(void);
 	~cAseLoader(void);
@@ -27,6 +28,8 @@ private:
 	int		GetInteger();
 	float	GetFloat();
 	void	SkipBlock();
+
+	void	ProcessScene(stSceneInfo& s);
 
 	void	ProcessMaterialList();
 	void	ProcessMaterial(cMtlTex* pMtlTex);
@@ -43,5 +46,6 @@ private:
 	void	ProcessTMAnimation(IN OUT stAseTrackAni& stTrack);
 	void	ProcessPosTrack(IN OUT stAseTrackAni& stTrack);
 	void	ProcessRotTrack(IN OUT stAseTrackAni& stTrack);
+	void	ProcessTCBRotTrack(IN OUT stAseTrackAni& stTrack);
 };
 

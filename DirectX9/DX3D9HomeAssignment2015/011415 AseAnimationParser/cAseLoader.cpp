@@ -18,11 +18,12 @@ cFrame* cAseLoader::Load(std::string& sFolder, std::string& sFileName)
 	m_sFolder = sFolder;
 
 	fopen_s(&m_fp, (sFolder + sFileName).c_str(), "r");
+	stSceneInfo s = {};
 
 	while (char* szToken = GetToken())
-	{
+	{	
 		if (IsEqual(szToken, ID_SCENE))
-			SkipBlock();
+			ProcessScene(s);
 		else if (IsEqual(szToken, ID_MATERIAL_LIST))
 		{
 			ProcessMaterialList();
@@ -30,6 +31,7 @@ cFrame* cAseLoader::Load(std::string& sFolder, std::string& sFileName)
 		else if (IsEqual(szToken, ID_GEOMETRY))
 		{
 			cFrame* pFrame = ProcessGeomObject();
+			pFrame->m_stSceneInfo = s;
 			m_mapFrame[pFrame->m_sNodeName] = pFrame;
 			if (m_pRootFrame)
 			{
@@ -127,6 +129,31 @@ void cAseLoader::SkipBlock()
 		else if (IsEqual(szToken, "}"))
 		{
 			--nLevel;
+		}
+	} while (nLevel > 0);
+}
+
+void cAseLoader::ProcessScene(stSceneInfo& s){
+	int nLevel = 0;
+	do{
+		char* szToken = GetToken();
+		if (IsEqual(szToken, "{")){
+			++nLevel;
+		}
+		else if (IsEqual(szToken, "}")){
+			--nLevel;
+		}
+		else if (IsEqual(szToken, ID_FIRSTFRAME)){
+			s.uiFrameFirst = GetInteger();
+		}
+		else if (IsEqual(szToken, ID_LASTFRAME)){
+			s.uiFrameLast = GetInteger();
+		}
+		else if (IsEqual(szToken, ID_FRAMESPEED)){
+			s.uiFrameSpeed = GetInteger();
+		}
+		else if (IsEqual(szToken, ID_TICKSPERFRAME)){
+			s.uiFrameTick = GetInteger();
 		}
 	} while (nLevel > 0);
 }
@@ -268,6 +295,7 @@ cFrame* cAseLoader::ProcessGeomObject()
 		{
 			ProcessTMAnimation(pFrame->m_stNodeAni);
 			pFrame->CalcAccumRotTracks();
+			pFrame->CalcAccumRotTracksTCB();
 		}
 		else if (IsEqual(szToken, ID_MATERIAL_REF))
 		{
@@ -538,6 +566,10 @@ void cAseLoader::ProcessTMAnimation(IN OUT stAseTrackAni& stTrack){
 		else if (IsEqual(szToken, ID_ROT_TRACK)){
 			ProcessRotTrack(stTrack);
 		}
+		else if (IsEqual(szToken, ID_CONTROL_ROT_TCB)){
+			// do nothing
+			ProcessTCBRotTrack(stTrack);
+		}
 	} while (nLevel > 0);
 }
 
@@ -589,6 +621,34 @@ void cAseLoader::ProcessRotTrack(IN OUT stAseTrackAni& stTrack){
 			vRot.y = GetFloat();
 			vRot.w = GetFloat();
 			stTrack.vRot.push_back(vRot);
+		}
+	} while (nLevel > 0);
+}
+
+
+void cAseLoader::ProcessTCBRotTrack(IN OUT stAseTrackAni& stTrack){
+	int nLevel = 0;
+	do
+	{
+		char* szToken = GetToken();
+		if (IsEqual(szToken, "{"))
+		{
+			++nLevel;
+		}
+		else if (IsEqual(szToken, "}"))
+		{
+			--nLevel;
+		}
+		else if (IsEqual(szToken, ID_TCB_ROT_KEY))
+		{
+			int frame = GetInteger();
+			stAseTrack vTRot;
+			vTRot.nf = frame;
+			vTRot.x = GetFloat();
+			vTRot.z = GetFloat();
+			vTRot.y = GetFloat();
+			vTRot.w = GetFloat();
+			stTrack.vTRot.push_back(vTRot);
 		}
 	} while (nLevel > 0);
 }

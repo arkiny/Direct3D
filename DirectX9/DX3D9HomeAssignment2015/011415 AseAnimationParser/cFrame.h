@@ -9,19 +9,28 @@ private:
 	std::string					m_sNodeName;
 	std::string					m_sParentName;
 
+	stSceneInfo					m_stSceneInfo;
 	stAseTrackAni				m_stNodeAni;
 	std::vector<D3DXQUATERNION>	m_vecAccumRotQuat;
+	//std::vector<D3DXQUATERNION>	m_vecAccumTCBRotQuat;
 
 	std::vector<cFrame*>		m_vecChildren;
+	//std::vector<int>			m_vecTframe;
+	std::vector<int>			m_vecFrame;
+
 	D3DXMATRIXA16				m_matLocalTM;
 	D3DXMATRIXA16				m_matWorldTM;
 	LPD3DXMESH					m_pMesh;
 	cMtlTex*					m_pMtlTex;
+
+	float						m_fTotalAccum = 0.0f;
 	
 	float						m_fTransAccum = 0.0f;
 	float						m_fRotAccum = 0.0f;
+	float						m_fTRotAccum = 0.0f;
 	int							m_nTrsIndex = 0;
 	int							m_nRotIndex = 0;
+	int							m_nTRotIndex = 0;
 public:
 	cFrame(void);
 	~cFrame(void);
@@ -46,9 +55,10 @@ public:
 	void Destroy();
 
 	void CalcAccumRotTracks();
+	void CalcAccumRotTracksTCB();
 
 	void GetRotationMatrixFromAnimation(float delta, OUT D3DXMATRIXA16& mat);
 	void GetTranslationMatrixFromAnimation(float delta, OUT D3DXMATRIXA16& mat);
-	
+	void GetTCBRotationMatrixFromAnimation(float delta, OUT D3DXMATRIXA16& mat);	
 };
 
