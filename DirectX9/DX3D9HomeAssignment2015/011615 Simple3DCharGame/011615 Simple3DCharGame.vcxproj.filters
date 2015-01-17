@@ -41,15 +41,6 @@
     <ClCompile Include="cObjLoader.cpp">
       <Filter>OldOnes\Loader</Filter>
     </ClCompile>
-    <ClCompile Include="cASEObject.cpp">
-      <Filter>OldOnes\ASE</Filter>
-    </ClCompile>
-    <ClCompile Include="cObjectGirl.cpp">
-      <Filter>OldOnes\ASE</Filter>
-    </ClCompile>
-    <ClCompile Include="cMyASELoader.cpp">
-      <Filter>OldOnes\ASE</Filter>
-    </ClCompile>
     <ClCompile Include="cTeapot.cpp">
       <Filter>OldOnes\Interpolation</Filter>
     </ClCompile>
@@ -100,10 +91,13 @@
     <ClCompile Include="cAseLoader.cpp">
       <Filter>_Refactoring\Loader</Filter>
     </ClCompile>
-    <ClCompile Include="cFrame.cpp">
-      <Filter>_Refactoring\Loader</Filter>
-    </ClCompile>
     <ClCompile Include="cTeacherSolution.cpp" />
+    <ClCompile Include="cFrame.cpp">
+      <Filter>_Refactoring\cGameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="cCharacter.cpp">
+      <Filter>_Refactoring\cGameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -157,15 +151,6 @@
     <ClInclude Include="..\Common\Asciitok.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="cASEObject.h">
-      <Filter>OldOnes\ASE</Filter>
-    </ClInclude>
-    <ClInclude Include="cObjectGirl.h">
-      <Filter>OldOnes\ASE</Filter>
-    </ClInclude>
-    <ClInclude Include="cMyASELoader.h">
-      <Filter>OldOnes\ASE</Filter>
-    </ClInclude>
     <ClInclude Include="cTeapot.h">
       <Filter>OldOnes\Interpolation</Filter>
     </ClInclude>
@@ -216,10 +201,13 @@
     <ClInclude Include="cAseLoader.h">
       <Filter>_Refactoring\Loader</Filter>
     </ClInclude>
-    <ClInclude Include="cFrame.h">
-      <Filter>_Refactoring\Loader</Filter>
-    </ClInclude>
     <ClInclude Include="cTeacherSolution.h" />
+    <ClInclude Include="cFrame.h">
+      <Filter>_Refactoring\cGameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="cCharacter.h">
+      <Filter>_Refactoring\cGameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico" />
@@ -248,9 +236,6 @@
     </Filter>
     <Filter Include="OldOnes\Object">
       <UniqueIdentifier>{ee68f8e6-e6f2-49ad-84d9-b04ce9eb49d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="OldOnes\ASE">
-      <UniqueIdentifier>{c427cf8f-efca-490b-b712-fd3f96e21913}</UniqueIdentifier>
     </Filter>
     <Filter Include="_Refactoring">
       <UniqueIdentifier>{9e272ef2-c7d1-4c44-873f-592b90661133}</UniqueIdentifier>

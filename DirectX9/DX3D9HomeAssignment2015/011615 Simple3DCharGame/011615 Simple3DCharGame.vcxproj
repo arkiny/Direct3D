@@ -11,10 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{99DDB537-EAFA-4376-9B74-7A1BE93C03FD}</ProjectGuid>
+    <ProjectGuid>{C7503BA6-3795-4638-9088-C6A531D04E0C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>DX3D9HomeAssignment2015</RootNamespace>
-    <ProjectName>011415 AseAnimationParser</ProjectName>
+    <ProjectName>011615 Simple3DCharGame</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -91,8 +91,8 @@
     <ClInclude Include="cActionRepeat.h" />
     <ClInclude Include="cActionSeq.h" />
     <ClInclude Include="cAseLoader.h" />
-    <ClInclude Include="cASEObject.h" />
     <ClInclude Include="cCamera.h" />
+    <ClInclude Include="cCharacter.h" />
     <ClInclude Include="cCubeIndexBuffer.h" />
     <ClInclude Include="cFrame.h" />
     <ClInclude Include="cGameObject.h" />
@@ -101,10 +101,8 @@
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cMesh.h" />
     <ClInclude Include="cMtlTex.h" />
-    <ClInclude Include="cMyASELoader.h" />
     <ClInclude Include="cNTeapot.h" />
     <ClInclude Include="cObject.h" />
-    <ClInclude Include="cObjectGirl.h" />
     <ClInclude Include="cObjectManager.h" />
     <ClInclude Include="cObjLoader.h" />
     <ClInclude Include="cPart.h" />
@@ -133,8 +131,8 @@
     <ClCompile Include="cActionRepeat.cpp" />
     <ClCompile Include="cActionSeq.cpp" />
     <ClCompile Include="cAseLoader.cpp" />
-    <ClCompile Include="cASEObject.cpp" />
     <ClCompile Include="cCamera.cpp" />
+    <ClCompile Include="cCharacter.cpp" />
     <ClCompile Include="cCubeIndexBuffer.cpp" />
     <ClCompile Include="cFrame.cpp" />
     <ClCompile Include="cGameObject.cpp" />
@@ -143,10 +141,8 @@
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cMesh.cpp" />
     <ClCompile Include="cMtlTex.cpp" />
-    <ClCompile Include="cMyASELoader.cpp" />
     <ClCompile Include="cNTeapot.cpp" />
     <ClCompile Include="cObject.cpp" />
-    <ClCompile Include="cObjectGirl.cpp" />
     <ClCompile Include="cObjectManager.cpp" />
     <ClCompile Include="cObjLoader.cpp" />
     <ClCompile Include="cPart.cpp" />

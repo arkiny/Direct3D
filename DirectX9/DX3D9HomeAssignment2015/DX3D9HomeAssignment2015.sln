@@ -25,6 +25,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "011315 ObjectRefactoring", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "011415 AseAnimationParser", "011415 AseAnimationParser\011415 AseAnimationParser.vcxproj", "{99DDB537-EAFA-4376-9B74-7A1BE93C03FD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "011615 Simple3DCharGame", "011615 Simple3DCharGame\011615 Simple3DCharGame.vcxproj", "{C7503BA6-3795-4638-9088-C6A531D04E0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -75,6 +77,10 @@ Global
 		{99DDB537-EAFA-4376-9B74-7A1BE93C03FD}.Debug|Win32.Build.0 = Debug|Win32
 		{99DDB537-EAFA-4376-9B74-7A1BE93C03FD}.Release|Win32.ActiveCfg = Release|Win32
 		{99DDB537-EAFA-4376-9B74-7A1BE93C03FD}.Release|Win32.Build.0 = Release|Win32
+		{C7503BA6-3795-4638-9088-C6A531D04E0C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C7503BA6-3795-4638-9088-C6A531D04E0C}.Debug|Win32.Build.0 = Debug|Win32
+		{C7503BA6-3795-4638-9088-C6A531D04E0C}.Release|Win32.ActiveCfg = Release|Win32
+		{C7503BA6-3795-4638-9088-C6A531D04E0C}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

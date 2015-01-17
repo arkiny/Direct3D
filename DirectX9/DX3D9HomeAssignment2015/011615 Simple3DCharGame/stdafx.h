@@ -69,17 +69,14 @@ struct stSceneInfo{
 	UINT uiFrameTick;			// frame
 };
 
-struct stAseTrack{
-	float x, y, z, w;
-	int nf;
+struct ST_POS_SAMPLE{
+	int nKey;
+	D3DXVECTOR3 v;
 };
 
-struct stAseTrackAni{
-	std::string sNodeCur;			//Current Node Name
-	std::vector<stAseTrack> vRot;	//Rotation
-	std::vector<stAseTrack> vTrs;	//Transslation
-	std::vector<stAseTrack> vScl;	//Scale
-	std::vector<stAseTrack> vTRot;  //TCB Rotation
+struct ST_ROT_SAMPLE{
+	int nKey;
+	D3DXQUATERNION q;
 };
 
 struct stASENode{
@@ -88,6 +85,5 @@ struct stASENode{
 	std::string NodeParent;
 	int nRef = INT_MAX;
 	D3DXMATRIXA16 LocalMat;
-	stAseTrackAni AnimationInfo;
 };
 

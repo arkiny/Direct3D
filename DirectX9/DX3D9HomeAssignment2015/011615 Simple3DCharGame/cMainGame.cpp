@@ -6,8 +6,7 @@
 #include "cCamera.h"
 #include "cPlayer.h"
 #include "cPyramid.h"
-#include "cAseLoader.h"
-#include "cFrame.h"
+#include "cCharacter.h"
 
 cMainGame::cMainGame() :
 m_cAxis(NULL),
@@ -15,7 +14,7 @@ m_cGrid(NULL),
 m_cCamera(NULL),
 m_pPyramid(NULL),
 m_pFont(NULL),
-m_pAseRoot(NULL)
+m_pCharacter(NULL)
 {
 	srand(GetTickCount());
 	GetCursorPos(&m_mousePos);
@@ -32,7 +31,8 @@ cMainGame::~cMainGame()
 
 	SAFE_RELEASE(m_pFont);
 
-	m_pAseRoot->Destroy();
+	SAFE_DELETE(m_pCharacter);
+
 	g_pTextureManager->Destroy();
 	cDeviceManager* pDevice = cDeviceManager::GetInstance();
 	pDevice->Destroy();
@@ -51,13 +51,9 @@ void cMainGame::Init(){
 	m_pPyramid = new cPyramid;
 	m_pPyramid->setup();
 
-	m_pAseRoot = new cFrame;
-
-	cAseLoader AseLoader;
-	std::string sFolder1 = std::string("../Resource/");
-	sFolder1 += std::string("ase/woman/");
-	m_pAseRoot = AseLoader.Load(sFolder1, std::string("woman_01_all.ASE"));
-
+	m_pCharacter = new cCharacter;
+	m_pCharacter->Setup();
+	m_cCamera->SetTarget(m_pCharacter->GetPosition());
 
 	D3DXCreateFont(g_pD3DDevice,		//D3D Device
 		40,								//Font height
@@ -92,13 +88,12 @@ void cMainGame::Init(){
 }
 
 void cMainGame::Update(float delta){
-	m_cCamera->Update();
-	D3DXMATRIXA16 mat;
-	D3DXMatrixIdentity(&mat);
 
-	//D3DXMatrixTranslation(&mat, 1.0f, 0.0f, 1.0f);
-	if (m_pAseRoot)
-		m_pAseRoot->Update(&mat, delta);
+	m_cCamera->Update();
+	m_pCharacter->Update(delta);
+	/*D3DXMATRIXA16 mat;
+	D3DXMatrixTranslation(&mat, 1.0f, 0.0f, 1.0f);*/
+	
 }
 
 void cMainGame::Render(){
@@ -118,16 +113,13 @@ void cMainGame::Render(){
 	m_cAxis->render();
 	m_pPyramid->render();
 
+
 	D3DXMATRIXA16 mat;
 	D3DXMatrixIdentity(&mat);
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
-	
-	m_pAseRoot->Render();
 
-	D3DXMatrixIdentity(&mat);
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
-	
+	m_pCharacter->Render();
 
 	g_pD3DDevice->EndScene();
 	g_pD3DDevice->Present(NULL, NULL, NULL, NULL);
