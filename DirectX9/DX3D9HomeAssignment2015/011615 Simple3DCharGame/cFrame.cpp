@@ -139,7 +139,7 @@ void cFrame::Destroy()
 	{
 		pChild->Destroy();
 	}
-	delete this;
+	this->Release();
 }
 
 void cFrame::GetTranslationMatrixFromAnimation(OUT D3DXMATRIXA16& mat, IN int nKey){

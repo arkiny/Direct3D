@@ -56,7 +56,7 @@ void cPyramid::setup(){
 
 	for (UINT i = 0; i < plane.size(); i++){
 		D3DXVec3TransformCoord(&v.p, &plane[i].p, &matRotateY);
-		D3DXVec3TransformCoord(&v.n, &plane[i].n, &matRotateY);
+		D3DXVec3TransformNormal(&v.n, &plane[i].n, &matRotateY);
 		original_payrimid.push_back(v);
 	}
 
@@ -64,7 +64,7 @@ void cPyramid::setup(){
 
 	for (UINT i = 0; i < plane.size(); i++){
 		D3DXVec3TransformCoord(&v.p, &plane[i].p, &matRotateY);
-		D3DXVec3TransformCoord(&v.n, &plane[i].n, &matRotateY);
+		D3DXVec3TransformNormal(&v.n, &plane[i].n, &matRotateY);
 		original_payrimid.push_back(v);
 	}
 
@@ -72,7 +72,7 @@ void cPyramid::setup(){
 
 	for (UINT i = 0; i < plane.size(); i++){
 		D3DXVec3TransformCoord(&v.p, &plane[i].p, &matRotateY);
-		D3DXVec3TransformCoord(&v.n, &plane[i].n, &matRotateY);
+		D3DXVec3TransformNormal(&v.n, &plane[i].n, &matRotateY);
 		original_payrimid.push_back(v);
 	}
 	

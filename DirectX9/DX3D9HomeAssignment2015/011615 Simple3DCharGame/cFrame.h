@@ -2,7 +2,7 @@
 
 class cMtlTex;
 
-__declspec(align(16)) class cFrame
+__declspec(align(16)) class cFrame : public cObject
 {
 	friend class cAseLoader;
 private:

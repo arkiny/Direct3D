@@ -5,10 +5,8 @@
 
 cCharacter::cCharacter() :
 m_pCurrentFrameRoot(NULL),
-m_vPosition(0,0,0),
 m_vFront(0,0,-1.0f)
 {
-	D3DXMatrixIdentity(&m_matMat);
 }
 
 
@@ -27,14 +25,16 @@ void cCharacter::Setup(){
 	sFolder1 += std::string("ase/woman/");
 	stSceneInfo scene = {};
 
+	D3DXMATRIXA16 mat;
+	D3DXMatrixIdentity(&mat);
 	cFrame* pS = AseLoader1.Load(sFolder1, std::string("woman_01_all_stand.ASE"), scene);
-	pS->CalcLocalTM(&m_matMat);
+	pS->CalcLocalTM(&mat);
 	m_vecFrameRoots.push_back(pS);
 	m_vecSceneInfo.push_back(scene);
 	
 	cAseLoader AseLoader2;
 	cFrame* pW = AseLoader2.Load(sFolder1, std::string("woman_01_all.ASE"), scene);
-	pW->CalcLocalTM(&m_matMat);
+	pW->CalcLocalTM(&mat);
 	m_vecFrameRoots.push_back(pW);
 	m_vecSceneInfo.push_back(scene);
 	m_pCurrentFrameRoot = pW;
@@ -43,27 +43,35 @@ void cCharacter::Setup(){
 void cCharacter::Update(float delta){
 	m_fAccum += delta;
 	int index = 0;
+	
+	//D3DXVECTOR3 curPos = m_pTransform->GetPosition();
+	float fangle = m_pTransform->GetYAxisAngle();
+
 	if (GetKeyState('W') & 0x8000){
 		index = 1;
-		m_vPosition += m_vFront*delta*5.0f;
+		//curPos += m_vFront*delta*5.0f;
+		m_pTransform->SetPosition(
+			m_pTransform->GetPosition() + m_vFront*delta*5.0f);
 	}
 	if (GetKeyState('S') & 0x8000){
 		index = 1;
-		m_vPosition -= m_vFront*delta*5.0f;
+		//curPos -= m_vFront*delta*5.0f;
+		m_pTransform->SetPosition(
+			m_pTransform->GetPosition() - m_vFront*delta*5.0f);
 	}
 	if (GetKeyState('A') & 0x8000){
 		index = 1;
-		m_fAngle -= 4.0f * delta;
+		m_pTransform->SetYAxisAngle(m_pTransform->GetYAxisAngle() - 4.0f * delta);
 		D3DXMATRIXA16 matR;
-		D3DXMatrixRotationY(&matR, m_fAngle);
+		D3DXMatrixRotationY(&matR, m_pTransform->GetYAxisAngle());
 		m_vFront = D3DXVECTOR3(0, 0, -1.f);
 		D3DXVec3TransformNormal(&m_vFront, &m_vFront, &matR);
 	}
 	if (GetKeyState('D') & 0x8000){
 		index = 1;
-		m_fAngle += 4.0f * delta;
+		m_pTransform->SetYAxisAngle(m_pTransform->GetYAxisAngle() + 4.0f * delta);
 		D3DXMATRIXA16 matR;
-		D3DXMatrixRotationY(&matR, m_fAngle);
+		D3DXMatrixRotationY(&matR, m_pTransform->GetYAxisAngle());
 		m_vFront = D3DXVECTOR3(0, 0, -1.f);
 		D3DXVec3TransformNormal(&m_vFront, &m_vFront, &matR);
 	}
@@ -84,13 +92,8 @@ void cCharacter::Update(float delta){
 	
 	m_pCurrentFrameRoot = m_vecFrameRoots[index];
 	
-	/*D3DXMATRIXA16 mat;
-	D3DXMatrixIsIdentity(&mat);*/
-
-	D3DXMATRIXA16 matR, matT, matWorld;
-	D3DXMatrixRotationY(&matR, m_fAngle);
-	D3DXMatrixTranslation(&matT, m_vPosition.x, m_vPosition.y, m_vPosition.z);
-	matWorld = matR * matT;
+	D3DXMATRIXA16 matWorld;
+	matWorld = *GetTransformMatrix();
 
 	if (m_pCurrentFrameRoot)
 		m_pCurrentFrameRoot->Update(&matWorld, nkey);
@@ -101,4 +104,8 @@ void cCharacter::Render(){
 	D3DXMatrixIdentity(&mat);
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
 	m_pCurrentFrameRoot->Render();
+}
+
+D3DXVECTOR3* cCharacter::GetPosition() { 
+	return m_pTransform->getPosPointer();
 }

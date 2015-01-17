@@ -92,6 +92,7 @@
     <ClInclude Include="cActionSeq.h" />
     <ClInclude Include="cAseLoader.h" />
     <ClInclude Include="cCamera.h" />
+    <ClInclude Include="cCard.h" />
     <ClInclude Include="cCharacter.h" />
     <ClInclude Include="cCubeIndexBuffer.h" />
     <ClInclude Include="cFrame.h" />
@@ -132,6 +133,7 @@
     <ClCompile Include="cActionSeq.cpp" />
     <ClCompile Include="cAseLoader.cpp" />
     <ClCompile Include="cCamera.cpp" />
+    <ClCompile Include="cCard.cpp" />
     <ClCompile Include="cCharacter.cpp" />
     <ClCompile Include="cCubeIndexBuffer.cpp" />
     <ClCompile Include="cFrame.cpp" />

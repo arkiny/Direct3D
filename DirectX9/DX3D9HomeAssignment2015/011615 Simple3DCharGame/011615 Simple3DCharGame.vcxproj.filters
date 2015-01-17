@@ -98,6 +98,9 @@
     <ClCompile Include="cCharacter.cpp">
       <Filter>_Refactoring\cGameObject</Filter>
     </ClCompile>
+    <ClCompile Include="cCard.cpp">
+      <Filter>_Refactoring\cGameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -208,6 +211,9 @@
     <ClInclude Include="cCharacter.h">
       <Filter>_Refactoring\cGameObject</Filter>
     </ClInclude>
+    <ClInclude Include="cCard.h">
+      <Filter>_Refactoring\cGameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico" />
@@ -251,6 +257,9 @@
     </Filter>
     <Filter Include="_Singleton">
       <UniqueIdentifier>{ff05eab7-36e2-4f33-9ab6-b3baa290e6de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_Refactoring\cCharAction">
+      <UniqueIdentifier>{4b743d3e-effa-4121-82ce-ec131216dfe5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

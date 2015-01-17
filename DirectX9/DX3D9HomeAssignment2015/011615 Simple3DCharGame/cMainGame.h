@@ -7,6 +7,7 @@ class cGrid;
 class cCamera;
 class cPyramid;
 class cCharacter;
+class cCard;
 
 class cMainGame : public cObject, public iActionDelegate
 {
@@ -22,6 +23,11 @@ private:
 	LPD3DXFONT							m_pFont;
 	RECT								m_recFontRect;
 
+	std::vector<cCard*>					m_vecSteppedCard;
+	std::vector<cCard*>					m_vecCards;
+	
+	int									m_nScore;
+	float								m_fAccumTime = 0.0f;
 public:
 	cMainGame();
 	~cMainGame();
@@ -33,5 +39,6 @@ public:
 
 	void OnActionFinish(cAction* pSender);
 
+	void CardCollideHandler(cCharacter* pCharacter, cCard* pChard);
 };
 
