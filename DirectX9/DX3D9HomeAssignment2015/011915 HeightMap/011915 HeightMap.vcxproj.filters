@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="..\Common\cAxis.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\cDeviceManager.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\cGameTimer.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\cGrid.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="cCubeIndexBuffer.cpp">
+      <Filter>OldOnes\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="iMap.cpp">
+      <Filter>OldOnes\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="cGroup.cpp">
+      <Filter>OldOnes\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="cPart.cpp">
+      <Filter>OldOnes\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="cPlayer.cpp">
+      <Filter>OldOnes\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="cPyramid.cpp">
+      <Filter>OldOnes\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="DX3D9HomeAssignment2015.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="cMesh.cpp">
+      <Filter>OldOnes\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="cObjLoader.cpp">
+      <Filter>OldOnes\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="cTeapot.cpp">
+      <Filter>OldOnes\Interpolation</Filter>
+    </ClCompile>
+    <ClCompile Include="cVertexPoints.cpp">
+      <Filter>OldOnes\Interpolation</Filter>
+    </ClCompile>
+    <ClCompile Include="cMtlTex.cpp">
+      <Filter>_Refactoring</Filter>
+    </ClCompile>
+    <ClCompile Include="cTransform.cpp">
+      <Filter>_Refactoring</Filter>
+    </ClCompile>
+    <ClCompile Include="cAction.cpp">
+      <Filter>_Refactoring\cAction</Filter>
+    </ClCompile>
+    <ClCompile Include="cActionMove.cpp">
+      <Filter>_Refactoring\cAction</Filter>
+    </ClCompile>
+    <ClCompile Include="cGameObject.cpp">
+      <Filter>_Refactoring\cGameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="cMainGame.cpp" />
+    <ClCompile Include="cTextureManager.cpp">
+      <Filter>_Singleton</Filter>
+    </ClCompile>
+    <ClCompile Include="cObjectManager.cpp">
+      <Filter>_Singleton</Filter>
+    </ClCompile>
+    <ClCompile Include="cActionRepeat.cpp">
+      <Filter>_Refactoring\cAction</Filter>
+    </ClCompile>
+    <ClCompile Include="cActionSeq.cpp">
+      <Filter>_Refactoring\cAction</Filter>
+    </ClCompile>
+    <ClCompile Include="cAPoint.cpp">
+      <Filter>OldOnes\Interpolation</Filter>
+    </ClCompile>
+    <ClCompile Include="cNTeapot.cpp">
+      <Filter>OldOnes\Interpolation</Filter>
+    </ClCompile>
+    <ClCompile Include="iActionDelegate.cpp">
+      <Filter>_Refactoring</Filter>
+    </ClCompile>
+    <ClCompile Include="cObject.cpp">
+      <Filter>_Refactoring\cGameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="cAseLoader.cpp">
+      <Filter>_Refactoring\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="cFrame.cpp">
+      <Filter>_Refactoring\cGameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="cCharacter.cpp">
+      <Filter>_Refactoring\cGameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="cCard.cpp">
+      <Filter>_Refactoring\cGameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="cCamera.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="cHeightMap.cpp">
+      <Filter>HeightMap</Filter>
+    </ClCompile>
+    <ClCompile Include="cRawLoader.cpp">
+      <Filter>HeightMap</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="..\Common\cAxis.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\cDeviceManager.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\cGameTimer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\cGrid.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\CommonHeader.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="cCubeIndexBuffer.h">
+      <Filter>OldOnes\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="iMap.h">
+      <Filter>OldOnes\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="cGroup.h">
+      <Filter>OldOnes\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="cPart.h">
+      <Filter>OldOnes\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="cPlayer.h">
+      <Filter>OldOnes\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="cPyramid.h">
+      <Filter>OldOnes\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="DX3D9HomeAssignment2015.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="gIObject.h">
+      <Filter>OldOnes\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="cMesh.h">
+      <Filter>OldOnes\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="cObjLoader.h">
+      <Filter>OldOnes\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Asciitok.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="cTeapot.h">
+      <Filter>OldOnes\Interpolation</Filter>
+    </ClInclude>
+    <ClInclude Include="cVertexPoints.h">
+      <Filter>OldOnes\Interpolation</Filter>
+    </ClInclude>
+    <ClInclude Include="cMtlTex.h">
+      <Filter>_Refactoring</Filter>
+    </ClInclude>
+    <ClInclude Include="cTransform.h">
+      <Filter>_Refactoring</Filter>
+    </ClInclude>
+    <ClInclude Include="cAction.h">
+      <Filter>_Refactoring\cAction</Filter>
+    </ClInclude>
+    <ClInclude Include="cActionMove.h">
+      <Filter>_Refactoring\cAction</Filter>
+    </ClInclude>
+    <ClInclude Include="cGameObject.h">
+      <Filter>_Refactoring\cGameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="cMainGame.h" />
+    <ClInclude Include="cTextureManager.h">
+      <Filter>_Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="cObjectManager.h">
+      <Filter>_Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="cActionRepeat.h">
+      <Filter>_Refactoring\cAction</Filter>
+    </ClInclude>
+    <ClInclude Include="cActionSeq.h">
+      <Filter>_Refactoring\cAction</Filter>
+    </ClInclude>
+    <ClInclude Include="cAPoint.h">
+      <Filter>OldOnes\Interpolation</Filter>
+    </ClInclude>
+    <ClInclude Include="cNTeapot.h">
+      <Filter>OldOnes\Interpolation</Filter>
+    </ClInclude>
+    <ClInclude Include="iActionDelegate.h">
+      <Filter>_Refactoring</Filter>
+    </ClInclude>
+    <ClInclude Include="cObject.h">
+      <Filter>_Refactoring\cGameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="cAseLoader.h">
+      <Filter>_Refactoring\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="cFrame.h">
+      <Filter>_Refactoring\cGameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="cCharacter.h">
+      <Filter>_Refactoring\cGameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="cCard.h">
+      <Filter>_Refactoring\cGameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="cCamera.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="cHeightMap.h">
+      <Filter>HeightMap</Filter>
+    </ClInclude>
+    <ClInclude Include="cRawLoader.h">
+      <Filter>HeightMap</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico" />
+    <Image Include="DX3D9HomeAssignment2015.ico">
+      <Filter>Core</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{db8b3760-542d-4448-8b4a-c8de464d6774}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{fc165de8-5077-4f43-a34c-99dfce063ea4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OldOnes">
+      <UniqueIdentifier>{64d1ec7d-1f6f-44d9-886e-1fc4ff18cd0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OldOnes\Loader">
+      <UniqueIdentifier>{650b2acd-aeec-48a9-a683-87bb48c12c8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OldOnes\Interpolation">
+      <UniqueIdentifier>{7d3f11fe-4f27-4f87-a543-c316d99ce4bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OldOnes\Object">
+      <UniqueIdentifier>{ee68f8e6-e6f2-49ad-84d9-b04ce9eb49d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_Refactoring">
+      <UniqueIdentifier>{9e272ef2-c7d1-4c44-873f-592b90661133}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_Refactoring\cAction">
+      <UniqueIdentifier>{4d0ddc4b-24c3-4d88-a29f-6a70663d2cd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_Refactoring\cGameObject">
+      <UniqueIdentifier>{d1ef9fe6-a9e9-423f-8db4-3839e1618c8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_Refactoring\Loader">
+      <UniqueIdentifier>{cdc97ac1-d329-48a7-9483-873109e16c4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_Singleton">
+      <UniqueIdentifier>{ff05eab7-36e2-4f33-9ab6-b3baa290e6de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_Refactoring\cCharAction">
+      <UniqueIdentifier>{4b743d3e-effa-4121-82ce-ec131216dfe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HeightMap">
+      <UniqueIdentifier>{96bddee0-32ab-43a3-b309-8e9d7984c3e9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DX3D9HomeAssignment2015.rc">
+      <Filter>Core</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
