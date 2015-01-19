@@ -121,19 +121,17 @@ void cMainGame::Init(){
 void cMainGame::Update(float delta){
 	m_fAccumTime += delta;
 	m_pCharacter->Update(delta);
-	//m_pCard->Update(delta);
-	//m_pCard2->Update(delta);
 	for (auto p : m_vecCards){
 		p->Update(delta);
 		CardCollideHandler(m_pCharacter, p);
 	}
 	m_cCamera->Update();	
-	if (m_nScore >= m_vecCards.size() / 2){
+	if (m_nScore >= (int)m_vecCards.size() / 2){
 		std::stringstream s;
 		s.precision(2);
 		s << std::fixed << "Score : " << m_nScore << std::endl
-			<< "Time : " << m_fAccumTime << std::endl;
-		MessageBox(g_hWnd, s.str().c_str(), "Game Done", MB_OK);
+			<< "Time : " << m_fAccumTime << " Sec"<< std::endl;
+		MessageBox(g_hWnd, s.str().c_str(), "Win!", MB_OK);
 		PostQuitMessage(NULL);
 	}
 }
@@ -166,12 +164,12 @@ void cMainGame::Render(){
 	s << std::fixed << "Score : " << m_nScore << std::endl
 		<< "Time : " << m_fAccumTime << std::endl;
 
-	m_pFont->DrawText(NULL,				 //pSprite
-		s.str().c_str(),	 //pString
-		-1,					//Count
-		&m_recFontRect,		//pRect
-		DT_LEFT | DT_NOCLIP,//Format,
-		0xFFFFFFFF);		//Color
+	m_pFont->DrawText(NULL,				//pSprite
+		s.str().c_str(),				//pString
+		-1,								//Count
+		&m_recFontRect,					//pRect
+		DT_LEFT | DT_NOCLIP,			//Format
+		0xFFFFFFFF);					//Color
 
 	m_pCharacter->Render();
 

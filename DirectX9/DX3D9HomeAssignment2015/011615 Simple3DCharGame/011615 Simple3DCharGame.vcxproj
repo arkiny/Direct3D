@@ -109,7 +109,6 @@
     <ClInclude Include="cPart.h" />
     <ClInclude Include="cPlayer.h" />
     <ClInclude Include="cPyramid.h" />
-    <ClInclude Include="cTeacherSolution.h" />
     <ClInclude Include="cTeapot.h" />
     <ClInclude Include="cTextureManager.h" />
     <ClInclude Include="cTransform.h" />
@@ -150,7 +149,6 @@
     <ClCompile Include="cPart.cpp" />
     <ClCompile Include="cPlayer.cpp" />
     <ClCompile Include="cPyramid.cpp" />
-    <ClCompile Include="cTeacherSolution.cpp" />
     <ClCompile Include="cTeapot.cpp" />
     <ClCompile Include="cTextureManager.cpp" />
     <ClCompile Include="cTransform.cpp" />

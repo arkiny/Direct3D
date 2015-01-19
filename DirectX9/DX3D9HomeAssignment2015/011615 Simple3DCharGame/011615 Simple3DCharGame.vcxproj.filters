@@ -91,7 +91,6 @@
     <ClCompile Include="cAseLoader.cpp">
       <Filter>_Refactoring\Loader</Filter>
     </ClCompile>
-    <ClCompile Include="cTeacherSolution.cpp" />
     <ClCompile Include="cFrame.cpp">
       <Filter>_Refactoring\cGameObject</Filter>
     </ClCompile>
@@ -204,7 +203,6 @@
     <ClInclude Include="cAseLoader.h">
       <Filter>_Refactoring\Loader</Filter>
     </ClInclude>
-    <ClInclude Include="cTeacherSolution.h" />
     <ClInclude Include="cFrame.h">
       <Filter>_Refactoring\cGameObject</Filter>
     </ClInclude>
