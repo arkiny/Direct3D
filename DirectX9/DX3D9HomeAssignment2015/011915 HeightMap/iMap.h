@@ -1,8 +1,8 @@
 #pragma once
 class iMap
 {
-	public:
-		virtual float GetHeight(OUT bool& isLand, IN D3DXVECTOR3* pvPosition) = 0;
+public:
+	virtual float GetHeight(OUT bool& isLand, IN D3DXVECTOR3* pvPosition) = 0;
 };
 
 class cObjMap : public iMap

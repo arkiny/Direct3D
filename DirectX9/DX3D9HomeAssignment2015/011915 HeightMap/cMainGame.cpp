@@ -103,6 +103,8 @@ void cMainGame::Init(){
 void cMainGame::Update(float delta){
 	m_fAccumTime += delta;
 	m_pCharacter->Update(delta);
+	bool isLand = false;
+	m_pHeightMap->GetHeight(isLand ,m_pCharacter->GetPosition());
 	m_cCamera->Update();
 	/*for (auto p : m_vecCards){
 		p->Update(delta);
