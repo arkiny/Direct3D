@@ -61,7 +61,7 @@ void cMainGame::Init(){
 
 	m_pCharacter = new cCharacter;
 	m_pCharacter->Setup();
-	m_pCharacter->GetTransform()->SetPosition(D3DXVECTOR3(0, 0, -1.0f));
+	m_pCharacter->GetTransform()->SetPosition(D3DXVECTOR3(1.0f, 0, 1.0f));
 	m_cCamera->SetTarget(m_pCharacter->GetPosition());
 	
 	m_pHeightMap = new cHeightMap;
