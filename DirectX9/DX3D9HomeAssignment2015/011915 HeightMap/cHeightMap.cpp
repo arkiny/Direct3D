@@ -172,7 +172,8 @@ void cHeightMap::Render(){
 float cHeightMap::GetHeight(OUT bool& isLand, IN D3DXVECTOR3* pvPosition){
 	int xIndex = static_cast<int>(floorf(pvPosition->x));
 	int zIndex = static_cast<int>(floorf(pvPosition->z));
-	if (xIndex < 0 || zIndex < 0){
+	if (xIndex < 0 || zIndex < 0 || xIndex >= 256 || zIndex >= 256){
+		isLand = false;
 		return 0.0f;
 	}
 	D3DXVECTOR3 lb = m_vecVertex[(zIndex * 257) + (xIndex)].p;

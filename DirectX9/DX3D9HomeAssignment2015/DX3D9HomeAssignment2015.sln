@@ -29,6 +29,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "011615 Simple3DCharGame", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "011915 HeightMap", "011915 HeightMap\011915 HeightMap.vcxproj", "{02F4E781-32AA-4161-AB9F-DDD086191714}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "012115 LoadMeshX", "012115 LoadMeshX\012115 LoadMeshX.vcxproj", "{745FB956-3410-4543-AB95-3C77C5525202}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -87,6 +89,10 @@ Global
 		{02F4E781-32AA-4161-AB9F-DDD086191714}.Debug|Win32.Build.0 = Debug|Win32
 		{02F4E781-32AA-4161-AB9F-DDD086191714}.Release|Win32.ActiveCfg = Release|Win32
 		{02F4E781-32AA-4161-AB9F-DDD086191714}.Release|Win32.Build.0 = Release|Win32
+		{745FB956-3410-4543-AB95-3C77C5525202}.Debug|Win32.ActiveCfg = Debug|Win32
+		{745FB956-3410-4543-AB95-3C77C5525202}.Debug|Win32.Build.0 = Debug|Win32
+		{745FB956-3410-4543-AB95-3C77C5525202}.Release|Win32.ActiveCfg = Release|Win32
+		{745FB956-3410-4543-AB95-3C77C5525202}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
