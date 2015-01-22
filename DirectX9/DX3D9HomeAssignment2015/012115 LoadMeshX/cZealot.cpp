@@ -65,10 +65,11 @@ void cZealot::RenderingAllFrame(D3DXMATRIXA16* pParentWorldTM, D3DXFRAME* pFrame
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &pBone->matWorld);
 
 		if (pBone->pMeshContainer){
-			std::string folder = "../Resource/Zealot/";
-			folder += pBone->pMeshContainer->pMaterials->pTextureFilename;
-			g_pD3DDevice->SetTexture(0, g_pTextureManager->GetTexture(folder));
+			
 			for (int i = 0; i < pBone->pMeshContainer->NumMaterials; i++){
+				std::string folder = "../Resource/Zealot/";
+				folder += pBone->pMeshContainer->pMaterials[i].pTextureFilename;
+				g_pD3DDevice->SetTexture(0, g_pTextureManager->GetTexture(folder));
 				g_pD3DDevice->SetMaterial(&pBone->pMeshContainer->pMaterials[i].MatD3D);
 				pBone->pMeshContainer->MeshData.pMesh->DrawSubset(i);
 			}
