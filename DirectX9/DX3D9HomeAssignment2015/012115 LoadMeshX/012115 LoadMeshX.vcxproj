@@ -112,6 +112,7 @@
     <ClInclude Include="cPlayer.h" />
     <ClInclude Include="cPyramid.h" />
     <ClInclude Include="cRawLoader.h" />
+    <ClInclude Include="cSkinnedMesh.h" />
     <ClInclude Include="cTeapot.h" />
     <ClInclude Include="cTextureManager.h" />
     <ClInclude Include="cTransform.h" />
@@ -156,6 +157,7 @@
     <ClCompile Include="cPlayer.cpp" />
     <ClCompile Include="cPyramid.cpp" />
     <ClCompile Include="cRawLoader.cpp" />
+    <ClCompile Include="cSkinnedMesh.cpp" />
     <ClCompile Include="cTeapot.cpp" />
     <ClCompile Include="cTextureManager.cpp" />
     <ClCompile Include="cTransform.cpp" />

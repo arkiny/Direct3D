@@ -1,6 +1,7 @@
 #pragma once
-struct D3DXFRAME_DR : public D3DXFRAME{
+struct ST_BONE : public D3DXFRAME{
 	D3DXMATRIXA16 matWorld;
+
 };
 
 class cAllocateHierarchy : public ID3DXAllocateHierarchy

@@ -108,8 +108,13 @@
     <ClCompile Include="cRawLoader.cpp">
       <Filter>HeightMap</Filter>
     </ClCompile>
-    <ClCompile Include="cAllocateHierarchy.cpp" />
-    <ClCompile Include="cZealot.cpp" />
+    <ClCompile Include="cZealot.cpp">
+      <Filter>LoadMeshX</Filter>
+    </ClCompile>
+    <ClCompile Include="cAllocateHierarchy.cpp">
+      <Filter>LoadMeshX</Filter>
+    </ClCompile>
+    <ClCompile Include="cSkinnedMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -230,8 +235,13 @@
     <ClInclude Include="cRawLoader.h">
       <Filter>HeightMap</Filter>
     </ClInclude>
-    <ClInclude Include="cAllocateHierarchy.h" />
-    <ClInclude Include="cZealot.h" />
+    <ClInclude Include="cZealot.h">
+      <Filter>LoadMeshX</Filter>
+    </ClInclude>
+    <ClInclude Include="cAllocateHierarchy.h">
+      <Filter>LoadMeshX</Filter>
+    </ClInclude>
+    <ClInclude Include="cSkinnedMesh.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico" />
@@ -281,6 +291,9 @@
     </Filter>
     <Filter Include="HeightMap">
       <UniqueIdentifier>{96bddee0-32ab-43a3-b309-8e9d7984c3e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LoadMeshX">
+      <UniqueIdentifier>{bdd77871-7149-4d0b-84f4-67369ea4f6f8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
 #include "cZealot.h"
 #include "cAllocateHierarchy.h"
 #include "cMtlTex.h"
+#include "cTextureManager.h"
 
 cZealot::cZealot() :
 m_pFrame(NULL),
@@ -28,7 +29,7 @@ void cZealot::Setup(){
 	hr = D3DXLoadMeshHierarchyFromX("../Resource/Zealot/zealot.X",
 		D3DXMESH_MANAGED, g_pD3DDevice, &Alloc, NULL, &p, NULL);
 	_ASSERT(hr == S_OK);
-	m_pFrame = (D3DXFRAME_DR*)p;
+	m_pFrame = (ST_BONE*)p;
 	/*D3DXMATRIXA16 mat;
 	CalculateWorldTM(&mat, m_pFrame);*/
 	D3DXCreateSphere(g_pD3DDevice, 0.025f, 10, 10, &m_pMesh, 0);
@@ -45,29 +46,44 @@ void cZealot::Update(float delta){
 void cZealot::Render(){
 	D3DXMATRIXA16 mat;
 	D3DXMatrixIdentity(&mat);
-	g_pD3DDevice->SetMaterial(&m_pMtlTex->stMtl);
+	
 	g_pD3DDevice->SetTexture(0, NULL);
 	if (m_pFrame){
 		RenderingAllFrame(&mat, m_pFrame);
 	}
 }
 
-void cZealot::RenderingAllFrame(D3DXMATRIXA16* pParentWorldTM, D3DXFRAME_DR* pFrame){
+void cZealot::RenderingAllFrame(D3DXMATRIXA16* pParentWorldTM, D3DXFRAME* pFrame){
+	ST_BONE* pBone = (ST_BONE*)pFrame;
 	if (pFrame){
 		D3DXMATRIXA16 matWorld;
 		D3DXMatrixIdentity(&matWorld);
+		//g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
 
-		pFrame->matWorld = (pFrame->TransformationMatrix) * (*pParentWorldTM);
-		g_pD3DDevice->SetTransform(D3DTS_WORLD, &pFrame->matWorld);
-		m_pMesh->DrawSubset(0);
+		pBone->matWorld = (pFrame->TransformationMatrix) * (*pParentWorldTM);
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &pBone->matWorld);
+
+		if (pBone->pMeshContainer){
+			std::string folder = "../Resource/Zealot/";
+			folder += pBone->pMeshContainer->pMaterials->pTextureFilename;
+			g_pD3DDevice->SetTexture(0, g_pTextureManager->GetTexture(folder));
+			for (int i = 0; i < pBone->pMeshContainer->NumMaterials; i++){
+				g_pD3DDevice->SetMaterial(&pBone->pMeshContainer->pMaterials[i].MatD3D);
+				pBone->pMeshContainer->MeshData.pMesh->DrawSubset(i);
+			}
+			
+		}
+		else{
+			//m_pMesh->DrawSubset(0);
+		}
 	
 		if (pFrame->pFrameFirstChild){
-			RenderingAllFrame(&pFrame->matWorld, (D3DXFRAME_DR*)pFrame->pFrameFirstChild);
+			RenderingAllFrame(&pBone->matWorld, pFrame->pFrameFirstChild);
 		}
 		
 		if (pFrame->pFrameSibling){
-			RenderingAllFrame(pParentWorldTM, (D3DXFRAME_DR*)pFrame->pFrameSibling);
+			RenderingAllFrame(pParentWorldTM, pFrame->pFrameSibling);
 		}
 		
 	}
