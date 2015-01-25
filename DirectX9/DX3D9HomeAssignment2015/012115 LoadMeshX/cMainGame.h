@@ -8,7 +8,7 @@ class cCamera;
 class cPyramid;
 class cCharacter;
 class cHeightMap;
-class cZealot;
+class cSkinnedMesh;
 
 class cMainGame : public cObject, public iActionDelegate
 {
@@ -21,7 +21,7 @@ private:
 	cPyramid*							m_pPyramid;
 	cCharacter*							m_pCharacter;
 	cHeightMap*							m_pHeightMap;
-	cZealot*							m_pZealot;
+	cSkinnedMesh*						m_pSkinnedMesh;
 
 	LPD3DXFONT							m_pFont;
 	RECT								m_recFontRect;

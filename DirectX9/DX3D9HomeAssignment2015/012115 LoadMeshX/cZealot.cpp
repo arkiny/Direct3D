@@ -61,8 +61,8 @@ void cZealot::RenderingAllFrame(D3DXMATRIXA16* pParentWorldTM, D3DXFRAME* pFrame
 		//g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
 
-		pBone->matWorld = (pFrame->TransformationMatrix) * (*pParentWorldTM);
-		g_pD3DDevice->SetTransform(D3DTS_WORLD, &pBone->matWorld);
+		pBone->matWorldTM = (pFrame->TransformationMatrix) * (*pParentWorldTM);
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &pBone->matWorldTM);
 
 		if (pBone->pMeshContainer){
 			
@@ -80,7 +80,7 @@ void cZealot::RenderingAllFrame(D3DXMATRIXA16* pParentWorldTM, D3DXFRAME* pFrame
 		}
 	
 		if (pFrame->pFrameFirstChild){
-			RenderingAllFrame(&pBone->matWorld, pFrame->pFrameFirstChild);
+			RenderingAllFrame(&pBone->matWorldTM, pFrame->pFrameFirstChild);
 		}
 		
 		if (pFrame->pFrameSibling){

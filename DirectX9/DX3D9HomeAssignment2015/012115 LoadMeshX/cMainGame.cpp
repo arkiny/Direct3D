@@ -10,7 +10,7 @@
 #include "cCard.h"
 #include "cHeightMap.h"
 #include <algorithm>
-#include "cZealot.h"
+#include "cSkinnedMesh.h"
 
 cMainGame::cMainGame() :
 m_cAxis(NULL),
@@ -21,7 +21,7 @@ m_pFont(NULL),
 m_pCharacter(NULL),
 m_nScore(0),
 m_pHeightMap(NULL),
-m_pZealot(NULL)
+m_pSkinnedMesh(NULL)
 {
 	srand(GetTickCount());
 	GetCursorPos(&m_mousePos);
@@ -38,7 +38,7 @@ cMainGame::~cMainGame()
 	/*for (auto p : m_vecCards){
 		SAFE_RELEASE(p);
 	}*/
-	SAFE_DELETE(m_pZealot);
+	SAFE_DELETE(m_pSkinnedMesh);
 
 	SAFE_RELEASE(m_pHeightMap);
 	SAFE_RELEASE(m_pFont);
@@ -62,8 +62,8 @@ void cMainGame::Init(){
 	m_pPyramid = new cPyramid;
 	m_pPyramid->setup();
 
-	m_pZealot = new cZealot;
-	m_pZealot->Setup();
+	m_pSkinnedMesh = new cSkinnedMesh;
+	m_pSkinnedMesh->Setup("../Resource/Zealot/", "zealot.X");
 
 	if (m_pCharacter){
 		m_cCamera->SetTarget(m_pCharacter->GetPosition());
@@ -91,9 +91,9 @@ void cMainGame::Init(){
 	D3DXVECTOR3 vDir = D3DXVECTOR3(1.5, -1, 1);
 	D3DXVec3Normalize(&vDir, &vDir);
 	stLight.Direction = vDir;
-	stLight.Ambient = D3DXCOLOR(0.8f, 0.8f, 0.8f, 1.0f);
-	stLight.Diffuse = D3DXCOLOR(0.8f, 0.8f, 0.8f, 1.0f);
-	stLight.Specular = D3DXCOLOR(0.8f, 0.8f, 0.8f, 1.0f);
+	stLight.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	stLight.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	stLight.Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	
 	g_pD3DDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
@@ -106,6 +106,9 @@ void cMainGame::Update(float delta){
 	m_fAccumTime += delta;
 	if (m_pCharacter){
 		m_pCharacter->Update(delta);
+	}
+	if (m_pSkinnedMesh){
+		m_pSkinnedMesh->Update(delta);
 	}
 	bool isLand = false;
 	if (m_pHeightMap){
@@ -142,8 +145,8 @@ void cMainGame::Render(){
 		m_pCharacter->Render();
 	}
 
-	if (m_pZealot){
-		m_pZealot->Render();
+	if (m_pSkinnedMesh){
+		m_pSkinnedMesh->Render();
 	}
 	/*for (auto p : m_vecCards){
 		p->Render();
