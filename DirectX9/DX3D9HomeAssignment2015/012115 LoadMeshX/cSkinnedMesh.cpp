@@ -45,19 +45,48 @@ void cSkinnedMesh::Render()
 }
 
 void cSkinnedMesh::Update(float delta){
-	if (m_eCurrentStatus == ATTACK1 || m_eCurrentStatus == ATTACK2 || m_eCurrentStatus == ATTACK3
-		|| m_eNextStatus == ATTACK1 || m_eNextStatus == ATTACK2 || m_eNextStatus == ATTACK3){
-		m_fAccumTime += delta;
-	}
-
+	
 	m_fActionTime += delta;
-
 	m_pAnimControl->AdvanceTime(delta, NULL);
 	UpdateSkinnedMesh(m_pRootFrame);
 	ChangeAnimation(delta);
-	
-	if (!m_bIsTransferAnimation){
+
+
+	LPD3DXANIMATIONSET pAnimationSet = NULL;
+	if (m_eCurrentStatus == ATTACK1 || m_eCurrentStatus == ATTACK2 || m_eCurrentStatus == ATTACK3 ||
+		m_eNextStatus == ATTACK1 || m_eNextStatus == ATTACK2 || m_eNextStatus == ATTACK3){
 		m_bAttack = false;
+		m_fAccumTime += delta;
+
+		if (m_eCurrentStatus == ATTACK1 || m_eCurrentStatus == ATTACK2 || m_eCurrentStatus == ATTACK3){
+			m_pAnimControl->GetAnimationSet(m_eCurrentStatus, &pAnimationSet);
+		}
+		else {
+			m_pAnimControl->GetAnimationSet(m_eNextStatus, &pAnimationSet);
+		}
+
+		float curTime = (float)m_pAnimControl->GetTime();
+		float curPer = (float)pAnimationSet->GetPeriod();
+
+		if (m_fAccumTime > curPer*.4f){
+			m_bAttack = true;
+		}
+		if (m_fAccumTime > curPer*.5f){
+			m_bAttack = false;
+		}
+
+		if (m_fAccumTime > curPer){
+		//	m_pAnimControl->ResetTime();
+			m_fAccumTime = 0.0f;
+		}
+	}
+	else{
+		m_fAccumTime = 0.0f;
+	}
+	SAFE_RELEASE(pAnimationSet);
+
+
+	if (!m_bIsTransferAnimation){
 		m_eNextStatus = IDLE;
 		if (GetKeyState('W') & 0x8000){
 			m_eNextStatus = WALKING;
@@ -75,31 +104,7 @@ void cSkinnedMesh::Update(float delta){
 			m_bInAction = true;
 		}
 
-		LPD3DXANIMATIONSET pAnimationSet = NULL;
-		if (m_eCurrentStatus == ATTACK1 || m_eCurrentStatus == ATTACK2 || m_eCurrentStatus == ATTACK3 ||
-			m_eNextStatus == ATTACK1 || m_eNextStatus == ATTACK2 || m_eNextStatus == ATTACK3){
-
-			m_pAnimControl->GetAnimationSet(m_dwCurrentTrack, &pAnimationSet);
-
-			float curTime = m_pAnimControl->GetTime();
-			float curPer = pAnimationSet->GetPeriod();
-
-			if (m_fAccumTime > curPer / 2.0f){
-				m_bAttack = true;
-			}
-			if (curTime > (curPer*1.5f) / 2.0f){
-				m_bAttack = false;
-			}
-
-			if (curPer < m_fAccumTime){
-				m_fAccumTime = 0.0f;
-				m_pAnimControl->ResetTime();
-			}
-
-			if (curPer < m_fActionTime){
-				m_bInAction = false;
-			}
-		}
+		
 	}
 }
 
@@ -169,12 +174,19 @@ void cSkinnedMesh::ChangeAnimation(float fTime){
 				m_pAnimControl->GetAnimationSet(m_eNextStatus, &pAnimationSetNext);
 				m_pAnimControl->SetTrackAnimationSet(1, pAnimationSetNext);
 
-				float a = pAnimationSetPrev->GetPeriod() / (float)pAnimationSetNext->GetPeriod();
-				float b = pAnimationSetNext->GetPeriod() / (float)pAnimationSetPrev->GetPeriod();
+				float a = (float)pAnimationSetPrev->GetPeriod() / (float)pAnimationSetNext->GetPeriod();
+				float b = (float)pAnimationSetNext->GetPeriod() / (float)pAnimationSetPrev->GetPeriod();
 
 				m_pAnimControl->SetTrackSpeed(0, a);
 				m_pAnimControl->SetTrackSpeed(1, b);
-		
+				D3DXTRACK_DESC desA;
+				D3DXTRACK_DESC desB;
+				m_pAnimControl->GetTrackDesc(0, &desA);
+				m_pAnimControl->GetTrackDesc(1, &desB);
+				desA.Position = 0.0;
+				desB.Position = 0.0;
+				m_pAnimControl->SetTrackDesc(0, &desA);
+				m_pAnimControl->SetTrackDesc(1, &desB);
 			}
 			else {
 				m_pAnimControl->GetAnimationSet(m_eCurrentStatus, &pAnimationSetPrev);
@@ -182,11 +194,20 @@ void cSkinnedMesh::ChangeAnimation(float fTime){
 				m_pAnimControl->GetAnimationSet(m_eNextStatus, &pAnimationSetNext);
 				m_pAnimControl->SetTrackAnimationSet(0, pAnimationSetNext);
 
-				float a = pAnimationSetPrev->GetPeriod() / (float)pAnimationSetNext->GetPeriod();
-				float b = pAnimationSetNext->GetPeriod() / (float)pAnimationSetPrev->GetPeriod();
+				float a = (float)pAnimationSetPrev->GetPeriod() / (float)pAnimationSetNext->GetPeriod();
+				float b = (float)pAnimationSetNext->GetPeriod() / (float)pAnimationSetPrev->GetPeriod();
 
 				m_pAnimControl->SetTrackSpeed(0, b);
 				m_pAnimControl->SetTrackSpeed(1, a);
+
+				D3DXTRACK_DESC desA;
+				D3DXTRACK_DESC desB;
+				m_pAnimControl->GetTrackDesc(0, &desA);
+				m_pAnimControl->GetTrackDesc(1, &desB);
+				desA.Position = 0.0;
+				desB.Position = 0.0;
+				m_pAnimControl->SetTrackDesc(0, &desA);
+				m_pAnimControl->SetTrackDesc(1, &desB);
 			}
 			m_pAnimControl->SetTrackPriority(0, D3DXPRIORITY_HIGH);
 			m_pAnimControl->SetTrackPriority(1, D3DXPRIORITY_HIGH);
