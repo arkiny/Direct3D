@@ -68,7 +68,7 @@ void cSkinnedMesh::Update(float delta){
 		float curTime = (float)m_pAnimControl->GetTime();
 		float curPer = (float)pAnimationSet->GetPeriod();
 
-		if (m_fAccumTime > curPer*.4f){
+		if (m_fAccumTime > curPer*.3f){
 			m_bAttack = true;
 		}
 		if (m_fAccumTime > curPer*.5f){
@@ -161,7 +161,7 @@ void cSkinnedMesh::Render(D3DXFRAME* pFrame)
 
 void cSkinnedMesh::ChangeAnimation(float fTime){
 	if (m_eNextStatus != m_eCurrentStatus ){
-		m_fChangeTime += fTime*10.0f;
+		m_fChangeTime += fTime*5.0f;
 		m_pAnimControl->SetTrackEnable(0, true);
 		m_pAnimControl->SetTrackEnable(1, true);
 		LPD3DXANIMATIONSET pAnimationSetPrev = NULL;
