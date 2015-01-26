@@ -147,6 +147,16 @@ void cMainGame::Render(){
 
 	if (m_pSkinnedMesh){
 		m_pSkinnedMesh->Render();
+
+		if (m_pSkinnedMesh->GetIsAttack()){
+			std::string a("Attacked");
+			m_pFont->DrawText(NULL,				 //pSprite
+				a.c_str(), //pString
+				-1,					//Count
+				&m_recFontRect,		//pRect
+				DT_LEFT | DT_NOCLIP,//Format,
+				0xFFFFFFFF);		//Color
+		}
 	}
 	/*for (auto p : m_vecCards){
 		p->Render();

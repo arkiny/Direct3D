@@ -69,15 +69,19 @@ STDMETHODIMP cAllocateHierarchy::CreateMeshContainer(
 		pSkinInfo->Clone(&pBoneMesh->pSkinInfo);
 		// step 2. 원본 메쉬 복사
 		if (pMeshData && D3DXMESHTYPE_MESH == pMeshData->Type)		{
-			pMeshData->pMesh->CloneMeshFVF(pMeshData->pMesh->GetOptions(), pMeshData->pMesh->GetFVF(), g_pD3DDevice, &pBoneMesh->pOrigMesh);
+			pMeshData->pMesh->CloneMeshFVF(
+				pMeshData->pMesh->GetOptions(), 
+				pMeshData->pMesh->GetFVF(), 
+				g_pD3DDevice, 
+				&pBoneMesh->pOrigMesh);
 			// step 3. pSkinInfo->GetNumBones()를 통해 영향력을 미치는 모든 본에 대한 매트릭스 들을 세팅
 			DWORD dwNumBones = pSkinInfo->GetNumBones();
 			/*D3DXMATRIX**			ppBoneMatrixPtrs;
 			D3DXMATRIX*				pBoneOffsetMatrices;
 			D3DXMATRIX*				pCurrentBoneMatrices;*/
 			// ppBoneMatrixPtrs, pBoneOffsetMatrices, pCurrentBoneMatrices를 동적할당
-			pBoneMesh->ppBoneMatrixPtrs = new D3DXMATRIX*[dwNumBones];
-			pBoneMesh->pBoneOffsetMatrices = new D3DXMATRIX[dwNumBones];
+			pBoneMesh->ppBoneMatrixPtrs		= new D3DXMATRIX*[dwNumBones];
+			pBoneMesh->pBoneOffsetMatrices	= new D3DXMATRIX[dwNumBones];
 			pBoneMesh->pCurrentBoneMatrices = new D3DXMATRIX[dwNumBones];
 
 			// step 4. 동적 할당된 pBoneOffsetMatrices 매트릭스에 값 저장.
@@ -94,8 +98,10 @@ STDMETHODIMP cAllocateHierarchy::CreateMeshContainer(
 
 STDMETHODIMP cAllocateHierarchy::DestroyFrame(THIS_ LPD3DXFRAME pFrameToFree)
 {
+	if (pFrameToFree->Name){
+		delete[] pFrameToFree->Name;
+	}
 	
-	delete[] pFrameToFree->Name;
 	delete pFrameToFree;
 
 	return S_OK;
@@ -104,8 +110,17 @@ STDMETHODIMP cAllocateHierarchy::DestroyFrame(THIS_ LPD3DXFRAME pFrameToFree)
 STDMETHODIMP cAllocateHierarchy::DestroyMeshContainer(THIS_ LPD3DXMESHCONTAINER pMeshContainerToFree)
 {
 	ST_BONE_MESH* pBoneMesh = (ST_BONE_MESH*)pMeshContainerToFree;
+	SAFE_RELEASE(pBoneMesh->pSkinInfo);
 	SAFE_RELEASE(pBoneMesh->MeshData.pMesh);
 	SAFE_RELEASE(pBoneMesh->pOrigMesh);
+
+	if (pBoneMesh->pBoneOffsetMatrices){
+		delete[] pBoneMesh->pBoneOffsetMatrices;
+	}
+	if (pBoneMesh->pCurrentBoneMatrices){
+		delete[] pBoneMesh->pCurrentBoneMatrices;
+	}
+	
 	for each(auto p in pBoneMesh->vecMtlTex)
 	{
 		SAFE_RELEASE(p);

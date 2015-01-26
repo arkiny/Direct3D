@@ -4,7 +4,8 @@
 #include "cMtlTex.h"
 
 cSkinnedMesh::cSkinnedMesh(void)
-	: m_pRootFrame(NULL)
+	: m_pRootFrame(NULL),
+	m_bAttack(false)
 {
 }
 
@@ -16,7 +17,7 @@ cSkinnedMesh::~cSkinnedMesh(void)
 		cAllocateHierarchy Alloc;
 		D3DXFrameDestroy(m_pRootFrame, &Alloc);
 	}
-	m_pAnimControl->Release();
+	SAFE_RELEASE(m_pAnimControl);
 }
 
 void cSkinnedMesh::Setup(std::string sFolder, std::string sFile)
@@ -34,6 +35,7 @@ void cSkinnedMesh::Setup(std::string sFolder, std::string sFile)
 
 	//	
 	SetupBoneMatrixPtrs(m_pRootFrame);
+	SetAnimationIndex(IDLE);
 	//
 }
 
@@ -43,8 +45,62 @@ void cSkinnedMesh::Render()
 }
 
 void cSkinnedMesh::Update(float delta){
-	m_pAnimControl->AdvanceTime(delta, NULL); 
+	if (m_eCurrentStatus == ATTACK1 || m_eCurrentStatus == ATTACK2 || m_eCurrentStatus == ATTACK3
+		|| m_eNextStatus == ATTACK1 || m_eNextStatus == ATTACK2 || m_eNextStatus == ATTACK3){
+		m_fAccumTime += delta;
+	}
+
+	m_fActionTime += delta;
+
+	m_pAnimControl->AdvanceTime(delta, NULL);
 	UpdateSkinnedMesh(m_pRootFrame);
+	ChangeAnimation(delta);
+	
+	if (!m_bIsTransferAnimation){
+		m_bAttack = false;
+		m_eNextStatus = IDLE;
+		if (GetKeyState('W') & 0x8000){
+			m_eNextStatus = WALKING;
+		}
+		if (GetKeyState('1') & 0x8000){
+			m_eNextStatus = ATTACK1;
+			m_bInAction = true;
+		}
+		if (GetKeyState('2') & 0x8000){
+			m_eNextStatus = ATTACK2;
+			m_bInAction = true;
+		}
+		if (GetKeyState('3') & 0x8000){
+			m_eNextStatus = ATTACK3;
+			m_bInAction = true;
+		}
+
+		LPD3DXANIMATIONSET pAnimationSet = NULL;
+		if (m_eCurrentStatus == ATTACK1 || m_eCurrentStatus == ATTACK2 || m_eCurrentStatus == ATTACK3 ||
+			m_eNextStatus == ATTACK1 || m_eNextStatus == ATTACK2 || m_eNextStatus == ATTACK3){
+
+			m_pAnimControl->GetAnimationSet(m_dwCurrentTrack, &pAnimationSet);
+
+			float curTime = m_pAnimControl->GetTime();
+			float curPer = pAnimationSet->GetPeriod();
+
+			if (m_fAccumTime > curPer / 2.0f){
+				m_bAttack = true;
+			}
+			if (curTime > (curPer*1.5f) / 2.0f){
+				m_bAttack = false;
+			}
+
+			if (curPer < m_fAccumTime){
+				m_fAccumTime = 0.0f;
+				m_pAnimControl->ResetTime();
+			}
+
+			if (curPer < m_fActionTime){
+				m_bInAction = false;
+			}
+		}
+	}
 }
 
 void cSkinnedMesh::SetupWorldMatrix(D3DXFRAME* pFrame, D3DXMATRIXA16* pmatParent)
@@ -98,32 +154,130 @@ void cSkinnedMesh::Render(D3DXFRAME* pFrame)
 	}
 }
 
+void cSkinnedMesh::ChangeAnimation(float fTime){
+	if (m_eNextStatus != m_eCurrentStatus ){
+		m_fChangeTime += fTime*10.0f;
+		m_pAnimControl->SetTrackEnable(0, true);
+		m_pAnimControl->SetTrackEnable(1, true);
+		LPD3DXANIMATIONSET pAnimationSetPrev = NULL;
+		LPD3DXANIMATIONSET pAnimationSetNext = NULL;
+		
+		if (!m_bIsTransferAnimation){
+			if (m_dwCurrentTrack == 0){
+				m_pAnimControl->GetAnimationSet(m_eCurrentStatus, &pAnimationSetPrev);
+				m_pAnimControl->SetTrackAnimationSet(0, pAnimationSetPrev);
+				m_pAnimControl->GetAnimationSet(m_eNextStatus, &pAnimationSetNext);
+				m_pAnimControl->SetTrackAnimationSet(1, pAnimationSetNext);
+
+				float a = pAnimationSetPrev->GetPeriod() / (float)pAnimationSetNext->GetPeriod();
+				float b = pAnimationSetNext->GetPeriod() / (float)pAnimationSetPrev->GetPeriod();
+
+				m_pAnimControl->SetTrackSpeed(0, a);
+				m_pAnimControl->SetTrackSpeed(1, b);
+		
+			}
+			else {
+				m_pAnimControl->GetAnimationSet(m_eCurrentStatus, &pAnimationSetPrev);
+				m_pAnimControl->SetTrackAnimationSet(1, pAnimationSetPrev);
+				m_pAnimControl->GetAnimationSet(m_eNextStatus, &pAnimationSetNext);
+				m_pAnimControl->SetTrackAnimationSet(0, pAnimationSetNext);
+
+				float a = pAnimationSetPrev->GetPeriod() / (float)pAnimationSetNext->GetPeriod();
+				float b = pAnimationSetNext->GetPeriod() / (float)pAnimationSetPrev->GetPeriod();
+
+				m_pAnimControl->SetTrackSpeed(0, b);
+				m_pAnimControl->SetTrackSpeed(1, a);
+			}
+			m_pAnimControl->SetTrackPriority(0, D3DXPRIORITY_HIGH);
+			m_pAnimControl->SetTrackPriority(1, D3DXPRIORITY_HIGH);
+			
+			
+			m_pAnimControl->ResetTime();
+			m_bIsTransferAnimation = true;
+		}
+		
+		if (m_fChangeTime <= 1.0f){
+			if (m_dwCurrentTrack == 0){
+				m_pAnimControl->SetTrackWeight(
+					0,
+					1.0f - m_fChangeTime);
+
+				m_pAnimControl->SetTrackWeight(
+					1,
+					m_fChangeTime);
+			}
+			else {
+				m_pAnimControl->SetTrackWeight(
+					1,
+					1.0f - m_fChangeTime);
+
+				m_pAnimControl->SetTrackWeight(
+					0,
+					m_fChangeTime);
+			}
+		}
+		else {
+			m_eCurrentStatus = m_eNextStatus;
+			if (m_dwCurrentTrack == 0){
+				m_pAnimControl->SetTrackEnable(0, false);
+				m_pAnimControl->SetTrackSpeed(1, 1.0f);
+				m_dwCurrentTrack = 1;
+			}
+			else{
+				m_pAnimControl->SetTrackEnable(1, false);
+				m_pAnimControl->SetTrackSpeed(0, 1.0f);
+				m_dwCurrentTrack = 0;
+			}
+			m_bIsTransferAnimation = false;
+			m_fChangeTime = 0.0f;
+		} 
+
+		SAFE_RELEASE(pAnimationSetNext);
+		SAFE_RELEASE(pAnimationSetPrev);
+	}
+}
+
+void cSkinnedMesh::SetAnimationIndex(DWORD dwIndex){
+	LPD3DXANIMATIONSET pAnimationSet = NULL;
+	m_pAnimControl->GetAnimationSet(dwIndex, &pAnimationSet);
+
+	if (dwIndex != m_eCurrentStatus){
+		m_pAnimControl->SetTrackAnimationSet(0, pAnimationSet);
+		m_eCurrentStatus = (E_STATUS)dwIndex;
+	}
+	
+	SAFE_RELEASE(pAnimationSet);
+}
+
 void cSkinnedMesh::SetupBoneMatrixPtrs(D3DXFRAME* pFrame)
 {
 	// 각 프레임의 메시 컨테이너에 있는 pSkinInfo를 이용하여 영향받는 모든 
 	// 프레임의 매트릭스를 ppBoneMatrixPtrs에 연결한다.
-	ST_BONE* pBone = (ST_BONE*)pFrame;
-	if (pBone->pMeshContainer){
-		ST_BONE_MESH* pBoneMesh = (ST_BONE_MESH*)pBone->pMeshContainer;
-		// pSkinInfo->GetNumBones() 으로 영향받는 본의 개수를 찾음.
-		DWORD numBones = pBoneMesh->pSkinInfo->GetNumBones();
-		for (DWORD i = 0; i < numBones; i++){
-			// pSkinInfo->GetBoneName(i) 로 i번 프레임의 이름을 찾음
-			// D3DXFrameFind(루트 프레임, 프레임 이름) 로 프레임을 찾음.
-			ST_BONE* pinf = (ST_BONE*)D3DXFrameFind(m_pRootFrame, pBoneMesh->pSkinInfo->GetBoneName(i));
-			//ST_BONE_MESH* pinfMesh = (ST_BONE_MESH*)pinf->pMeshContainer;
-			// 찾아서 월드매트릭스를 걸어줘라.
-			pBoneMesh->ppBoneMatrixPtrs[i] = &pinf->matWorldTM;
+	if (pFrame){
+		ST_BONE* pBone = (ST_BONE*)pFrame;
+		if (pBone->pMeshContainer){
+			ST_BONE_MESH* pBoneMesh = (ST_BONE_MESH*)pBone->pMeshContainer;
+			// pSkinInfo->GetNumBones() 으로 영향받는 본의 개수를 찾음.
+			DWORD numBones = pBoneMesh->pSkinInfo->GetNumBones();
+			for (DWORD i = 0; i < numBones; i++){
+				// pSkinInfo->GetBoneName(i) 로 i번 프레임의 이름을 찾음
+				// D3DXFrameFind(루트 프레임, 프레임 이름) 로 프레임을 찾음.
+				ST_BONE* pinf = (ST_BONE*)D3DXFrameFind(m_pRootFrame, pBoneMesh->pSkinInfo->GetBoneName(i));
+				//ST_BONE_MESH* pinfMesh = (ST_BONE_MESH*)pinf->pMeshContainer;
+				// 찾아서 월드매트릭스를 걸어줘라.
+				pBoneMesh->ppBoneMatrixPtrs[i] = &pinf->matWorldTM;
+			}
 		}
-	}
-	//재귀적으로 모든 프레임에 대해서 실행.
-	if (pBone->pFrameSibling)
-	{
-		SetupBoneMatrixPtrs(pBone->pFrameSibling);
-	}
-	if (pBone->pFrameFirstChild)
-	{
-		SetupBoneMatrixPtrs(pBone->pFrameFirstChild);
+
+		//재귀적으로 모든 프레임에 대해서 실행.
+		if (pBone->pFrameSibling)
+		{
+			SetupBoneMatrixPtrs(pBone->pFrameSibling);
+		}
+		if (pBone->pFrameFirstChild)
+		{
+			SetupBoneMatrixPtrs(pBone->pFrameFirstChild);
+		}
 	}
 }
 
