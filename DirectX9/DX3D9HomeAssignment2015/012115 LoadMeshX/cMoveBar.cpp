@@ -34,7 +34,13 @@ void cMoveBar::Update(float delta){
 			m_vecMove = { xMove, yMove };
 			m_pDelegate->UserInterfaceMove(this, m_vecMove);
 		}
-		
+	}
+	else if (*m_pClicked && m_bIsMoving) {
+		float xMove = m_pMouseLoc->x - m_vecPrev.x;
+		float yMove = m_pMouseLoc->y - m_vecPrev.y;
+		m_vecPrev = { (float)m_pMouseLoc->x, (float)m_pMouseLoc->y };
+		m_vecMove = { xMove, yMove };
+		m_pDelegate->UserInterfaceMove(this, m_vecMove);
 	}
 	else {
 		m_bIsMoving = false;

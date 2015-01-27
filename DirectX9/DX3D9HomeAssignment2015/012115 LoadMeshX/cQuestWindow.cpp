@@ -19,10 +19,10 @@ cQuestWindow::~cQuestWindow()
 
 void cQuestWindow::Setup(){
 
-	m_stMoveBar.left = m_pTransform->GetPosition().x + 9.0;
-	m_stMoveBar.top = m_pTransform->GetPosition().y + 5.0;
-	m_stMoveBar.right = m_pTransform->GetPosition().x + 287.0;
-	m_stMoveBar.bottom = m_pTransform->GetPosition().y + 30.0;
+	m_stMoveBar.left = (float)m_pTransform->GetPosition().x + 9.0f;
+	m_stMoveBar.top = (float)m_pTransform->GetPosition().y + 5.0f;
+	m_stMoveBar.right = (float)m_pTransform->GetPosition().x + 287.0f;
+	m_stMoveBar.bottom = (float)m_pTransform->GetPosition().y + 30.0f;
 
 	m_pUserInterface = new cUserInterface;
 	m_pUserInterface->Setup("../Resource/UI/", "UI_basicBox", ".png");
