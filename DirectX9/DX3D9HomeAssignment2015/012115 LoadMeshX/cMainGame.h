@@ -1,7 +1,7 @@
 #pragma once
 
 #include "gIObject.h"
-#include "cUserInterface.h"
+#include "iUserInterfaceDelegate.h"
 
 class cAxis;
 class cGrid;
@@ -10,7 +10,7 @@ class cPyramid;
 class cCharacter;
 class cHeightMap;
 class cSkinnedMesh;
-class cQuestBox;
+class cQuestWindow;
 
 class cMainGame : public cObject, public iActionDelegate, public iUserInterfaceDelegate
 {
@@ -24,7 +24,7 @@ private:
 	cCharacter*							m_pCharacter;
 	cHeightMap*							m_pHeightMap;
 	cSkinnedMesh*						m_pSkinnedMesh;
-	cQuestBox*							m_pQuestBox;
+	cQuestWindow*						m_pQuestBox;
 
 	LPD3DXFONT							m_pFont;
 	RECT								m_recFontRect;
@@ -32,6 +32,9 @@ private:
 	bool								m_bIntShow = true;
 	int									m_nScore;
 	float								m_fAccumTime = 0.0f;
+
+	POINT								m_stMouseLocation;
+	bool								m_bClicked = false;
 
 public:
 	cMainGame();
@@ -44,7 +47,8 @@ public:
 
 	void OnActionFinish(cAction* pSender);
 	
-	void UserInterfaceActivation(cUserInterface* pSender) override;
-	void UserInterfaceFinished(cUserInterface* pSender) override;
+	void UserInterfaceActivation(cUserInterface* pSender, std::string& sContent) override;
+	void UserInterfaceFinished(cUserInterface* pSender) override; 
+	void UserInterfaceMove(cUserInterface* pSender, D3DXVECTOR2& move) override;
 };
 

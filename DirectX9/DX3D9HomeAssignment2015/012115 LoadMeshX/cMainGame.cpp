@@ -11,7 +11,7 @@
 #include "cHeightMap.h"
 #include <algorithm>
 #include "cSkinnedMesh.h"
-#include "cQuestBox.h"
+#include "cQuestWindow.h"
 
 cMainGame::cMainGame() :
 m_cAxis(NULL),
@@ -45,6 +45,7 @@ cMainGame::~cMainGame()
 	SAFE_RELEASE(m_pHeightMap);
 	SAFE_RELEASE(m_pFont);
 	SAFE_RELEASE(m_pCharacter);
+	
 	SAFE_RELEASE(m_pQuestBox);
 	g_pTextureManager->Destroy();
 	cDeviceManager* pDevice = cDeviceManager::GetInstance();
@@ -78,8 +79,11 @@ void cMainGame::Init(){
 	}
 
 	//
-	m_pQuestBox = new cQuestBox;
+	m_pQuestBox = new cQuestWindow;
 	m_pQuestBox->Setup();
+	m_pQuestBox->SetMousePosPointer(&m_stMouseLocation);
+	m_pQuestBox->SetMouseClickInfo(&m_bClicked); 
+	m_pQuestBox->SetPosition(D3DXVECTOR3(300.0f, 300.0f, 0.0f));
 	//
 
 
@@ -127,7 +131,12 @@ void cMainGame::Update(float delta){
 	if (m_pHeightMap){
 		m_pHeightMap->GetHeight(isLand, m_pCharacter->GetPosition());
 	}
+	if (m_pQuestBox){
+		m_pQuestBox->Update(delta);
+	}
 	m_cCamera->Update();
+
+
 }
 
 void cMainGame::Render(){
@@ -191,6 +200,17 @@ void cMainGame::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
 
 	switch (message)
 	{
+	case WM_LBUTTONDOWN:{
+		m_bClicked = true;
+		break;
+	}
+						
+	case WM_LBUTTONUP:
+	{
+		m_bClicked = false;
+		break;
+	}
+
 	case WM_KEYDOWN:
 	{
 		switch (wParam)
@@ -199,6 +219,11 @@ void cMainGame::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
 			m_pSkinnedMesh->SetAnimationIndex(0);
 			break;
 		}
+	}
+	case WM_MOUSEMOVE:
+	{
+		m_stMouseLocation.x = LOWORD(lParam);
+		m_stMouseLocation.y = HIWORD(lParam);
 	}
 	break;
 	}
@@ -209,10 +234,14 @@ void cMainGame::OnActionFinish(cAction* pSender)
 	int a = 0;
 }
 
-void cMainGame::UserInterfaceActivation(cUserInterface* pSender){
-
+void cMainGame::UserInterfaceActivation(cUserInterface* pSender, std::string& sContent){
+	int a = 0;
 }
 
 void cMainGame::UserInterfaceFinished(cUserInterface* pSender){
-	//m_bIntShow = false;
+	m_bIntShow = false;
+}
+
+void cMainGame::UserInterfaceMove(cUserInterface* pSender, D3DXVECTOR2& move){
+	int a = 0;
 }

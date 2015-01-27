@@ -1,17 +1,10 @@
 #pragma once
-#include "cUserInterface.h"
+#include "cButton.h"
 
-class cExitButton : public cUserInterface
-{
-private:
-	bool m_bClicked = false;
-
-	SYNTHESIZE(iUserInterfaceDelegate*, m_pDelegate, Delegate);
-	
-
+class cExitButton : public cButton {
 public:
 	cExitButton();
 	virtual ~cExitButton();
-	//virtual void Update(float);
+	virtual void Update(float delta) override;
 };
 

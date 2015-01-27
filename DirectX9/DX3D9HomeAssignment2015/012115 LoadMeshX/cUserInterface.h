@@ -1,13 +1,7 @@
 #pragma once
+#include "iUserInterfaceDelegate.h"
 
-class cUserInterface;
-
-__interface iUserInterfaceDelegate{
-	virtual void UserInterfaceActivation(cUserInterface* pSender) = 0;
-	virtual void UserInterfaceFinished(cUserInterface* pSender) = 0;
-};
-
-class cUserInterface : public cGameObject, public iUserInterfaceDelegate
+class cUserInterface : public cGameObject
 {
 protected:
 	std::set<cUserInterface*>			m_setChildUI;
@@ -15,16 +9,27 @@ protected:
 	LPD3DXSPRITE						m_pSprite;
 	D3DXIMAGE_INFO						m_stImageInfo;
 	RECT								m_stRect;
+	RECT								m_stOriRect;
 	D3DXVECTOR3*						m_pParentLeftTop;
+	POINT*								m_pMouseLoc;
+	bool*								m_pClicked;
 	SYNTHESIZE(iUserInterfaceDelegate*, m_pDelegate, Delegate);
 
+private:
+	
+	
 public:
 	cUserInterface();
 	virtual ~cUserInterface();
 
-	virtual void Setup(std::string sFolder, std::string sFile);
+	virtual void Setup(std::string sFolder, std::string sFile, std::string sExtension);
+	
 	virtual void Update(float delta);
+	virtual void UpdateRectangle(D3DXVECTOR3* parentMat);
+	
 	virtual void Render();
+	virtual void Render(D3DXVECTOR3* parentMat);
+
 	virtual void AddChild(cUserInterface* pChild);
 
 	virtual void SetParentLeftTop(D3DXVECTOR3* pos);
@@ -32,8 +37,7 @@ public:
 
 	virtual D3DXVECTOR3& GetLeftTopPosition();
 
-public:
-	virtual void UserInterfaceActivation(cUserInterface* pSender) override;
-	virtual void UserInterfaceFinished(cUserInterface* pSender) override;
+	virtual void SetMousePosPointer(POINT* mousPos);
+	virtual void SetMouseClickInfo(bool* mousclick);
 };
 

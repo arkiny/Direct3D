@@ -93,6 +93,7 @@
     <ClInclude Include="cAllocateHierarchy.h" />
     <ClInclude Include="cAnimationSet.h" />
     <ClInclude Include="cAseLoader.h" />
+    <ClInclude Include="cButton.h" />
     <ClInclude Include="cCamera.h" />
     <ClInclude Include="cCard.h" />
     <ClInclude Include="cCharacter.h" />
@@ -105,6 +106,7 @@
     <ClInclude Include="cHeightMap.h" />
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cMesh.h" />
+    <ClInclude Include="cMoveBar.h" />
     <ClInclude Include="cMtlTex.h" />
     <ClInclude Include="cNTeapot.h" />
     <ClInclude Include="cObject.h" />
@@ -114,10 +116,11 @@
     <ClInclude Include="cPart.h" />
     <ClInclude Include="cPlayer.h" />
     <ClInclude Include="cPyramid.h" />
-    <ClInclude Include="cQuestBox.h" />
+    <ClInclude Include="cQuestWindow.h" />
     <ClInclude Include="cRawLoader.h" />
     <ClInclude Include="cSkinnedMesh.h" />
     <ClInclude Include="cTeapot.h" />
+    <ClInclude Include="cTextBox.h" />
     <ClInclude Include="cTextureManager.h" />
     <ClInclude Include="cTransform.h" />
     <ClInclude Include="cUserInterface.h" />
@@ -127,6 +130,7 @@
     <ClInclude Include="gIObject.h" />
     <ClInclude Include="iActionDelegate.h" />
     <ClInclude Include="iMap.h" />
+    <ClInclude Include="iUserInterfaceDelegate.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -143,6 +147,7 @@
     <ClCompile Include="cAllocateHierarchy.cpp" />
     <ClCompile Include="cAnimationSet.cpp" />
     <ClCompile Include="cAseLoader.cpp" />
+    <ClCompile Include="cButton.cpp" />
     <ClCompile Include="cCamera.cpp" />
     <ClCompile Include="cCard.cpp" />
     <ClCompile Include="cCharacter.cpp" />
@@ -155,6 +160,7 @@
     <ClCompile Include="cHeightMap.cpp" />
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cMesh.cpp" />
+    <ClCompile Include="cMoveBar.cpp" />
     <ClCompile Include="cMtlTex.cpp" />
     <ClCompile Include="cNTeapot.cpp" />
     <ClCompile Include="cObject.cpp" />
@@ -164,10 +170,11 @@
     <ClCompile Include="cPart.cpp" />
     <ClCompile Include="cPlayer.cpp" />
     <ClCompile Include="cPyramid.cpp" />
-    <ClCompile Include="cQuestBox.cpp" />
+    <ClCompile Include="cQuestWindow.cpp" />
     <ClCompile Include="cRawLoader.cpp" />
     <ClCompile Include="cSkinnedMesh.cpp" />
     <ClCompile Include="cTeapot.cpp" />
+    <ClCompile Include="cTextBox.cpp" />
     <ClCompile Include="cTextureManager.cpp" />
     <ClCompile Include="cTransform.cpp" />
     <ClCompile Include="cUserInterface.cpp" />

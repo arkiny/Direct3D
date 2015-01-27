@@ -119,13 +119,22 @@
     <ClCompile Include="cUserInterface.cpp">
       <Filter>UserInterface</Filter>
     </ClCompile>
-    <ClCompile Include="cQuestBox.cpp">
-      <Filter>UserInterface</Filter>
-    </ClCompile>
     <ClCompile Include="cExitButton.cpp">
       <Filter>UserInterface</Filter>
     </ClCompile>
     <ClCompile Include="cOKButton.cpp">
+      <Filter>UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="cButton.cpp">
+      <Filter>UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="cTextBox.cpp">
+      <Filter>UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="cQuestWindow.cpp">
+      <Filter>UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="cMoveBar.cpp">
       <Filter>UserInterface</Filter>
     </ClCompile>
   </ItemGroup>
@@ -259,13 +268,25 @@
     <ClInclude Include="cUserInterface.h">
       <Filter>UserInterface</Filter>
     </ClInclude>
-    <ClInclude Include="cQuestBox.h">
-      <Filter>UserInterface</Filter>
-    </ClInclude>
     <ClInclude Include="cExitButton.h">
       <Filter>UserInterface</Filter>
     </ClInclude>
     <ClInclude Include="cOKButton.h">
+      <Filter>UserInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="cButton.h">
+      <Filter>UserInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="cTextBox.h">
+      <Filter>UserInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="cQuestWindow.h">
+      <Filter>UserInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="iUserInterfaceDelegate.h">
+      <Filter>UserInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="cMoveBar.h">
       <Filter>UserInterface</Filter>
     </ClInclude>
   </ItemGroup>
