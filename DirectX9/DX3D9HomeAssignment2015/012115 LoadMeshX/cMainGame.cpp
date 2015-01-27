@@ -11,6 +11,7 @@
 #include "cHeightMap.h"
 #include <algorithm>
 #include "cSkinnedMesh.h"
+#include "cQuestBox.h"
 
 cMainGame::cMainGame() :
 m_cAxis(NULL),
@@ -21,7 +22,8 @@ m_pFont(NULL),
 m_pCharacter(NULL),
 m_nScore(0),
 m_pHeightMap(NULL),
-m_pSkinnedMesh(NULL)
+m_pSkinnedMesh(NULL),
+m_pQuestBox(NULL)
 {
 	srand(GetTickCount());
 	GetCursorPos(&m_mousePos);
@@ -43,7 +45,7 @@ cMainGame::~cMainGame()
 	SAFE_RELEASE(m_pHeightMap);
 	SAFE_RELEASE(m_pFont);
 	SAFE_RELEASE(m_pCharacter);
-
+	SAFE_RELEASE(m_pQuestBox);
 	g_pTextureManager->Destroy();
 	cDeviceManager* pDevice = cDeviceManager::GetInstance();
 	pDevice->Destroy();
@@ -64,10 +66,21 @@ void cMainGame::Init(){
 
 	m_pSkinnedMesh = new cSkinnedMesh;
 	m_pSkinnedMesh->Setup("../Resource/Zealot/", "zealot.X");
-
+	m_pSkinnedMesh->SetAnimationLoop(0, false);
+	m_pSkinnedMesh->SetAnimationLoop(1, false);
+	m_pSkinnedMesh->SetAnimationLoop(2, false);
+	m_pSkinnedMesh->SetAnimationLoop(3, true);
+	m_pSkinnedMesh->SetAnimationLoop(4, true);
+	m_pSkinnedMesh->SetAnimationIndex(4);
+	
 	if (m_pCharacter){
 		m_cCamera->SetTarget(m_pCharacter->GetPosition());
 	}
+
+	//
+	m_pQuestBox = new cQuestBox;
+	m_pQuestBox->Setup();
+	//
 
 
 	D3DXCreateFont(g_pD3DDevice,		//D3D Device
@@ -148,19 +161,25 @@ void cMainGame::Render(){
 	if (m_pSkinnedMesh){
 		m_pSkinnedMesh->Render();
 
-		if (m_pSkinnedMesh->GetIsAttack()){
-			std::string a("Attacked");
-			m_pFont->DrawText(NULL,				 //pSprite
-				a.c_str(), //pString
-				-1,					//Count
-				&m_recFontRect,		//pRect
-				DT_LEFT | DT_NOCLIP,//Format,
-				0xFFFFFFFF);		//Color
-		}
+		//if (m_pSkinnedMesh->GetIsAttack()){
+		//	std::string a("Attacked");
+		//	m_pFont->DrawText(NULL,				 //pSprite
+		//		a.c_str(), //pString
+		//		-1,					//Count
+		//		&m_recFontRect,		//pRect
+		//		DT_LEFT | DT_NOCLIP,//Format,
+		//		0xFFFFFFFF);		//Color
+		//}
 	}
 	/*for (auto p : m_vecCards){
 		p->Render();
 	}*/
+
+	if (m_pQuestBox){
+		if (m_bIntShow){
+			m_pQuestBox->Render();
+		}
+	}
 
 	g_pD3DDevice->EndScene();
 	g_pD3DDevice->Present(NULL, NULL, NULL, NULL);
@@ -169,9 +188,31 @@ void cMainGame::Render(){
 void cMainGame::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
 	if (m_cCamera)
 		m_cCamera->WndProc(hWnd, message, wParam, lParam);
+
+	switch (message)
+	{
+	case WM_KEYDOWN:
+	{
+		switch (wParam)
+		{
+		case '1':
+			m_pSkinnedMesh->SetAnimationIndex(0);
+			break;
+		}
+	}
+	break;
+	}
 }
 
 void cMainGame::OnActionFinish(cAction* pSender)
 {
 	int a = 0;
+}
+
+void cMainGame::UserInterfaceActivation(cUserInterface* pSender){
+
+}
+
+void cMainGame::UserInterfaceFinished(cUserInterface* pSender){
+	//m_bIntShow = false;
 }

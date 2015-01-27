@@ -115,6 +115,19 @@
       <Filter>LoadMeshX</Filter>
     </ClCompile>
     <ClCompile Include="cSkinnedMesh.cpp" />
+    <ClCompile Include="cAnimationSet.cpp" />
+    <ClCompile Include="cUserInterface.cpp">
+      <Filter>UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="cQuestBox.cpp">
+      <Filter>UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="cExitButton.cpp">
+      <Filter>UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="cOKButton.cpp">
+      <Filter>UserInterface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -242,6 +255,19 @@
       <Filter>LoadMeshX</Filter>
     </ClInclude>
     <ClInclude Include="cSkinnedMesh.h" />
+    <ClInclude Include="cAnimationSet.h" />
+    <ClInclude Include="cUserInterface.h">
+      <Filter>UserInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="cQuestBox.h">
+      <Filter>UserInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="cExitButton.h">
+      <Filter>UserInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="cOKButton.h">
+      <Filter>UserInterface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico" />
@@ -294,6 +320,9 @@
     </Filter>
     <Filter Include="LoadMeshX">
       <UniqueIdentifier>{bdd77871-7149-4d0b-84f4-67369ea4f6f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserInterface">
+      <UniqueIdentifier>{9025c2a4-ee95-4b72-acb0-50ff2e5e5f67}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
