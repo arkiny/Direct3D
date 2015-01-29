@@ -31,6 +31,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "011915 HeightMap", "011915 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "012115 LoadMeshX", "012115 LoadMeshX\012115 LoadMeshX.vcxproj", "{745FB956-3410-4543-AB95-3C77C5525202}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "012915 Djikstra Algorithm Proto", "012915 Djikstra Algorithm Proto\012915 Djikstra Algorithm Proto.vcxproj", "{C47E3234-8186-4DE0-9D55-B38947C6801D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "012915 Shortest Path", "012915 Shortest Path\012915 Shortest Path.vcxproj", "{AF801A26-841E-42FB-B525-66B77F8D6429}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -93,6 +97,14 @@ Global
 		{745FB956-3410-4543-AB95-3C77C5525202}.Debug|Win32.Build.0 = Debug|Win32
 		{745FB956-3410-4543-AB95-3C77C5525202}.Release|Win32.ActiveCfg = Release|Win32
 		{745FB956-3410-4543-AB95-3C77C5525202}.Release|Win32.Build.0 = Release|Win32
+		{C47E3234-8186-4DE0-9D55-B38947C6801D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C47E3234-8186-4DE0-9D55-B38947C6801D}.Debug|Win32.Build.0 = Debug|Win32
+		{C47E3234-8186-4DE0-9D55-B38947C6801D}.Release|Win32.ActiveCfg = Release|Win32
+		{C47E3234-8186-4DE0-9D55-B38947C6801D}.Release|Win32.Build.0 = Release|Win32
+		{AF801A26-841E-42FB-B525-66B77F8D6429}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AF801A26-841E-42FB-B525-66B77F8D6429}.Debug|Win32.Build.0 = Debug|Win32
+		{AF801A26-841E-42FB-B525-66B77F8D6429}.Release|Win32.ActiveCfg = Release|Win32
+		{AF801A26-841E-42FB-B525-66B77F8D6429}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

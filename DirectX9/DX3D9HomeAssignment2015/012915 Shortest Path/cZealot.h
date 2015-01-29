@@ -4,10 +4,10 @@ class cMtlTex;
 class cZealot
 {
 private:
-	D3DXFRAME*	m_pFrame;
-	D3DXVECTOR3	m_vPosition;
-	LPD3DXMESH	m_pMesh;
-	cMtlTex*	m_pMtlTex;
+	D3DXFRAME* m_pFrame;
+	D3DXVECTOR3 m_vPosition;
+	LPD3DXMESH m_pMesh;
+	cMtlTex* m_pMtlTex;
 
 public:
 	cZealot();
