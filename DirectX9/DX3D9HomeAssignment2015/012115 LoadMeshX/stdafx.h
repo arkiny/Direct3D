@@ -42,13 +42,7 @@ public: virtual void Set##funName(varType var){\
 	varName = var;\
 		}\
 }
-// interfaces
-#include "iActionDelegate.h"
 
-#include "cObject.h"
-#include "cObjectManager.h"
-#include "cGameObject.h"
-#include "cTextureManager.h"
 
 struct GRIDPOSITION{
 	int x = 0;
@@ -87,3 +81,11 @@ struct stASENode{
 	D3DXMATRIXA16 LocalMat;
 };
 
+// interfaces
+#include "iActionDelegate.h"
+#include "iUserInterfaceDelegate.h"
+
+#include "cObject.h"
+#include "cObjectManager.h"
+#include "cGameObject.h"
+#include "cTextureManager.h"

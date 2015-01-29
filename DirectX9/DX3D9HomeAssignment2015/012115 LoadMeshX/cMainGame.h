@@ -1,7 +1,6 @@
 #pragma once
 
 #include "gIObject.h"
-#include "iUserInterfaceDelegate.h"
 
 class cAxis;
 class cGrid;

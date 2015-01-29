@@ -51,10 +51,10 @@ void cUserInterface::Update(float delta){
 }
 
 void cUserInterface::UpdateRectangle(D3DXVECTOR3* parentPos){
-	m_stOriRect.left =parentPos->x + m_stRect.left + m_pTransform->GetPosition().x;
-	m_stOriRect.right = parentPos->x + m_stRect.right + m_pTransform->GetPosition().x;
-	m_stOriRect.top = parentPos->y + m_stRect.top + m_pTransform->GetPosition().y;
-	m_stOriRect.bottom = parentPos->y + m_stRect.bottom + m_pTransform->GetPosition().y;
+	m_stOriRect.left	= parentPos->x + m_stRect.left + m_pTransform->GetPosition().x;
+	m_stOriRect.right	= parentPos->x + m_stRect.right + m_pTransform->GetPosition().x;
+	m_stOriRect.top		= parentPos->y + m_stRect.top + m_pTransform->GetPosition().y;
+	m_stOriRect.bottom	= parentPos->y + m_stRect.bottom + m_pTransform->GetPosition().y;
 
 	D3DXVECTOR3 pWorld((float)m_stOriRect.left, (float)m_stOriRect.top, 0.0f);
 	for (auto p : m_setChildUI){
@@ -110,6 +110,7 @@ void cUserInterface::SetMouseClickInfo(bool* mousclick){
 
 void cUserInterface::AddChild(cUserInterface* pChild){
 	if (m_setChildUI.find(pChild) == m_setChildUI.end()){
+		//pChild->AddRef();
 		pChild->SetParentLeftTop(m_pTransform->getPosPointer());
 		m_setChildUI.insert(pChild);
 	}

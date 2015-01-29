@@ -32,7 +32,7 @@ void cTextBox::Setup(std::string sFolder, std::string sFile, std::string sExtens
 }
 
 void cTextBox::Render(D3DXVECTOR3* parentPos){
-	//cUserInterface::Render();
+	cUserInterface::Render(parentPos);
 	if (m_pFont){
 		if (m_pCaption){
 			SetRect(
@@ -41,12 +41,12 @@ void cTextBox::Render(D3DXVECTOR3* parentPos){
 				m_stOriRect.top + 10.0f, 
 				m_stOriRect.right - 10.0f, 
 				m_stOriRect.bottom - 10.0f);
-			m_pFont->DrawText(NULL,		//pSprite
-				m_pCaption->c_str(),	//pString
-				-1,						//Count
-				&m_recFontRect,			//pRect
-				DT_LEFT | DT_NOCLIP,	//Format,
+			m_pFont->DrawText(NULL,							//pSprite
+				m_pCaption->c_str(),						//pString
+				-1,											//Count
+				&m_recFontRect,								//pRect
+				DT_LEFT | DT_NOCLIP,						//Format,
 				D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));			//Color
 		}
-	}	
+	}		
 }

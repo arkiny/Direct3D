@@ -19,10 +19,10 @@ cQuestWindow::~cQuestWindow()
 
 void cQuestWindow::Setup(){
 
-	m_stMoveBar.left = (float)m_pTransform->GetPosition().x + 9.0f;
-	m_stMoveBar.top = (float)m_pTransform->GetPosition().y + 5.0f;
-	m_stMoveBar.right = (float)m_pTransform->GetPosition().x + 287.0f;
-	m_stMoveBar.bottom = (float)m_pTransform->GetPosition().y + 30.0f;
+	m_stMoveBar.left	= (float)m_pTransform->GetPosition().x + 9.0f;
+	m_stMoveBar.top		= (float)m_pTransform->GetPosition().y + 5.0f;
+	m_stMoveBar.right	= (float)m_pTransform->GetPosition().x + 287.0f;
+	m_stMoveBar.bottom	= (float)m_pTransform->GetPosition().y + 30.0f;
 
 	m_pUserInterface = new cUserInterface;
 	m_pUserInterface->Setup("../Resource/UI/", "UI_basicBox", ".png");
@@ -35,7 +35,7 @@ void cQuestWindow::Setup(){
 	p->SetDelegate(this);
 	m_pUserInterface->AddChild(p);
 
-	m_sTextContent = "There's a Quest. \n Make a Inventory UI";
+	m_sTextContent = "There's a Quest. \n Make an Inventory UI";
 
 	cTextBox* tp = new cTextBox;
 	tp->Setup("../Resource/UI/", "UI_TextBox", ".png");

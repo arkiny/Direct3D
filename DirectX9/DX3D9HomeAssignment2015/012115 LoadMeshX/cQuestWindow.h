@@ -17,6 +17,7 @@ public:
 	void Setup();
 	void Update(float delta);
 	void Render();
+	
 	void SetMousePosPointer(POINT* mousPos);
 	void SetMouseClickInfo(bool* mousclick);
 	void SetPosition(D3DXVECTOR3& pos);

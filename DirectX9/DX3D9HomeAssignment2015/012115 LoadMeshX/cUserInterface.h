@@ -1,5 +1,4 @@
 #pragma once
-#include "iUserInterfaceDelegate.h"
 
 class cUserInterface : public cGameObject
 {
@@ -8,11 +7,13 @@ protected:
 	LPDIRECT3DTEXTURE9					m_pTexture;
 	LPD3DXSPRITE						m_pSprite;
 	D3DXIMAGE_INFO						m_stImageInfo;
+
 	RECT								m_stRect;
 	RECT								m_stOriRect;
 	D3DXVECTOR3*						m_pParentLeftTop;
 	POINT*								m_pMouseLoc;
 	bool*								m_pClicked;
+
 	SYNTHESIZE(iUserInterfaceDelegate*, m_pDelegate, Delegate);
 
 private:
