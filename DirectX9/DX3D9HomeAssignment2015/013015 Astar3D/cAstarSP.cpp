@@ -3,6 +3,7 @@
 #include "cTile.h"
 #include "cTileMap.h"
 #include <algorithm>
+#include <iostream>
 
 cAstarSP::cAstarSP() :
 m_pTileMap(NULL)
@@ -173,7 +174,7 @@ void cAstarSP::ExpandList(cTile* from){
 				float checkG = from->GetFGH().m_fG
 					+ sqrt((p->GetPosition().x - from->GetPosition().x) *  (p->GetPosition().x - from->GetPosition().x) +
 					(p->GetPosition().y - from->GetPosition().y) *  (p->GetPosition().y - from->GetPosition().y));
-				p->Check(p, checkG);
+				p->Check(from, checkG);
 			}
 			else {
 				ST_FGHINFO stInfo;
@@ -240,7 +241,7 @@ void cAstarSP::GetPathPointVector(
 		}
 	}
 	vecPathTiles.push_back(p);
-	std::reverse(vecPathTiles.begin(), vecPathTiles.end());
+	//std::reverse(vecPathTiles.begin(), vecPathTiles.end());
 	
 	for (auto p : m_vecClosedTiles){
 		vecClosedTiles.push_back(p);
