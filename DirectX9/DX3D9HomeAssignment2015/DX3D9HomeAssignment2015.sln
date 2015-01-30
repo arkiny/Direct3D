@@ -35,6 +35,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "012915 Djikstra Algorithm P
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "012915 Shortest Path", "012915 Shortest Path\012915 Shortest Path.vcxproj", "{AF801A26-841E-42FB-B525-66B77F8D6429}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "013015 AStar Algorithm Proto", "013015 AStar Algorithm Proto\013015 AStar Algorithm Proto.vcxproj", "{CA5F50DF-5AC9-41B0-A348-0AB880059321}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -105,6 +107,10 @@ Global
 		{AF801A26-841E-42FB-B525-66B77F8D6429}.Debug|Win32.Build.0 = Debug|Win32
 		{AF801A26-841E-42FB-B525-66B77F8D6429}.Release|Win32.ActiveCfg = Release|Win32
 		{AF801A26-841E-42FB-B525-66B77F8D6429}.Release|Win32.Build.0 = Release|Win32
+		{CA5F50DF-5AC9-41B0-A348-0AB880059321}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CA5F50DF-5AC9-41B0-A348-0AB880059321}.Debug|Win32.Build.0 = Debug|Win32
+		{CA5F50DF-5AC9-41B0-A348-0AB880059321}.Release|Win32.ActiveCfg = Release|Win32
+		{CA5F50DF-5AC9-41B0-A348-0AB880059321}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

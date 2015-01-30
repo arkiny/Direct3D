@@ -40,7 +40,7 @@ void main(){
 
 	//
 	p->ToStringAdjCostTable();
-	cDjikstraSP* pdsp = new cDjikstraSP(p, 4, 5);
+	cDjikstraSP* pdsp = new cDjikstraSP(p, 0, 7);
 	pdsp->SetupAndCalculate();
 	pdsp->ShortestPathToString();
 
