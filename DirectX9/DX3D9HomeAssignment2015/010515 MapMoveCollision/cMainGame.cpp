@@ -13,6 +13,7 @@
 #include "cPyramid.h"
 #include "cObjLoader.h"
 #include "cGroup.h"
+#include "cSphere.h"
 
 cMainGame::cMainGame() :
 m_cAxis(NULL),
@@ -22,7 +23,8 @@ m_cCamera(NULL),
 //m_pObject2(NULL),
 //m_pObject3(NULL),
 m_pPyramid(NULL),
-m_pPlayer(NULL)
+m_pPlayer(NULL),
+m_pSphere(NULL)
 /*m_pBoxFile(NULL)*/
 {
 	srand(GetTickCount());
@@ -37,6 +39,7 @@ cMainGame::~cMainGame()
 	//	m_vecBox.pop_back();
 	//	delete p;
 	//}
+	SAFE_RELEASE(m_pSphere);
 	SAFE_RELEASE(m_pFont);
 	SAFE_DELETE(m_pPyramid);
 	//SAFE_DELETE(m_pBoxFile)

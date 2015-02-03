@@ -41,6 +41,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "013015 AstarSPGUI", "013015
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "013015 Astar3D", "013015 Astar3D\013015 Astar3D.vcxproj", "{422DD285-DF5D-4054-8EE0-31C063B87EC9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "012915 Shortest Path", "020315 MousePeeking\020315 MousePeeking.vcxproj", "{257ECC89-7718-4BA2-AC2C-7A767291C91E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -123,6 +125,10 @@ Global
 		{422DD285-DF5D-4054-8EE0-31C063B87EC9}.Debug|Win32.Build.0 = Debug|Win32
 		{422DD285-DF5D-4054-8EE0-31C063B87EC9}.Release|Win32.ActiveCfg = Release|Win32
 		{422DD285-DF5D-4054-8EE0-31C063B87EC9}.Release|Win32.Build.0 = Release|Win32
+		{257ECC89-7718-4BA2-AC2C-7A767291C91E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{257ECC89-7718-4BA2-AC2C-7A767291C91E}.Debug|Win32.Build.0 = Debug|Win32
+		{257ECC89-7718-4BA2-AC2C-7A767291C91E}.Release|Win32.ActiveCfg = Release|Win32
+		{257ECC89-7718-4BA2-AC2C-7A767291C91E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

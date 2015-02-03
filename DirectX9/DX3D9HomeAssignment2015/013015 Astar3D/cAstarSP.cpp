@@ -28,7 +28,9 @@ m_stDestination(stDtile)
 void cAstarSP::Init(){
 	cTile* StartTile = m_pTileMap->GetTilePointer(m_stStartTile.x, m_stStartTile.y);
 	ST_FGHINFO StartTileFGH = StartTile->GetFGH();
-	StartTileFGH.m_fH = abs(StartTile->GetPosition().x - m_stDestination.x) + abs(StartTile->GetPosition().y - m_stDestination.y);
+
+	StartTileFGH.m_fH = fabs(StartTile->GetPosition().x - (float)m_stDestination.x) 
+		+ abs(StartTile->GetPosition().y - (float)m_stDestination.y);
 	StartTileFGH.m_fG = 0.0f;
 	StartTileFGH.m_fF = StartTileFGH.m_fH + StartTileFGH.m_fG;
 	StartTile->SetFGH(StartTileFGH);
@@ -51,16 +53,19 @@ void cAstarSP::CalculatePath(){
 		m_vecClosedTiles.insert(minTile);
 		m_vecOpenTiles.erase(minTile);
 		
+
 		if (minTile->GetPosition().x == m_stDestination.x && minTile->GetPosition().y == m_stDestination.y){
+			//Find Path
 			break;
 		}		
-		ExpandList(minTile);		
+		ExtendList(minTile);
+			
 	}	
 	// No Path;
 }
 
 
-void cAstarSP::ExpandList(cTile* from){
+void cAstarSP::ExtendList(cTile* from){
 	// 8 way updates
 	POINT parentPoint = from->GetPosition();
 	//std::vector<POINT> eightWay;
@@ -179,10 +184,12 @@ void cAstarSP::ExpandList(cTile* from){
 			else {
 				ST_FGHINFO stInfo;
 				stInfo.m_fH = abs(p->GetPosition().x - m_stDestination.x) + abs(p->GetPosition().y - m_stDestination.y);
+				
 				stInfo.m_fG
 					= from->GetFGH().m_fG
 					+ sqrt((p->GetPosition().x - from->GetPosition().x) *  (p->GetPosition().x - from->GetPosition().x) +
 					(p->GetPosition().y - from->GetPosition().y) *  (p->GetPosition().y - from->GetPosition().y));
+				
 				stInfo.m_fF = stInfo.m_fG + stInfo.m_fH;
 				p->SetFGH(stInfo);
 				p->SetParentPos(parentPoint);

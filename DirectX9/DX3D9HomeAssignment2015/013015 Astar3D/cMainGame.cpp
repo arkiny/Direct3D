@@ -71,7 +71,7 @@ void cMainGame::Init(){
 	POINT start;
 	POINT dest;
 
-	loader.LoadFromFile("Astar.txt", m_pTileMap, m_pTileMap->GetBorder().x, m_pTileMap->GetBorder().y, start, dest);
+	loader.LoadFromFile("data.txt", m_pTileMap, m_pTileMap->GetBorder().x, m_pTileMap->GetBorder().y, start, dest);
 	cAstarSP sp(m_pTileMap, start, dest);
 
 

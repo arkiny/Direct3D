@@ -15,7 +15,7 @@ private:
 	std::set<cTile*> m_vecOpenTiles;
 
 	void Init();
-	void ExpandList(cTile* from);
+	void ExtendList(cTile* from);
 public:
 	cAstarSP();
 	~cAstarSP();
