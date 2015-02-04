@@ -20,6 +20,8 @@
 // TODO: reference additional headers your program requires here
 #include "../Common/CommonHeader.h"
 
+#define SAFE_RENDER(p) if(p){p->Render();}
+
 #define SAFE_ADD_REF(p) if(p){p->AddRef();}
 
 #define SYNTHESIZE(varType, varName, funName)\

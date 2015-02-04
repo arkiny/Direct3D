@@ -77,6 +77,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Astar.txt" />
+    <Text Include="data.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +96,8 @@
     <ClInclude Include="cAllocateHierarchy.h" />
     <ClInclude Include="cAnimationSet.h" />
     <ClInclude Include="cAseLoader.h" />
+    <ClInclude Include="cAstarSP.h" />
+    <ClInclude Include="cBox.h" />
     <ClInclude Include="cButton.h" />
     <ClInclude Include="cCamera.h" />
     <ClInclude Include="cCard.h" />
@@ -121,6 +125,7 @@
     <ClInclude Include="cPart.h" />
     <ClInclude Include="cPlain.h" />
     <ClInclude Include="cPlayer.h" />
+    <ClInclude Include="cPriorityQueue.h" />
     <ClInclude Include="cPyramid.h" />
     <ClInclude Include="cQuestWindow.h" />
     <ClInclude Include="cRawLoader.h" />
@@ -130,6 +135,9 @@
     <ClInclude Include="cTeapot.h" />
     <ClInclude Include="cTextBox.h" />
     <ClInclude Include="cTextureManager.h" />
+    <ClInclude Include="cTile.h" />
+    <ClInclude Include="cTileMap.h" />
+    <ClInclude Include="cTileMapLoader.h" />
     <ClInclude Include="cTransform.h" />
     <ClInclude Include="cUserInterface.h" />
     <ClInclude Include="cVertexPoints.h" />
@@ -156,6 +164,8 @@
     <ClCompile Include="cAllocateHierarchy.cpp" />
     <ClCompile Include="cAnimationSet.cpp" />
     <ClCompile Include="cAseLoader.cpp" />
+    <ClCompile Include="cAstarSP.cpp" />
+    <ClCompile Include="cBox.cpp" />
     <ClCompile Include="cButton.cpp" />
     <ClCompile Include="cCamera.cpp" />
     <ClCompile Include="cCard.cpp" />
@@ -183,6 +193,7 @@
     <ClCompile Include="cPart.cpp" />
     <ClCompile Include="cPlain.cpp" />
     <ClCompile Include="cPlayer.cpp" />
+    <ClCompile Include="cPriorityQueue.cpp" />
     <ClCompile Include="cPyramid.cpp" />
     <ClCompile Include="cQuestWindow.cpp" />
     <ClCompile Include="cRawLoader.cpp" />
@@ -192,6 +203,9 @@
     <ClCompile Include="cTeapot.cpp" />
     <ClCompile Include="cTextBox.cpp" />
     <ClCompile Include="cTextureManager.cpp" />
+    <ClCompile Include="cTile.cpp" />
+    <ClCompile Include="cTileMap.cpp" />
+    <ClCompile Include="cTileMapLoader.cpp" />
     <ClCompile Include="cTransform.cpp" />
     <ClCompile Include="cUserInterface.cpp" />
     <ClCompile Include="cVertexPoints.cpp" />

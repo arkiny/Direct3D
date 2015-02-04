@@ -48,8 +48,7 @@ void cMousePeeking::TransformRay(Ray* pRay, D3DXMATRIXA16& T){
 }
 
 D3DXVECTOR3& cMousePeeking::GetCrossSectionWithPlain(Ray* pRay, std::vector<D3DXVECTOR3>& vecPlain, OUT bool& isCrossed /*= false*/){
-	D3DXVECTOR3 x(0, 0, 0), y(0, 0, 0), z(0, 0, 0);
-
+	D3DXVECTOR3 x(0, 0, 0), y(0, 0, 0), z(0, 0, 0);      
 	for (size_t i = 0; i < vecPlain.size() ; i++){
 		x = vecPlain[i];
 		y = vecPlain[++i];
@@ -64,16 +63,16 @@ D3DXVECTOR3& cMousePeeking::GetCrossSectionWithPlain(Ray* pRay, std::vector<D3DX
 			return target;
 		}
 	}
-	
-
 	isCrossed = false;
-	return D3DXVECTOR3(0, 0, 0);
-	
+	return D3DXVECTOR3(0, 0, 0);	
 }
 
 
 bool cMousePeeking::IsCrossWithSphere(Ray* pRay, cSphere* pSphere){
+
+	// @fix point : Do not change it to local space here
 	D3DXVECTOR3 q = pRay->_origin - pSphere->GetTransform()->GetPosition();
+	
 	float b = D3DXVec3Dot(&pRay->_direction, &q);
 	float c = D3DXVec3Dot(&pRay->_direction, &pRay->_direction) * 
 		(D3DXVec3Dot(&q, &q) - (pSphere->GetRadius() * pSphere->GetRadius()));
@@ -88,4 +87,4 @@ bool cMousePeeking::IsCrossWithSphere(Ray* pRay, cSphere* pSphere){
 		return true;
 	}
 	return false;
-}
+}             

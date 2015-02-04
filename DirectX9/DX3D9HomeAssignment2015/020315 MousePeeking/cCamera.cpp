@@ -3,14 +3,14 @@
 
 
 cCamera::cCamera(void)
-	: m_vEye(10, 10, -10)
+	: m_vEye(0, 10, -10)
 	, m_vLookAt(0, 0, 0)
 	, m_vUp(0, 1, 0)
 	, m_fAngleX(0.0f)
 	, m_fAngleY(0.0f)
 	, m_isRButtonDown(false)
 	, m_pvTarget(NULL)
-	, m_fDist(5.0f)
+	, m_fDist(8.0f)
 {
 	//m_fDist = D3DXVec3Length(&m_vEye);
 }
@@ -34,7 +34,7 @@ void cCamera::Setup()
 	g_pD3DDevice->SetTransform(D3DTS_PROJECTION, &matProj);
 }
 
-void cCamera::Update()
+void cCamera::Update(float delta)
 {
 	//m_vEye = D3DXVECTOR3(0, 0.0f, -m_fDist);
 
@@ -48,10 +48,29 @@ void cCamera::Update()
 	//	m_vEye += (*m_pvTarget);
 	//	m_vLookAt = (*m_pvTarget);
 	//}
+	if (GetKeyState('W') & 0x8000){
+		m_vEye.z += 5.0f * delta;
+		m_vLookAt.z += 5.0f * delta;
+	}
 
-	//D3DXMATRIXA16 matView;
-	//D3DXMatrixLookAtLH(&matView, &m_vEye, &m_vLookAt, &m_vUp);
-	//g_pD3DDevice->SetTransform(D3DTS_VIEW, &matView);
+	if (GetKeyState('S') & 0x8000){
+		m_vEye.z -= 5.0f * delta;
+		m_vLookAt.z -= 5.0f * delta;
+	}
+
+	if (GetKeyState('A') & 0x8000){
+		m_vEye.x -= 5.0f * delta;
+		m_vLookAt.x -= 5.0f * delta;
+	}
+
+	if (GetKeyState('D') & 0x8000){
+		m_vEye.x += 5.0f * delta;
+		m_vLookAt.x += 5.0f * delta;
+	}
+
+	D3DXMATRIXA16 matView;
+	D3DXMatrixLookAtLH(&matView, &m_vEye, &m_vLookAt, &m_vUp);
+	g_pD3DDevice->SetTransform(D3DTS_VIEW, &matView);
 }
 
 D3DXMATRIXA16& cCamera::GetTransformMatrix(){

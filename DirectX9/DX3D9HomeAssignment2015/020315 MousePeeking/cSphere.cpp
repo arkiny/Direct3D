@@ -27,6 +27,7 @@ void cSphere::Setup(){
 }
 
 void cSphere::Render(){
+#ifdef _DEBUG
 	D3DXMATRIXA16 matR, matT;
 	matT = *GetTransformMatrix();
 	D3DXMatrixRotationY(&matR, m_fAngle);
@@ -43,5 +44,5 @@ void cSphere::Render(){
 	g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	m_pMesh->DrawSubset(0);
 	g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-
+#endif // _DEBUG
 }

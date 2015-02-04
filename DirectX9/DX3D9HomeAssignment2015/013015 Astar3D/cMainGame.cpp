@@ -33,11 +33,13 @@ cMainGame::~cMainGame()
 		p->Destroy();
 	}
 	SAFE_DELETE(m_pPlayer);
+
+	SAFE_DELETE(m_pTileMap);
 	SAFE_RELEASE(m_pFont);
 	SAFE_DELETE(m_cAxis);
 	SAFE_DELETE(m_cGrid);
 	SAFE_DELETE(m_cCamera);
-	SAFE_DELETE(m_pTileMap);
+	
 	cDeviceManager* pDevice = cDeviceManager::GetInstance();
 	pDevice->Destroy();
 }

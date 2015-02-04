@@ -1,22 +1,16 @@
 #pragma once
 
-#include "gIObject.h"
-
 class cAxis;
 class cGrid;
 class cCamera;
 class cPyramid;
 class cPlain;
 class cSphere;
-//class cCharacter;
-//class cHeightMap;
 class cSkinnedMeshObject;
-//class cAPoint;
-//
-//class cGraph;
-//class cDjikstraSP;
-//class cEdge;
-//
+class cTileMap;
+class cPlayer;
+class cBox;
+
 class cMainGame : public cObject, public iActionDelegate
 {
 
@@ -36,6 +30,12 @@ private:
 	//cGraph*								m_pGraph;
 	//std::vector<cEdge*>					m_vecEdges;
 
+	//
+	cPlayer* m_pPlayer;
+	std::vector<cBox*> m_vecBox;
+	cBox* getBoxInfoFromGrid(int x, int z);
+	cTileMap* m_pTileMap;
+	//
 
 	cSkinnedMeshObject*					m_pSkinnedMeshObject; // selected;
 	std::vector<cSkinnedMeshObject*>	m_vecSkinnedMeshObjects;
@@ -47,7 +47,8 @@ private:
 	int									m_nCurrentNode = -1;
 	int									m_nDestination = -1;
 
-	
+	int m_nWidth = 0;
+	int m_nHeight = 0;
 	 
 	LPD3DXFONT							m_pFont;
 	RECT								m_recFontRect;

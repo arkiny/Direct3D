@@ -18,7 +18,7 @@ public:
 	~cCamera(void);
 
 	void Setup();
-	void Update();
+	void Update(float delta);
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	void SetTarget(D3DXVECTOR3* pvTarget);
 	D3DXMATRIXA16& GetTransformMatrix();

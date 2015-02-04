@@ -165,6 +165,24 @@
     <ClCompile Include="cSkinnedMeshObject.cpp">
       <Filter>MousePeeking</Filter>
     </ClCompile>
+    <ClCompile Include="cTile.cpp">
+      <Filter>Astar</Filter>
+    </ClCompile>
+    <ClCompile Include="cTileMap.cpp">
+      <Filter>Astar</Filter>
+    </ClCompile>
+    <ClCompile Include="cTileMapLoader.cpp">
+      <Filter>Astar</Filter>
+    </ClCompile>
+    <ClCompile Include="cAstarSP.cpp">
+      <Filter>Astar</Filter>
+    </ClCompile>
+    <ClCompile Include="cBox.cpp">
+      <Filter>Astar</Filter>
+    </ClCompile>
+    <ClCompile Include="cPriorityQueue.cpp">
+      <Filter>Astar</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -345,6 +363,24 @@
     <ClInclude Include="cSkinnedMeshObject.h">
       <Filter>MousePeeking</Filter>
     </ClInclude>
+    <ClInclude Include="cTile.h">
+      <Filter>Astar</Filter>
+    </ClInclude>
+    <ClInclude Include="cTileMap.h">
+      <Filter>Astar</Filter>
+    </ClInclude>
+    <ClInclude Include="cTileMapLoader.h">
+      <Filter>Astar</Filter>
+    </ClInclude>
+    <ClInclude Include="cAstarSP.h">
+      <Filter>Astar</Filter>
+    </ClInclude>
+    <ClInclude Include="cBox.h">
+      <Filter>Astar</Filter>
+    </ClInclude>
+    <ClInclude Include="cPriorityQueue.h">
+      <Filter>Astar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico" />
@@ -354,6 +390,12 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
+    <Text Include="data.txt">
+      <Filter>Astar</Filter>
+    </Text>
+    <Text Include="Astar.txt">
+      <Filter>Astar</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -403,6 +445,9 @@
     </Filter>
     <Filter Include="MousePeeking">
       <UniqueIdentifier>{30b03314-a386-40a4-b42d-ad4e8b377e78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Astar">
+      <UniqueIdentifier>{cc946add-ad0a-4334-8ee1-0fdafcd8013e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

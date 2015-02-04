@@ -11,17 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{422DD285-DF5D-4054-8EE0-31C063B87EC9}</ProjectGuid>
+    <ProjectGuid>{FB513654-52E3-4274-B12D-93D0F2748920}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>DX3D9HomeAssignment2015</RootNamespace>
-    <ProjectName>013015 Astar3D</ProjectName>
+    <RootNamespace>My020415PriorityQueue</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -42,8 +41,6 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -53,10 +50,10 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -67,10 +64,10 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
@@ -80,52 +77,17 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Common\cAxis.h" />
-    <ClInclude Include="..\Common\cDeviceManager.h" />
-    <ClInclude Include="..\Common\cGameTimer.h" />
-    <ClInclude Include="..\Common\cGrid.h" />
-    <ClInclude Include="..\Common\CommonHeader.h" />
-    <ClInclude Include="cAstarSP.h" />
-    <ClInclude Include="cCamera.h" />
-    <ClInclude Include="cMainGame.h" />
-    <ClInclude Include="cObjectParser.h" />
-    <ClInclude Include="cPart.h" />
-    <ClInclude Include="cPlayer.h" />
     <ClInclude Include="cTile.h" />
-    <ClInclude Include="cTileMap.h" />
-    <ClInclude Include="cTileMapLoader.h" />
-    <ClInclude Include="DX3D9HomeAssignment2015.h" />
-    <ClInclude Include="gIObject.h" />
-    <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Common\cAxis.cpp" />
-    <ClCompile Include="..\Common\cDeviceManager.cpp" />
-    <ClCompile Include="..\Common\cGameTimer.cpp" />
-    <ClCompile Include="..\Common\cGrid.cpp" />
-    <ClCompile Include="cAstarSP.cpp" />
-    <ClCompile Include="cCamera.cpp" />
-    <ClCompile Include="cMainGame.cpp" />
-    <ClCompile Include="cObjectParser.cpp" />
-    <ClCompile Include="cPart.cpp" />
-    <ClCompile Include="cPlayer.cpp" />
+    <ClCompile Include="020415 PriorityQueue.cpp" />
     <ClCompile Include="cTile.cpp" />
-    <ClCompile Include="cTileMap.cpp" />
-    <ClCompile Include="cTileMapLoader.cpp" />
-    <ClCompile Include="DX3D9HomeAssignment2015.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="DX3D9HomeAssignment2015.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="DX3D9HomeAssignment2015.ico" />
-    <Image Include="small.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

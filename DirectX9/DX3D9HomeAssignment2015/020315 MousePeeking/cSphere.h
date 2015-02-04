@@ -14,9 +14,12 @@ public:
 
 	virtual void Setup();
 	virtual void Render();
-
+	
+	// Getter
 	float GetRadius()			{ return m_fRadius; }
-	void SetRadius(float fRad) { m_fRadius = fRad; }
-	void SetSelcted(bool in) { m_bSelected = in; }
+
+	// Setter
+	void SetRadius(float fRad)	{ m_fRadius = fRad; }
+	void SetSelcted(bool in)	{ m_bSelected = in; }
 };
 
