@@ -13,9 +13,9 @@ private:
 	POINT		m_stDestination;
 
 	std::set<cTile*> m_vecClosedTiles;
-	std::set<cTile*> m_vecOpenTiles;
+	//std::set<cTile*> m_vecOpenTiles;
 
-	//cPriorityQueue* m_pHeapOpenTile;
+	cPriorityQueue* m_pHeapOpenTile;
 
 	void Init();
 	void ExtendList(cTile* from);

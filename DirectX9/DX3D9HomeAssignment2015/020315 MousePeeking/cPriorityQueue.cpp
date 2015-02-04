@@ -28,7 +28,7 @@ void	cPriorityQueue::Resize(int size){
 }
 void	cPriorityQueue::Push(cTile* pTile){
 	//m_vecContainer[m_nNextIndex] = pTile;
-	
+
 	//m_nNextIndex++;
 	//if (m_nCurLevel * 2 + 1 <= m_nNextIndex){
 	//	m_nCurLevel++;
@@ -60,16 +60,15 @@ cTile*	cPriorityQueue::Pop(){
 }
 
 void	cPriorityQueue::RefreshUp(cTile* pTile){
-	int index = GetIndexOf(pTile->GetPosition());
+	int index = GetIndexOf(pTile);
 	if (index == -1) return;
-	
+
 	CheckParentAndSwap(index);
 }
 
-int		cPriorityQueue::GetIndexOf(POINT& pTilepos){
+int		cPriorityQueue::GetIndexOf(cTile* p){
 	for (size_t i = 0; i < m_vecContainer.size(); i++){
-		if (pTilepos.x == m_vecContainer[i]->GetPosition().x &&
-			pTilepos.y == m_vecContainer[i]->GetPosition().y){
+		if (p == m_vecContainer[i]){
 			return i;
 		}
 	}
@@ -85,7 +84,7 @@ void	cPriorityQueue::Swap(int index1, int index2){
 void	cPriorityQueue::CheckParentAndSwap(int index){
 	if (index == 0){
 		return;
-	}	
+	}
 	int parentIndex = (index - 1) / 2;
 
 	float cur = m_vecContainer[index]->GetFGH().m_fF;
@@ -121,7 +120,7 @@ void	cPriorityQueue::CheckChildAndSwap(int index){
 	if (m_vecContainer[lcIndex]){
 		lc = m_vecContainer[lcIndex]->GetFGH().m_fF;
 	}
-	
+
 	if (lc < rc){
 		if (cur >= lc){
 			Swap(index, lcIndex);
@@ -143,7 +142,7 @@ void	cPriorityQueue::CheckChildAndSwap(int index){
 }
 
 void	cPriorityQueue::ToString(){
-	//for (int i = 0; i < m_nNextIndex; i++){
+	//for (int i = 0; i < m_vecContainer.size(); i++){
 	//	std::cout << m_vecContainer[i]->GetFGH().m_fF << " ";
 	//}
 	//std::cout << std::endl;

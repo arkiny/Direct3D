@@ -6,7 +6,7 @@
 cPriorityQueue::cPriorityQueue()
 {
 	//m_vecContainer.resize(2 * m_nCurLevel - 1);
-	m_vecContainer.resize(1);
+	//m_vecContainer.resize(1);
 }
 
 cPriorityQueue::~cPriorityQueue()
@@ -22,30 +22,39 @@ cPriorityQueue::cPriorityQueue(int size)
 
 
 void	cPriorityQueue::Resize(int size){
-	if (size > m_vecContainer.size()){
-		m_vecContainer.resize(size);
-	}
+	//if (size > m_vecContainer.size()){
+	//	m_vecContainer.resize(size);
+	//}
 }
 void	cPriorityQueue::Push(cTile* pTile){
-	m_vecContainer[m_nNextIndex] = pTile;
-	CheckParentAndSwap(m_nNextIndex);
-	m_nNextIndex++;
-	if (m_nCurLevel * 2 + 1 <= m_nNextIndex){
-		m_nCurLevel++;
-		m_vecContainer.resize(m_nCurLevel * 2 + 1);
-	}
+	//m_vecContainer[m_nNextIndex] = pTile;
+
+	//m_nNextIndex++;
+	//if (m_nCurLevel * 2 + 1 <= m_nNextIndex){
+	//	m_nCurLevel++;
+	//	m_vecContainer.resize(m_nCurLevel * 2 + 1);
+	//}
+	m_vecContainer.push_back(pTile);
+	CheckParentAndSwap(m_vecContainer.size() - 1);
 }
 
 cTile*	cPriorityQueue::Pop(){
-	if (m_nNextIndex == 0){
+	//if (m_nNextIndex == 0){
+	//	return NULL;
+	//}
+	//m_nNextIndex--;
+	if (m_vecContainer.empty()){
 		return NULL;
 	}
-	m_nNextIndex--;
 	cTile* ret = m_vecContainer.front();
-	m_vecContainer[0] = m_vecContainer[m_nNextIndex];
-	m_vecContainer[m_nNextIndex] = NULL;
-	CheckChildAndSwap(0);
+	m_vecContainer[0] = m_vecContainer.back();
 	m_vecContainer.pop_back();
+	CheckChildAndSwap(0);
+
+	//m_vecContainer[0] = m_vecContainer[m_nNextIndex];
+	//m_vecContainer[m_nNextIndex] = NULL;
+	//CheckChildAndSwap(0);
+	//m_vecContainer.pop_back();
 
 	return ret;
 }
@@ -53,13 +62,13 @@ cTile*	cPriorityQueue::Pop(){
 void	cPriorityQueue::RefreshUp(cTile* pTile){
 	int index = GetIndexOf(pTile);
 	if (index == -1) return;
-	
+
 	CheckParentAndSwap(index);
 }
 
-int		cPriorityQueue::GetIndexOf(cTile* pTile){
+int		cPriorityQueue::GetIndexOf(cTile* p){
 	for (size_t i = 0; i < m_vecContainer.size(); i++){
-		if (pTile = m_vecContainer[i]){
+		if (p == m_vecContainer[i]){
 			return i;
 		}
 	}
@@ -75,7 +84,7 @@ void	cPriorityQueue::Swap(int index1, int index2){
 void	cPriorityQueue::CheckParentAndSwap(int index){
 	if (index == 0){
 		return;
-	}	
+	}
 	int parentIndex = (index - 1) / 2;
 
 	float cur = m_vecContainer[index]->GetFGH().m_fF;
@@ -102,8 +111,15 @@ void	cPriorityQueue::CheckChildAndSwap(int index){
 	if (rcIndex >= m_vecContainer.size() || lcIndex >= m_vecContainer.size()) return;
 
 	float cur = m_vecContainer[index]->GetFGH().m_fF;
-	float rc = m_vecContainer[rcIndex]->GetFGH().m_fF;
-	float lc = m_vecContainer[lcIndex]->GetFGH().m_fF;
+	float rc = -1.0f;
+	float lc = -1.0f;
+
+	if (m_vecContainer[rcIndex]){
+		rc = m_vecContainer[rcIndex]->GetFGH().m_fF;
+	}
+	if (m_vecContainer[lcIndex]){
+		lc = m_vecContainer[lcIndex]->GetFGH().m_fF;
+	}
 
 	if (lc < rc){
 		if (cur >= lc){
@@ -126,7 +142,7 @@ void	cPriorityQueue::CheckChildAndSwap(int index){
 }
 
 void	cPriorityQueue::ToString(){
-	for (int i = 0; i < m_nNextIndex; i++){
+	for (int i = 0; i < m_vecContainer.size(); i++){
 		std::cout << m_vecContainer[i]->GetFGH().m_fF << " ";
 	}
 	std::cout << std::endl;

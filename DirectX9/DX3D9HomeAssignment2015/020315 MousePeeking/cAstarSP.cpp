@@ -2,6 +2,7 @@
 #include "cAstarSP.h"
 #include "cTile.h"
 #include "cTileMap.h"
+#include "cPriorityQueue.h"
 #include <algorithm>
 #include <iostream>
 
@@ -10,6 +11,7 @@ m_pTileMap(NULL)
 {
 	ZeroMemory(&m_stStartTile, sizeof(POINT));
 	ZeroMemory(&m_stDestination, sizeof(POINT));
+	m_pHeapOpenTile = new cPriorityQueue;
 }
 
 
@@ -22,7 +24,7 @@ m_pTileMap(pTileMap),
 m_stStartTile(stStile),
 m_stDestination(stDtile)
 {
-
+	m_pHeapOpenTile = new cPriorityQueue;
 }
 
 void cAstarSP::Init(){
@@ -34,32 +36,35 @@ void cAstarSP::Init(){
 	StartTileFGH.m_fG = 0.0f;
 	StartTileFGH.m_fF = StartTileFGH.m_fH + StartTileFGH.m_fG;
 	StartTile->SetFGH(StartTileFGH);
-	m_vecOpenTiles.insert(StartTile);
+	
+	m_pHeapOpenTile->Push(StartTile);
 }
 
 void cAstarSP::CalculatePath(){
 	Init();
-	while (!m_vecOpenTiles.empty()){
+	while (!m_pHeapOpenTile->IsEmpty()){
 		cTile* minTile = NULL;
 		float minf = 99999.9f;
 
-		for (auto p : m_vecOpenTiles){
-			if (minf > p->GetFGH().m_fF){
-				minf = p->GetFGH().m_fF;
-				minTile = p;
-			}
-		}
+		//for (auto p : m_vecOpenTiles){
+		//	if (minf > p->GetFGH().m_fF){
+		//		minf = p->GetFGH().m_fF;
+		//		minTile = p;
+		//	}
+		//}
 
+		minTile = m_pHeapOpenTile->Pop();
 		m_vecClosedTiles.insert(minTile);
-		m_vecOpenTiles.erase(minTile);
+		//m_vecOpenTiles.erase(minTile);
 
-
+		ExtendList(minTile);
 		if (minTile->GetPosition().x == m_stDestination.x && minTile->GetPosition().y == m_stDestination.y){
 			//Find Path
 			break;
 		}
-		ExtendList(minTile);
-
+		if (m_pHeapOpenTile->IsEmpty()){
+			int a = 0;
+		}
 	}
 	// No Path;
 }
@@ -174,18 +179,24 @@ void cAstarSP::ExtendList(cTile* from){
 	for (auto p : setTiles){
 		//m_vecOpenTiles.push_back(p);
 		if (m_vecClosedTiles.find(p) == m_vecClosedTiles.end()){
-			if (m_vecOpenTiles.find(p) != m_vecOpenTiles.end()){
+			
+			
+			//if (m_vecOpenTiles.find(p) != m_vecOpenTiles.end()){
+			int index = m_pHeapOpenTile->GetIndexOf(p);
+			if (index != -1){
 				//p->Check()
 				float checkG = from->GetFGH().m_fG
 					+ sqrt((p->GetPosition().x - from->GetPosition().x) *  (p->GetPosition().x - from->GetPosition().x) +
 					(p->GetPosition().y - from->GetPosition().y) *  (p->GetPosition().y - from->GetPosition().y));
-				bool isChanged;
+				bool isChanged = false;
 				p->Check(from, checkG, isChanged);
+				if (isChanged){
+					m_pHeapOpenTile->RefreshUp(p);
+				}
 			}
 			else {
 				ST_FGHINFO stInfo;
 				stInfo.m_fH = abs(p->GetPosition().x - m_stDestination.x) + abs(p->GetPosition().y - m_stDestination.y);
-
 				stInfo.m_fG
 					= from->GetFGH().m_fG
 					+ sqrt((p->GetPosition().x - from->GetPosition().x) *  (p->GetPosition().x - from->GetPosition().x) +
@@ -194,7 +205,8 @@ void cAstarSP::ExtendList(cTile* from){
 				stInfo.m_fF = stInfo.m_fG + stInfo.m_fH;
 				p->SetFGH(stInfo);
 				p->SetParentPos(parentPoint);
-				m_vecOpenTiles.insert(p);
+				m_pHeapOpenTile->Push(p);
+				//m_vecOpenTiles.insert(p);
 				//p->SetFGH();
 			}
 		}
@@ -255,7 +267,7 @@ void cAstarSP::GetPathPointVector(
 		vecClosedTiles.push_back(p);
 	}
 
-	for (auto p : m_vecOpenTiles){
+	for (auto p : m_pHeapOpenTile->GetContainer()){
 		vecOpenTiles.push_back(p);
 	}
 }

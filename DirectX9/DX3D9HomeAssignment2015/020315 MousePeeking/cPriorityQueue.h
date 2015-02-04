@@ -19,7 +19,7 @@ public:
 	bool	IsEmpty(){ return m_vecContainer.empty(); }
 
 	void	RefreshUp(cTile* pTile);
-	int		GetIndexOf(POINT& pTilepos);
+	int		GetIndexOf(cTile* pTile);
 
 	void	Swap(int index1, int index2);
 	void	CheckParentAndSwap(int Index);

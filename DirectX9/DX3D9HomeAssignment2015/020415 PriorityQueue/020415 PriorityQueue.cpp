@@ -35,8 +35,17 @@ int _tmain(int argc, _TCHAR* argv[])
 	p = new cTile(0, 0);
 	p->SetFGH(60.0f, 0.0f, 0.0f);
 	pq.Push(p);
+	pq.ToString();
 
+	//pq.Pop();
+
+	p->SetFGH(10.0f, 0.0f, 0.0f);
+	pq.RefreshUp(p);
+	//pq.RefreshUp(p);
+	pq.ToString();
 	pq.Pop();
+	//pq.Pop();
+	
 	pq.ToString();
 	int a = 0;
 
