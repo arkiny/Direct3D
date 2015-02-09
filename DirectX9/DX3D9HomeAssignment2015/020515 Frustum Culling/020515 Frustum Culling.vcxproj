@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F057B6FC-2C25-4315-BDB0-A58EE7364911}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>DX3D9HomeAssignment2015</RootNamespace>
+    <ProjectName>020515 Frustum Culling</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="Astar.txt" />
+    <Text Include="data.txt" />
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Common\Asciitok.h" />
+    <ClInclude Include="..\Common\cAxis.h" />
+    <ClInclude Include="..\Common\cDeviceManager.h" />
+    <ClInclude Include="..\Common\cGameTimer.h" />
+    <ClInclude Include="..\Common\cGrid.h" />
+    <ClInclude Include="..\Common\CommonHeader.h" />
+    <ClInclude Include="cAction.h" />
+    <ClInclude Include="cActionIdle.h" />
+    <ClInclude Include="cActionMove.h" />
+    <ClInclude Include="cActionRepeat.h" />
+    <ClInclude Include="cActionSeq.h" />
+    <ClInclude Include="cAllocateHierarchy.h" />
+    <ClInclude Include="cAnimationSet.h" />
+    <ClInclude Include="cAseLoader.h" />
+    <ClInclude Include="cAstarSP.h" />
+    <ClInclude Include="cBox.h" />
+    <ClInclude Include="cButton.h" />
+    <ClInclude Include="cCamera.h" />
+    <ClInclude Include="cCard.h" />
+    <ClInclude Include="cCharacter.h" />
+    <ClInclude Include="cCubeIndexBuffer.h" />
+    <ClInclude Include="cDjikstraSP.h" />
+    <ClInclude Include="cEdge.h" />
+    <ClInclude Include="cExitButton.h" />
+    <ClInclude Include="cFrame.h" />
+    <ClInclude Include="cGameObject.h" />
+    <ClInclude Include="cGraph.h" />
+    <ClInclude Include="cGroup.h" />
+    <ClInclude Include="cAPoint.h" />
+    <ClInclude Include="cHeightMap.h" />
+    <ClInclude Include="cMainGame.h" />
+    <ClInclude Include="cMesh.h" />
+    <ClInclude Include="cMousePeeking.h" />
+    <ClInclude Include="cMoveBar.h" />
+    <ClInclude Include="cMtlTex.h" />
+    <ClInclude Include="cNTeapot.h" />
+    <ClInclude Include="cObject.h" />
+    <ClInclude Include="cObjectManager.h" />
+    <ClInclude Include="cObjLoader.h" />
+    <ClInclude Include="cOKButton.h" />
+    <ClInclude Include="cPart.h" />
+    <ClInclude Include="cPlain.h" />
+    <ClInclude Include="cPlayer.h" />
+    <ClInclude Include="cPriorityQueue.h" />
+    <ClInclude Include="cPyramid.h" />
+    <ClInclude Include="cQuestWindow.h" />
+    <ClInclude Include="cRawLoader.h" />
+    <ClInclude Include="cSkinnedMesh.h" />
+    <ClInclude Include="cSkinnedMeshObject.h" />
+    <ClInclude Include="cSphere.h" />
+    <ClInclude Include="cTeapot.h" />
+    <ClInclude Include="cTextBox.h" />
+    <ClInclude Include="cTextureManager.h" />
+    <ClInclude Include="cTile.h" />
+    <ClInclude Include="cTileMap.h" />
+    <ClInclude Include="cTileMapLoader.h" />
+    <ClInclude Include="cTransform.h" />
+    <ClInclude Include="cUserInterface.h" />
+    <ClInclude Include="cVertexPoints.h" />
+    <ClInclude Include="cZealot.h" />
+    <ClInclude Include="DX3D9HomeAssignment2015.h" />
+    <ClInclude Include="gIObject.h" />
+    <ClInclude Include="iActionDelegate.h" />
+    <ClInclude Include="iMap.h" />
+    <ClInclude Include="iUserInterfaceDelegate.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Common\cAxis.cpp" />
+    <ClCompile Include="..\Common\cDeviceManager.cpp" />
+    <ClCompile Include="..\Common\cGameTimer.cpp" />
+    <ClCompile Include="..\Common\cGrid.cpp" />
+    <ClCompile Include="cAction.cpp" />
+    <ClCompile Include="cActionIdle.cpp" />
+    <ClCompile Include="cActionMove.cpp" />
+    <ClCompile Include="cActionRepeat.cpp" />
+    <ClCompile Include="cActionSeq.cpp" />
+    <ClCompile Include="cAllocateHierarchy.cpp" />
+    <ClCompile Include="cAnimationSet.cpp" />
+    <ClCompile Include="cAseLoader.cpp" />
+    <ClCompile Include="cAstarSP.cpp" />
+    <ClCompile Include="cBox.cpp" />
+    <ClCompile Include="cButton.cpp" />
+    <ClCompile Include="cCamera.cpp" />
+    <ClCompile Include="cCard.cpp" />
+    <ClCompile Include="cCharacter.cpp" />
+    <ClCompile Include="cCubeIndexBuffer.cpp" />
+    <ClCompile Include="cDjikstraSP.cpp" />
+    <ClCompile Include="cEdge.cpp" />
+    <ClCompile Include="cExitButton.cpp" />
+    <ClCompile Include="cFrame.cpp" />
+    <ClCompile Include="cGameObject.cpp" />
+    <ClCompile Include="cGraph.cpp" />
+    <ClCompile Include="cGroup.cpp" />
+    <ClCompile Include="cAPoint.cpp" />
+    <ClCompile Include="cHeightMap.cpp" />
+    <ClCompile Include="cMainGame.cpp" />
+    <ClCompile Include="cMesh.cpp" />
+    <ClCompile Include="cMousePeeking.cpp" />
+    <ClCompile Include="cMoveBar.cpp" />
+    <ClCompile Include="cMtlTex.cpp" />
+    <ClCompile Include="cNTeapot.cpp" />
+    <ClCompile Include="cObject.cpp" />
+    <ClCompile Include="cObjectManager.cpp" />
+    <ClCompile Include="cObjLoader.cpp" />
+    <ClCompile Include="cOKButton.cpp" />
+    <ClCompile Include="cPart.cpp" />
+    <ClCompile Include="cPlain.cpp" />
+    <ClCompile Include="cPlayer.cpp" />
+    <ClCompile Include="cPriorityQueue.cpp" />
+    <ClCompile Include="cPyramid.cpp" />
+    <ClCompile Include="cQuestWindow.cpp" />
+    <ClCompile Include="cRawLoader.cpp" />
+    <ClCompile Include="cSkinnedMesh.cpp" />
+    <ClCompile Include="cSkinnedMeshObject.cpp" />
+    <ClCompile Include="cSphere.cpp" />
+    <ClCompile Include="cTeapot.cpp" />
+    <ClCompile Include="cTextBox.cpp" />
+    <ClCompile Include="cTextureManager.cpp" />
+    <ClCompile Include="cTile.cpp" />
+    <ClCompile Include="cTileMap.cpp" />
+    <ClCompile Include="cTileMapLoader.cpp" />
+    <ClCompile Include="cTransform.cpp" />
+    <ClCompile Include="cUserInterface.cpp" />
+    <ClCompile Include="cVertexPoints.cpp" />
+    <ClCompile Include="cZealot.cpp" />
+    <ClCompile Include="DX3D9HomeAssignment2015.cpp" />
+    <ClCompile Include="iActionDelegate.cpp" />
+    <ClCompile Include="iMap.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DX3D9HomeAssignment2015.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="DX3D9HomeAssignment2015.ico" />
+    <Image Include="small.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

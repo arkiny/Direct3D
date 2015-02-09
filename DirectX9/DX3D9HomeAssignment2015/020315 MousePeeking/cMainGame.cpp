@@ -551,38 +551,19 @@ void cMainGame::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
 					POINT start = { gridx, gridz };
 					POINT dest = { crossedx, crossedz };
 
-					cAstarSP sp(m_pTileMap, start, dest);
-					sp.CalculatePath();
+					/*if (start.x == dest.x && start.y == dest.y){
+						return;
+					}
 
-					std::vector<cTile*> path;
-					sp.GetPathPointVector(path);
-
-					//cAstarSP sp(m_pTileMap, );
-					
-							
-					D3DXVECTOR3 pos = { path[path.size() - 2]->GetPosition().x * 1.0f, playerCurpos.y, path[path.size() - 2]->GetPosition().y * 1.0f };
-					m_pSkinnedMeshObject->SetAnimationIndex(3);
-					// new sequence
-					cActionSeq* pActionSeq = new cActionSeq;	
-
-					cActionMove* pActionMove = new cActionMove;
-					pActionMove->SetFrom(playerCurpos
-						= m_pSkinnedMeshObject->GetTransform()->GetPosition());
-					pActionMove->SetTo(pos);
-					float length = D3DXVec3Length(&(m_pSkinnedMeshObject->GetTransform()->GetPosition() - pos));
-
-					pActionMove->SetActionTime(1.0f * (length / 5.0f));
-					pActionMove->SetOwner(m_pSkinnedMeshObject);
-					//pActionMove->SetDelegate(this);
-					pActionSeq->AddAction(pActionMove);
-					SAFE_RELEASE(pActionMove);
-
-
-					for (int i = path.size() - 2; i >= 2; --i)
-					{
+					if (m_pTileMap->GetTilePointer(dest.x, dest.y)->GetType() == cTile::eTILETYPE::TILE_BLOCK){
+						return;
+					}*/
+					if (start.x == dest.x && start.y == dest.y){
+						cActionSeq* pActionSeq = new cActionSeq;
+						m_pSkinnedMeshObject->SetAnimationIndex(3);
 						cActionMove* pActionMove = new cActionMove;
-						D3DXVECTOR3 frompos = { path[i]->GetPosition().x * 1.0f, playerCurpos.y, path[i]->GetPosition().y * 1.0f };
-						D3DXVECTOR3 topos = { path[i-1]->GetPosition().x * 1.0f, playerCurpos.y, path[i-1]->GetPosition().y * 1.0f };
+						D3DXVECTOR3 frompos = playerCurpos;
+						D3DXVECTOR3 topos = crossed;
 
 						pActionMove->SetFrom(frompos);
 						pActionMove->SetTo(topos);
@@ -590,37 +571,88 @@ void cMainGame::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
 
 						pActionMove->SetActionTime(1.0f * (length / 5.0f));
 						pActionMove->SetOwner(m_pSkinnedMeshObject);
+						pActionSeq->AddAction(pActionMove);
+						SAFE_RELEASE(pActionMove);
+
+						pActionSeq->SetDelegate(this);
+						m_pSkinnedMeshObject->SetAction(pActionSeq);
+						pActionSeq->Start();
+
+						SAFE_RELEASE(pActionSeq);
+
+					}
+					else if (m_pTileMap->GetTilePointer(dest.x, dest.y)->GetType() != cTile::eTILETYPE::TILE_BLOCK &&
+						(start.x != dest.x || start.y != dest.y)){
+
+						cAstarSP sp(m_pTileMap, start, dest);
+						sp.CalculatePath();
+
+						std::vector<cTile*> path;
+						sp.GetPathPointVector(path);
+
+						//cAstarSP sp(m_pTileMap, );
+
+
+						// new sequence
+						cActionSeq* pActionSeq = new cActionSeq;
+						m_pSkinnedMeshObject->SetAnimationIndex(3);
+
+						D3DXVECTOR3 pos = { path[path.size() - 2]->GetPosition().x * 1.0f, playerCurpos.y, path[path.size() - 2]->GetPosition().y * 1.0f };
+						cActionMove* pActionMove = new cActionMove;
+						pActionMove->SetFrom(playerCurpos
+							= m_pSkinnedMeshObject->GetTransform()->GetPosition());
+						pActionMove->SetTo(pos);
+						float length = D3DXVec3Length(&(m_pSkinnedMeshObject->GetTransform()->GetPosition() - pos));
+
+						pActionMove->SetActionTime(1.0f * (length / 5.0f));
+						pActionMove->SetOwner(m_pSkinnedMeshObject);
 						//pActionMove->SetDelegate(this);
 						pActionSeq->AddAction(pActionMove);
 						SAFE_RELEASE(pActionMove);
+
+						for (int i = path.size() - 2; i >= 1; --i)
+						{
+							cActionMove* pActionMove = new cActionMove;
+							D3DXVECTOR3 frompos = { path[i]->GetPosition().x * 1.0f, playerCurpos.y, path[i]->GetPosition().y * 1.0f };
+							D3DXVECTOR3 topos = { path[i - 1]->GetPosition().x * 1.0f, playerCurpos.y, path[i - 1]->GetPosition().y * 1.0f };
+
+							pActionMove->SetFrom(frompos);
+							pActionMove->SetTo(topos);
+							float length = D3DXVec3Length(&(frompos - topos));
+
+							pActionMove->SetActionTime(1.0f * (length / 5.0f));
+							pActionMove->SetOwner(m_pSkinnedMeshObject);
+							pActionSeq->AddAction(pActionMove);
+							SAFE_RELEASE(pActionMove);
+						}
+						
+						
+						//pos = { path[1]->GetPosition().x * 1.0f, playerCurpos.y, path[1]->GetPosition().y * 1.0f };
+						//m_pSkinnedMeshObject->SetAnimationIndex(3);
+						//pActionMove = new cActionMove;
+
+						//pActionMove->SetFrom(pos);
+						//pActionMove->SetTo(crossed);
+
+						//length = D3DXVec3Length(&(crossed - pos));
+						//pActionMove->SetActionTime(1.0f * (length / 5.0f));
+						//pActionMove->SetOwner(m_pSkinnedMeshObject);
+						////pActionMove->SetDelegate(this);
+						//pActionSeq->AddAction(pActionMove);
+						//SAFE_RELEASE(pActionMove);
+
+
+						pActionSeq->SetDelegate(this);
+						/*cActionRepeat* pActionRepeat = new cActionRepeat;
+						pActionRepeat->SetAction(pActionSeq);*/
+						//	pActionRepeat->SetDelegate(this);
+
+						m_pSkinnedMeshObject->SetAction(pActionSeq);
+						pActionSeq->Start();
+
+						SAFE_RELEASE(pActionSeq);
+
 					}
-
-					pos = { path[1]->GetPosition().x * 1.0f, playerCurpos.y, path[1]->GetPosition().y * 1.0f };
-					m_pSkinnedMeshObject->SetAnimationIndex(3);
-					pActionMove = new cActionMove;
-
-					pActionMove->SetFrom(pos);
-					pActionMove->SetTo(crossed);
-
-					length = D3DXVec3Length(&(crossed - pos));
-					pActionMove->SetActionTime(1.0f * (length / 5.0f));
-					pActionMove->SetOwner(m_pSkinnedMeshObject);
-					//pActionMove->SetDelegate(this);
-					pActionSeq->AddAction(pActionMove);
-					SAFE_RELEASE(pActionMove);
-
-
-					pActionSeq->SetDelegate(this);
-					/*cActionRepeat* pActionRepeat = new cActionRepeat;
-					pActionRepeat->SetAction(pActionSeq);*/
-					//	pActionRepeat->SetDelegate(this);
-
-					m_pSkinnedMeshObject->SetAction(pActionSeq);
-					pActionSeq->Start();
-
-					SAFE_RELEASE(pActionSeq);
-
-
 				}
 			}
 		}

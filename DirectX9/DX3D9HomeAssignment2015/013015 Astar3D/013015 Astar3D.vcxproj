@@ -86,6 +86,7 @@
     <ClInclude Include="..\Common\cGrid.h" />
     <ClInclude Include="..\Common\CommonHeader.h" />
     <ClInclude Include="cAstarSP.h" />
+    <ClInclude Include="cBox.h" />
     <ClInclude Include="cCamera.h" />
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cObjectParser.h" />
@@ -106,6 +107,7 @@
     <ClCompile Include="..\Common\cGameTimer.cpp" />
     <ClCompile Include="..\Common\cGrid.cpp" />
     <ClCompile Include="cAstarSP.cpp" />
+    <ClCompile Include="cBox.cpp" />
     <ClCompile Include="cCamera.cpp" />
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cObjectParser.cpp" />

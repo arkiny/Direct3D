@@ -81,6 +81,9 @@
     <ClInclude Include="cTileMapLoader.h">
       <Filter>Astar</Filter>
     </ClInclude>
+    <ClInclude Include="cBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -127,6 +130,9 @@
     </ClCompile>
     <ClCompile Include="cTileMapLoader.cpp">
       <Filter>Astar</Filter>
+    </ClCompile>
+    <ClCompile Include="cBox.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

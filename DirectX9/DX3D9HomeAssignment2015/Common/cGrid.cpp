@@ -24,7 +24,7 @@ void cGrid::init(){
 	ST_PC_VERTEX v;
 	for (int i = 0; i < m_nGridNum+1; i++){
 		if (i % 5 == 0){
-			v.c = D3DCOLOR_XRGB(255, 255, 255);
+			v.c = D3DCOLOR_XRGB(100, 100, 100);
 		}
 		else {
 			v.c = D3DCOLOR_XRGB(100, 100, 100);
