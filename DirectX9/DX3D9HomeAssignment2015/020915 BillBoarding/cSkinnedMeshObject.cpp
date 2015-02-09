@@ -18,13 +18,13 @@ cSkinnedMeshObject::~cSkinnedMeshObject()
 	SAFE_DELETE(m_pSkinnedMesh);
 	SAFE_RELEASE(m_pSphere);
 	SAFE_RELEASE(m_pFontMesh);
-
+	
 }
 
 void cSkinnedMeshObject::Setup(){
-	m_stFontMtl.Ambient = D3DXCOLOR(0.1f, 0.1f, 0.1f, 1.0f);
-	m_stFontMtl.Diffuse = D3DXCOLOR(0.1f, 0.1f, 0.1f, 1.0f);
-	m_stFontMtl.Specular = D3DXCOLOR(0.1f, 0.1f, 0.1f, 1.0f);
+	m_stFontMtl.Ambient = D3DXCOLOR(0.8f, 0.8f, 0.8f, 1.0f);
+	m_stFontMtl.Diffuse = D3DXCOLOR(0.8f, 0.8f, 0.8f, 1.0f);
+	m_stFontMtl.Specular = D3DXCOLOR(0.8f, 0.8f, 0.8f, 1.0f);
 
 	m_pSkinnedMesh = new cSkinnedMesh;
 	m_pSkinnedMesh->Setup("../Resource/Zealot/", "zealot.X");
@@ -34,7 +34,7 @@ void cSkinnedMeshObject::Setup(){
 	m_pSkinnedMesh->SetAnimationLoop(3, true);
 	m_pSkinnedMesh->SetAnimationLoop(4, true);
 	m_pSkinnedMesh->SetAnimationIndex(4);
-
+	
 	m_pSphere = new cSphere;
 	m_pSphere->Setup();
 	D3DXVECTOR3 pos = m_pTransform->GetPosition();
@@ -92,18 +92,21 @@ void cSkinnedMeshObject::Update(float delta){
 		pos.y = pos.y + 0.5f;
 		m_pSphere->SetPosition(pos);
 	}
-
+	
 }
 
 void cSkinnedMeshObject::Render(){
 	if (m_pSkinnedMesh){
 		m_pSkinnedMesh->Render(GetTransformMatrix());
-
+			
 
 		D3DXMATRIXA16 w = *GetTransformMatrix();
+
+
 		D3DXMATRIXA16 lf;
 		D3DXMatrixTranslation(&lf, -1.0f, 1.5f, 0.0f);
-		/*	w = lf * w;*/
+	
+		//w = lf * w;
 
 		D3DXMATRIXA16 v;
 		g_pD3DDevice->GetTransform(D3DTS_VIEW, &v);

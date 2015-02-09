@@ -7,7 +7,7 @@ class cSkinnedMeshObject : public cGameObject
 {
 private:
 	cSkinnedMesh*						m_pSkinnedMesh;
-
+		
 	LPD3DXMESH							m_pFontMesh;
 	D3DMATERIAL9						m_stFontMtl;
 

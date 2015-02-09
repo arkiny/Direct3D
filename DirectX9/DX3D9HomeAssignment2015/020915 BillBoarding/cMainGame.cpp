@@ -35,7 +35,8 @@ m_cCamera(NULL),
 m_pPyramid(NULL),
 m_pFont(NULL),
 m_nScore(0),
-m_pSphere(NULL)
+m_pSkinnedMeshObject(NULL)
+//m_pSphere(NULL)
 {
 	srand(GetTickCount());
 	GetCursorPos(&m_mousePos);
@@ -48,10 +49,11 @@ cMainGame::~cMainGame()
 	SAFE_DELETE(m_cGrid);
 	SAFE_DELETE(m_cCamera);
 	SAFE_RELEASE(m_pFont);
-	SAFE_RELEASE(m_pSphere);
-	for (auto p : m_vecSpheres){
-		SAFE_RELEASE(p);
-	}
+	SAFE_RELEASE(m_pSkinnedMeshObject);
+	//SAFE_RELEASE(m_pSphere);
+	//for (auto p : m_vecSpheres){
+	//	SAFE_RELEASE(p);
+	//}
 
 	g_pTextureManager->Destroy();
 	cDeviceManager* pDevice = cDeviceManager::GetInstance();
@@ -71,14 +73,17 @@ void cMainGame::Init(){
 	m_pPyramid = new cPyramid;
 	m_pPyramid->setup();
 
+	m_pSkinnedMeshObject = new cSkinnedMeshObject;
+	m_pSkinnedMeshObject->Setup();
+	m_pSkinnedMeshObject->SetAnimationIndex(4);
 	//m_vecSpheres;
-	cSphere* p;
-	for (int i = 0; i < 2000; i++){
-		p = new cSphere;
-		p->Setup();
-		p->SetPosition(rand() % 500 / 10.0f - 25.0f, rand() % 100 / 1.0f, rand() % 500 / 10.0f - 25.0f);
-		m_vecSpheres.push_back(p);
-	}
+	//cSphere* p;
+	//for (int i = 0; i < 2000; i++){
+	//	p = new cSphere;
+	//	p->Setup();
+	//	p->SetPosition(rand() % 500 / 10.0f - 25.0f, rand() % 100 / 1.0f, rand() % 500 / 10.0f - 25.0f);
+	//	m_vecSpheres.push_back(p);
+	//}
 
 
 	D3DXCreateFont(g_pD3DDevice,		//D3D Device
@@ -115,10 +120,9 @@ void cMainGame::Init(){
 
 
 void cMainGame::Update(float delta){
-
 	m_fAccumTime += delta;
 	m_cCamera->Update(delta);
-
+	m_pSkinnedMeshObject->Update(delta);
 }
 
 void cMainGame::Render(){
@@ -141,6 +145,10 @@ void cMainGame::Render(){
 	D3DXMatrixIdentity(&mat);
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
+
+	SAFE_RENDER(m_pSkinnedMeshObject);
+
+	//if ()
 	
 	//typedef struct _D3DVIEWPORT9 {
 	//	DWORD       X;
@@ -151,7 +159,7 @@ void cMainGame::Render(){
 	//	float       MaxZ;
 	//} D3DVIEWPORT9;
 
-	D3DVIEWPORT9 vp;
+	/*D3DVIEWPORT9 vp;
 	g_pD3DDevice->GetViewport(&vp);
 
 	std::vector<D3DXVECTOR3> vecfrusmtom(8);
@@ -163,7 +171,7 @@ void cMainGame::Render(){
 	vecfrusmtom[4] = D3DXVECTOR3(-1.0f, -1.0f, 1.0f);
 	vecfrusmtom[5] = D3DXVECTOR3(1.0f, -1.0f, 1.0f);
 	vecfrusmtom[6] = D3DXVECTOR3(-1.0f, 1.0f, 1.0f);
-	vecfrusmtom[7] = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	vecfrusmtom[7] = D3DXVECTOR3(1.0f, 1.0f, 1.0f);*/
 
 	//
 	//std::vector<D3DXVECTOR3> vecWorldVertex(8);
@@ -188,53 +196,53 @@ void cMainGame::Render(){
 
 
 	///
-	if (GetAsyncKeyState(VK_SPACE)){
-		D3DXMATRIXA16 invProj;
-		g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &invProj);
-		D3DXMatrixInverse(&invProj, NULL, &invProj);
+	//if (GetAsyncKeyState(VK_SPACE)){
+	//	D3DXMATRIXA16 invProj;
+	//	g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &invProj);
+	//	D3DXMatrixInverse(&invProj, NULL, &invProj);
 
 
-		D3DXMATRIXA16 invView;
-		g_pD3DDevice->GetTransform(D3DTS_VIEW, &invView);
-		D3DXMatrixInverse(&invView, NULL, &invView);
+	//	D3DXMATRIXA16 invView;
+	//	g_pD3DDevice->GetTransform(D3DTS_VIEW, &invView);
+	//	D3DXMatrixInverse(&invView, NULL, &invView);
 
-		D3DXMATRIXA16 world;
-		world = invProj * invView;
+	//	D3DXMATRIXA16 world;
+	//	world = invProj * invView;
 
-		for (size_t i = 0; i < vecfrusmtom.size(); i++){
-			D3DXVec3TransformCoord(&vecfrusmtom[i], &vecfrusmtom[i], &world);
-		}
+	//	for (size_t i = 0; i < vecfrusmtom.size(); i++){
+	//		D3DXVec3TransformCoord(&vecfrusmtom[i], &vecfrusmtom[i], &world);
+	//	}
 
-		std::vector<D3DXPLANE> vecPlanes(6);
+	//	std::vector<D3DXPLANE> vecPlanes(6);
 
-		D3DXPlaneFromPoints(&vecPlanes[0], &vecfrusmtom[0], &vecfrusmtom[1], &vecfrusmtom[2]); // near
-		D3DXPlaneFromPoints(&vecPlanes[1], &vecfrusmtom[6], &vecfrusmtom[7], &vecfrusmtom[5]); // far
-		D3DXPlaneFromPoints(&vecPlanes[2], &vecfrusmtom[2], &vecfrusmtom[6], &vecfrusmtom[4]); // left
-		D3DXPlaneFromPoints(&vecPlanes[3], &vecfrusmtom[7], &vecfrusmtom[3], &vecfrusmtom[5]); // right
-		D3DXPlaneFromPoints(&vecPlanes[4], &vecfrusmtom[2], &vecfrusmtom[3], &vecfrusmtom[6]); // top
-		D3DXPlaneFromPoints(&vecPlanes[5], &vecfrusmtom[1], &vecfrusmtom[0], &vecfrusmtom[4]); // bottom
+	//	D3DXPlaneFromPoints(&vecPlanes[0], &vecfrusmtom[0], &vecfrusmtom[1], &vecfrusmtom[2]); // near
+	//	D3DXPlaneFromPoints(&vecPlanes[1], &vecfrusmtom[6], &vecfrusmtom[7], &vecfrusmtom[5]); // far
+	//	D3DXPlaneFromPoints(&vecPlanes[2], &vecfrusmtom[2], &vecfrusmtom[6], &vecfrusmtom[4]); // left
+	//	D3DXPlaneFromPoints(&vecPlanes[3], &vecfrusmtom[7], &vecfrusmtom[3], &vecfrusmtom[5]); // right
+	//	D3DXPlaneFromPoints(&vecPlanes[4], &vecfrusmtom[2], &vecfrusmtom[3], &vecfrusmtom[6]); // top
+	//	D3DXPlaneFromPoints(&vecPlanes[5], &vecfrusmtom[1], &vecfrusmtom[0], &vecfrusmtom[4]); // bottom
 
-		for (auto p : m_vecSpheres){
-			D3DXVECTOR3 pos = p->GetTransform()->GetPosition();
-			float a = p->GetRadius();
+	//	for (auto p : m_vecSpheres){
+	//		D3DXVECTOR3 pos = p->GetTransform()->GetPosition();
+	//		float a = p->GetRadius();
 
-			if (D3DXPlaneDotCoord(&vecPlanes[0], &pos) + a > 0
-				&& D3DXPlaneDotCoord(&vecPlanes[1], &pos) + a > 0
-				&& D3DXPlaneDotCoord(&vecPlanes[2], &pos) + a > 0
-				&& D3DXPlaneDotCoord(&vecPlanes[3], &pos) + a > 0
-				&& D3DXPlaneDotCoord(&vecPlanes[4], &pos) + a > 0
-				&& D3DXPlaneDotCoord(&vecPlanes[5], &pos) + a > 0){
+	//		if (D3DXPlaneDotCoord(&vecPlanes[0], &pos) + a > 0
+	//			&& D3DXPlaneDotCoord(&vecPlanes[1], &pos) + a > 0
+	//			&& D3DXPlaneDotCoord(&vecPlanes[2], &pos) + a > 0
+	//			&& D3DXPlaneDotCoord(&vecPlanes[3], &pos) + a > 0
+	//			&& D3DXPlaneDotCoord(&vecPlanes[4], &pos) + a > 0
+	//			&& D3DXPlaneDotCoord(&vecPlanes[5], &pos) + a > 0){
 
-				SAFE_RENDER(p);
-			}
-		}
-	}
-	else {
-		for (auto p : m_vecSpheres){
-				SAFE_RENDER(p);
-	 	}
-		
-	}
+	//			SAFE_RENDER(p);
+	//		}
+	//	}
+	//}
+	//else {
+	//	for (auto p : m_vecSpheres){
+	//			SAFE_RENDER(p);
+	// 	}
+	//	
+	//}
 
 	g_pD3DDevice->EndScene();
 	g_pD3DDevice->Present(NULL, NULL, NULL, NULL);
