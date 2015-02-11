@@ -1,0 +1,1 @@
+Using D3DXLoadMeshHierarchyFromX, Load skinned mesh (cZealot.h, cZealot.cpp) 

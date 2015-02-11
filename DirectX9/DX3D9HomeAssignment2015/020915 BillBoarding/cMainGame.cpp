@@ -28,36 +28,71 @@
 #include "cAstarSP.h"
 #include "cTileMapLoader.h"
 
+
+
 cMainGame::cMainGame() :
 m_cAxis(NULL),
 m_cGrid(NULL),
 m_cCamera(NULL),
 m_pPyramid(NULL),
 m_pFont(NULL),
-m_nScore(0),
-m_pSkinnedMeshObject(NULL)
+m_nScore(0)
 //m_pSphere(NULL)
 {
 	srand(GetTickCount());
 	GetCursorPos(&m_mousePos);
+	InitializeCriticalSection(&gCriticalSection);
 }
 
 cMainGame::~cMainGame()
 {
+
+	//std::terminate();
+	m_bKillThread = true;
+	
+	//TerminateThread(SetupSkinnedMesh, 0);
+	
+	WaitForSingleObject(SetupSkinnedMesh, INFINITE);
+	CloseHandle(SetupSkinnedMesh);
+	DeleteCriticalSection(&gCriticalSection);
+	
 	SAFE_DELETE(m_pPyramid);
 	SAFE_DELETE(m_cAxis);
 	SAFE_DELETE(m_cGrid);
 	SAFE_DELETE(m_cCamera);
 	SAFE_RELEASE(m_pFont);
-	SAFE_RELEASE(m_pSkinnedMeshObject);
 	//SAFE_RELEASE(m_pSphere);
 	//for (auto p : m_vecSpheres){
 	//	SAFE_RELEASE(p);
 	//}
 
+	for (size_t i = 0; i < m_vecSkinnedMeshObjects.size(); i++){
+		if (m_vecSkinnedMeshObjects[i]->isLoaded()){
+			SAFE_RELEASE(m_vecSkinnedMeshObjects[i]);
+		}
+	}
+
 	g_pTextureManager->Destroy();
 	cDeviceManager* pDevice = cDeviceManager::GetInstance();
 	pDevice->Destroy();
+}
+
+void cMainGame::SetupSkinnedMesh(LPVOID pParam){
+	cMainGame* pMain = (cMainGame*)pParam;
+
+	for (int i = 0; i < 50; i++){
+		EnterCriticalSection(&gCriticalSection);
+		if (pMain->KillThread()){
+			ExitThread(0);
+		}
+		cSkinnedMeshObject* p = new cSkinnedMeshObject;
+		p->Setup();
+		p->SetAnimationIndex(4);
+		p->SetisLoaded(true);
+		p->SetPosition(D3DXVECTOR3(rand() % 30, 0, rand() % 30));
+		LeaveCriticalSection(&gCriticalSection);
+		pMain->GetSkinnedMeshObjects().push_back(p);
+	}
 }
 
 void cMainGame::Init(){
@@ -73,9 +108,8 @@ void cMainGame::Init(){
 	m_pPyramid = new cPyramid;
 	m_pPyramid->setup();
 
-	m_pSkinnedMeshObject = new cSkinnedMeshObject;
-	m_pSkinnedMeshObject->Setup();
-	m_pSkinnedMeshObject->SetAnimationIndex(4);
+	
+
 	//m_vecSpheres;
 	//cSphere* p;
 	//for (int i = 0; i < 2000; i++){
@@ -116,13 +150,25 @@ void cMainGame::Init(){
 	g_pD3DDevice->SetLight(0, &stLight);
 	g_pD3DDevice->LightEnable(0, true);
 
+	DWORD dwThID;
+	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)SetupSkinnedMesh, this, NULL/*CREATE_SUSPENDED*/, &dwThID));
 }
 
 
 void cMainGame::Update(float delta){
 	m_fAccumTime += delta;
 	m_cCamera->Update(delta);
-	m_pSkinnedMeshObject->Update(delta);
+	for (size_t i = 0; i < m_vecSkinnedMeshObjects.size(); i++){
+		if (m_vecSkinnedMeshObjects[i]->isLoaded()){
+			m_vecSkinnedMeshObjects[i]->Update(delta);
+		}
+	}
+	//for (auto p : m_vecSkinnedMeshObjects){
+	//	if (p->isLoaded()){
+	//		p->Update(delta);
+	//	}
+	//}
+	
 }
 
 void cMainGame::Render(){
@@ -146,8 +192,30 @@ void cMainGame::Render(){
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 
-	SAFE_RENDER(m_pSkinnedMeshObject);
+	for (size_t i = 0; i < m_vecSkinnedMeshObjects.size(); i++){
+		if (m_vecSkinnedMeshObjects[i]->isLoaded()){
+			m_vecSkinnedMeshObjects[i]->Render();
+		}
+	}
+	
+	std::stringstream s;
+	s.precision(2);
 
+	if (m_vecSkinnedMeshObjects.size() == 50){
+		s << m_vecSkinnedMeshObjects.size() << "/50, DONE" << std::endl;
+	}
+	else{
+		s << m_vecSkinnedMeshObjects.size() << "/50, Loading.." << std::endl;
+	}
+	
+
+	m_pFont->DrawText(NULL,				 //pSprite
+		s.str().c_str(),	 //pString
+		-1,					//Count
+		&m_recFontRect,		//pRect
+		DT_LEFT | DT_NOCLIP,//Format,
+		0xFFFFFFFF);		//Color
+	
 	//if ()
 	
 	//typedef struct _D3DVIEWPORT9 {

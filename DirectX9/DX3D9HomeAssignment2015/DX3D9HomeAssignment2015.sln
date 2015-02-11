@@ -49,6 +49,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "020515 Frustum Culling", "0
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "020915 BillBoarding", "020915 BillBoarding\020915 BillBoarding.vcxproj", "{74B3A611-8E74-4B6E-97AB-79D0C4E223FB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "021015 ParticleSystem", "021015 Particle\021015 Particle.vcxproj", "{ABBE4C3D-EA20-4DE5-A931-D83566C61069}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -147,6 +149,10 @@ Global
 		{74B3A611-8E74-4B6E-97AB-79D0C4E223FB}.Debug|Win32.Build.0 = Debug|Win32
 		{74B3A611-8E74-4B6E-97AB-79D0C4E223FB}.Release|Win32.ActiveCfg = Release|Win32
 		{74B3A611-8E74-4B6E-97AB-79D0C4E223FB}.Release|Win32.Build.0 = Release|Win32
+		{ABBE4C3D-EA20-4DE5-A931-D83566C61069}.Debug|Win32.ActiveCfg = Debug|Win32
+		{ABBE4C3D-EA20-4DE5-A931-D83566C61069}.Debug|Win32.Build.0 = Debug|Win32
+		{ABBE4C3D-EA20-4DE5-A931-D83566C61069}.Release|Win32.ActiveCfg = Release|Win32
+		{ABBE4C3D-EA20-4DE5-A931-D83566C61069}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

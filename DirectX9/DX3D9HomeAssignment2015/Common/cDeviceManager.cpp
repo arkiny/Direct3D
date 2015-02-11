@@ -33,7 +33,7 @@ cDeviceManager::cDeviceManager(void)
 		D3DADAPTER_DEFAULT,
 		D3DDEVTYPE_HAL,
 		g_hWnd,
-		nVertexProcessing,
+		nVertexProcessing | D3DCREATE_MULTITHREADED,
 		&stD3DPP,
 		&m_pD3DDevice);
 }

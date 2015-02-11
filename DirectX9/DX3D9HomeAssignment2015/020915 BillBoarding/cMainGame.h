@@ -25,14 +25,12 @@ private:
 	cGrid*								m_cGrid;
 	cCamera*							m_cCamera;
 	cPyramid*							m_pPyramid;
+	volatile bool						m_bKillThread = false;
+	volatile int						m_nLoadingObject = 0;
 
-	cSkinnedMeshObject*					m_pSkinnedMeshObject; // selected;
-
-
+	std::vector<cSkinnedMeshObject*>	m_vecSkinnedMeshObjects;
 
 	bool								m_bCharacterSelected = false;
-
-
 
 	int									m_nCurrentNode = -1;
 	int									m_nDestination = -1;
@@ -50,8 +48,9 @@ private:
 	POINT								m_stMouseLocation;
 	bool								m_bClicked = false;
 
+
 private:
-	//cBox*				getBoxInfoFromGrid(int x, int z);
+	static void							SetupSkinnedMesh(LPVOID pParam);
 
 public:
 	cMainGame();
@@ -61,8 +60,11 @@ public:
 	void Update(float delta);
 	void Render();
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+	
+	std::vector<cSkinnedMeshObject*>&	GetSkinnedMeshObjects() { return m_vecSkinnedMeshObjects; }
 
 	virtual void OnActionFinish(cAction* pSender);
 	virtual void OnActionMoveTargetUpdated(cAction* pSender, int TargetNode);
+	bool KillThread(){ return m_bKillThread; }
 };
 

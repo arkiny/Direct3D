@@ -95,3 +95,6 @@ struct stASENode{
 //#include "d3dfont.h"
 //#include "d3dutil.h"
 //#include "dxutil.h"
+
+
+static CRITICAL_SECTION				gCriticalSection;
