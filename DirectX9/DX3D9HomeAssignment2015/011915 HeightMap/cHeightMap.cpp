@@ -26,7 +26,7 @@ void cHeightMap::Setup(){
 	m_vecVertex.resize(257 * 257);
 	for (int i = 0; i < 257; i++){
 		for (int j = 0; j < 257; j++){
-			m_vecVertex[(i * 257) + j].p = D3DXVECTOR3((float)j, (float)(m_vecHeight[((256-i) * 257) + j]/10.0f - 50.0f), (float)i);
+			m_vecVertex[(i * 257) + j].p = D3DXVECTOR3((float)j, (float)(m_vecHeight[((256-i) * 257) + j]/5.0f - 50.0f), (float)i);
 			m_vecVertex[(i * 257) + j].t = D3DXVECTOR2(j / 257.0f, (257.0f-i) / 257.0f);
 			m_vecVertex[(i * 257) + j].n = D3DXVECTOR3(0,1,0);
 			/*m_vecVertex[(i * 257) + j].p = D3DXVECTOR3((float)j, (float)(m_vecHeight[((i * 257) + j)] / 10.0f - 50.0f), (float)i);
@@ -92,7 +92,7 @@ void cHeightMap::Setup(){
 	m_pMtlTex->stMtl.Ambient = D3DXCOLOR(0.8f, 0.8f, 0.8f, 1.0f);
 	m_pMtlTex->stMtl.Diffuse = D3DXCOLOR(0.8f, 0.8f, 0.8f, 1.0f);
 	m_pMtlTex->stMtl.Specular = D3DXCOLOR(0.8f, 0.8f, 0.8f, 1.0f);
-	m_pMtlTex->pTex = g_pTextureManager->GetTexture("../Resource/HeightMapData/terrain.jpg");
+	m_pMtlTex->pTex = g_pTextureManager->GetTexture("../Resource/HeightMapData/TerrainView.bmp");
 
 	DWORD vertexnum = m_vecVertex.size();
 	DWORD faceNum = m_vecIndex.size() / 3;

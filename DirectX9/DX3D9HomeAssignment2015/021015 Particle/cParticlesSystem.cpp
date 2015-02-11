@@ -39,6 +39,7 @@ void cParticlesSystem::Setup()
 
 	cParticles* p = new cParticles;
 	p->Setup();
+	//p->SetPosition(D3DXVECTOR3(3, 0, 0));
 	m_vecParticles.push_back(p);
 
 	cParticlesFire* pf = new cParticlesFire;
