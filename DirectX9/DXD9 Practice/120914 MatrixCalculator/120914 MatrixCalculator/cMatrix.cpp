@@ -18,12 +18,6 @@ cMatrix::cMatrix(int size){
 	}
 }
 
-//cMatrix::cMatrix(int size, float* data){
-//	m_nSize = size;
-//	m_matrix = data;
-//}
-
-
 cMatrix::~cMatrix()
 {
 }
@@ -68,8 +62,7 @@ cMatrix cMatrix::operator*(float scalar){
 
 cMatrix cMatrix::operator*(cMatrix& m){
 	cMatrix ret(m_nSize);
-	// ret = this * m;
-
+	
 	if (m.getSize() != m_nSize){
 		return cMatrix();
 	}
@@ -77,12 +70,9 @@ cMatrix cMatrix::operator*(cMatrix& m){
 	float sum;
 	for (int i = 0; i < m_nSize; i++){
 		for (int j = 0; j < m_nSize; j++){
-			// ret[i][j] = sum of (mA[i][k] * mB[k][j])
 			sum = 0;
 			for (int k = 0; k < m_nSize; k++){
-				//
 				sum = sum + getElement(i, k) * m.getElement(k, j);
-				//
 			}
 			ret.setElement(i, j, sum);
 		}		
@@ -109,34 +99,38 @@ float cMatrix::detRecursive(cMatrix& m){
 		return m.getElement(0, 0);
 	}
 	else if (m.getSize() == 2){
+		// a b 
+		// c d
+		// ad - bc
 		return 
 			(m.getElement(0, 0) * m.getElement(1, 1))
 			- (m.getElement(1, 0) * m.getElement(0, 1));
 	}
 	else {
+		// 11 12 13  ..
+		// 21 22 23  ..
+		// 31 32 33  ..
+		// .. .. ..  ..
+		// 열의 사이즈 (정방형이므로 3x3은 3)만큼
+		// 11, 12, 13의 minor 매트릭스를 통한 코팩터를 구해서 더한다. (여기서 숫자는 행열)
+		// 11 * cofactor(22, 23)  + 12 * cofactor(21, 23) + 13 * cofactor(21, 22) 
+		//              (32, 33)	             (31, 33)                (31, 32)
+		// 열이 늘어나더라도 결국 이 법칙을 벗어나지 않으므로 위 식을 기반으로 행렬식을 구하면 된다.
 		float ret = 0.0f;
 		for (int i = 0; i < m.getSize(); i++){
-			// ret + cofactor + recursived det
-			//ret = ret + getElement(0, i) * pow(-1.0f, i) * detRecursive(minor(0,i, m));
 			ret = ret + m.getElement(0, i) * cofactor(0,i,m);
 		}
 		return ret;
 	}
-	/*else{
-		float ret = 0.0f;
-		for (int i = 0; i < m_nSize; i++){
-			ret = ret + (getElement(0, i) * cofactor(0, i));
-		}
-		return ret;
-	}*/
 }
 
+// 여인수는 재귀적으로 구한다.
 float cMatrix::cofactor(int i, int j){
 	return cofactor(i, j, *this);
 }
 
 float cMatrix::cofactor(int i, int j, cMatrix& m){
-	/*return pow(-1.0f, i + j) * minor(i, j, *this);*/
+	// ret = pow(-1, i+j) * 행렬식(매트릭스의 ij의 마이너 행렬)
 	float ret = pow(-1.0f, i+j) * detRecursive(minor(i, j, m));
 	return ret;
 }
@@ -145,6 +139,9 @@ cMatrix cMatrix::adj(){
 	cMatrix ret(m_nSize);
 	for (int i = 0; i < ret.getSize(); i++){
 		for (int j = 0; j < ret.getSize(); j++){
+			// 딸림 행렬
+			// 여인수의 행렬의 전치 행렬
+			// 모든 원소에 대해서 여인수를 구하고, 그것을 전치시켜준다.
 			float c = cofactor(j, i ,*this);
 			ret.setElement(j, i, c);
 		}
@@ -201,42 +198,6 @@ cMatrix cMatrix::minor(int x, int y, cMatrix& m){
 		return subMat;
 	}
 	return cMatrix();
-	//if (m.getSize() == 1){
-	//	return m.getElement(0, 0);
-	//}
-	//if (m.getSize() == 2){
-	//	// ad - bc
-	//	//(0,0 * 1,1) - (1,0 * 0,1)
-	//	return (m.getElement(0, 0) * m.getElement(1, 1))
-	//		- (m.getElement(1, 0) * m.getElement(0, 1));
-	//}
-	////if (m.getSize() == 3){
-
-	////}
-	//else {
-	//	// 만약 매트릭스가 2*2보다 크다면
-	//	// sub 매트릭스 설정
-	//	//float nMinor;
-	//	cMatrix subMat(m.getSize() - 1);
-	//	int ix = 0, iy = 0;
-
-	//	for (int i = 0; i < m.getSize(); i++){
-	//		if (i == y) continue;
-	//		for (int j = 0; j < m.getSize(); j++){
-	//			if (j == y) continue;				
-	//			subMat.setElement(ix, iy, m.getElement(i,j));
-	//			ix++;
-	//		}	
-	//		ix = 0;
-	//		iy++;
-	//	}
-
-	//	for (int i = 0; i < subMat.getSize(); i++){
-	//		for (int j = 0; j < subMat.getSize(); j++){
-	//			
-	//		}
-	//	}		
-	//}
 }
 
 cMatrix cMatrix::Identity(cMatrix& m){
@@ -248,7 +209,6 @@ cMatrix cMatrix::Identity(cMatrix& m){
 }
 
 void cMatrix::print(){
-	//cout.precision(2);
 	for (int i = 0; i < m_nSize; i++){
 		for (int j = 0; j < m_nSize; j++){
 			cout << getElement(i, j) << " ";
@@ -256,11 +216,3 @@ void cMatrix::print(){
 		cout << endl;
 	}
 }
-
-// getter
-//int cMatrix::getElement(int x, int y){
-//
-//}
-//float* cMatrix::getDataSet(){
-//
-//}
